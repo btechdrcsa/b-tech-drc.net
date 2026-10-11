@@ -349,4 +349,31 @@ const originalConfirm = window.confirm;
 window.confirm = function(message){ if(currentBtechLanguage==='en' && message==='Réinitialiser toutes les personnalisations ?') return originalConfirm('Reset all customizations?'); return originalConfirm(message); };
 setBtechLanguage(currentBtechLanguage);
 </script>
+<!-- Images officielles de B-TECH-DRC SA -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    // Logo officiel visible par tous les visiteurs
+    const logo = document.getElementById("logoPreview");
+
+    if (logo) {
+        logo.src = "./logo.png";
+        logo.alt = "Logo officiel de B-TECH-DRC SA";
+        logo.style.display = "block";
+    }
+
+    // Photo de couverture officielle de la page d'accueil
+    const accueil = document.getElementById("accueil");
+
+    if (accueil) {
+        accueil.style.backgroundImage =
+            'linear-gradient(115deg, rgba(16,43,70,0.78), rgba(128,0,32,0.45)), url("./couverture.jpg")';
+
+        accueil.style.backgroundPosition = "center center";
+        accueil.style.backgroundSize = "cover";
+        accueil.style.backgroundRepeat = "no-repeat";
+    }
+
+});
+</script>
 </body></html>
