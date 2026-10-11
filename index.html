@@ -172,32 +172,7 @@ footer .small a{text-decoration:underline;text-underline-offset:2px}
 <div class="editor"><button aria-label="Ouvrir les paramètres" class="settings-btn" onclick="openSettings()">⚙️</button></div>
 <div aria-modal="true" class="password-modal" id="passwordModal" role="dialog"><div class="password-box"><h3 data-i18n="🔐 Accès sécurisé">🔐 Accès sécurisé</h3><p data-i18n="Veuillez entrer le mot de passe pour accéder aux paramètres du site.">Veuillez entrer le mot de passe pour accéder aux paramètres du site.</p><input autocomplete="off" data-i18n-placeholder="Password" id="settingsPassword" placeholder="Mot de passe" type="password"/><div class="password-error" data-i18n="❌ Mot de passe incorrect. Accès refusé." id="passwordError">❌ Mot de passe incorrect. Accès refusé.</div><div class="password-actions"><button class="btn btn-outline" data-i18n="Annuler" onclick="cancelPassword()">Annuler</button><button class="btn btn-primary" data-i18n="Accéder" onclick="checkPassword()">Accéder</button></div></div></div>
 <div class="panel" id="settingsPanel"><div style="display:flex;justify-content:space-between;align-items:center"><h3 data-i18n="⚙️ Paramètres du site">⚙️ Paramètres du site</h3><button class="icon-btn" onclick="closeSettings()">✕</button></div><div class="notice">Les personnalisations sont enregistrées dans ce navigateur. Pour les publier pour tous les visiteurs, mettez à jour le fichier <b>index.html</b> sur GitHub.</div><label data-i18n="Logo">Logo</label><input accept="image/*" id="logoInput" type="file"/><button class="btn btn-outline full" data-i18n="Supprimer le logo" onclick="removeLogo()">Supprimer le logo</button><label data-i18n="Photo de couverture de l’accueil">Photo de couverture de l’accueil</label><p class="small" data-i18n="Choisissez une image pour la couverture de la page d’accueil.">Choisissez une image pour la couverture de la page d’accueil.</p><input accept="image/*" id="coverInput" type="file"/><img id="coverPreview" alt="Aperçu de la photo de couverture"/><button class="btn btn-outline full" data-i18n="Supprimer la photo de couverture" onclick="removeCover()">Supprimer la photo de couverture</button><div class="row"><div><label data-i18n="Couleur principale">Couleur principale</label><input id="primaryColor" type="color"/></div><div><label data-i18n="Couleur accent">Couleur accent</label><input id="accentColor" type="color"/></div></div><div class="row"><div><label data-i18n="Taille titre">Taille titre</label><select id="titleSize"><option data-i18n="Grande" value="56px">Grande</option><option data-i18n="Très grande" value="64px">Très grande</option><option data-i18n="Moyenne" value="48px">Moyenne</option></select></div><div><label data-i18n="Espacement sections">Espacement sections</label><select id="sectionSpace"><option data-i18n="Normal" value="90px">Normal</option><option data-i18n="Compact" value="65px">Compact</option><option data-i18n="Large" value="120px">Large</option></select></div></div><button class="btn btn-primary full" data-i18n="💾 Enregistrer" onclick="saveSettings()">💾 Enregistrer</button><button class="btn btn-outline full" data-i18n="↺ Réinitialiser" onclick="resetSettings()">↺ Réinitialiser</button></div>
-<label for="contactCoverInput">
-  Photo de couverture de Contact
-</label>
-
-<p class="small">
-  Choisissez une image pour la section Contact.
-</p>
-
-<input
-  accept="image/*"
-  id="contactCoverInput"
-  type="file"
-/>
-
-<img
-  id="contactCoverPreview"
-  alt="Aperçu de la photo de couverture de Contact"
-  style="width:100%;max-height:130px;object-fit:cover;border-radius:10px;margin-top:8px;display:none"
-/>
-
-<button
-  class="btn btn-outline full"
-  type="button"
-  onclick="removeContactCover()">
-  Supprimer la photo de couverture de Contact
-</button><script>
+<script>
 const defaults={heroTitle:"Une société congolaise aux activités diversifiées au service du développement.",heroText:"Constituée en 2022, CONGOLESE ORGANIZATION OF TALENTED YOUNG PEOPLE SA (B-TECH-DRC SA) a pour objet de développer des activités diversifiées contribuant au développement socio-économique de la République démocratique du Congo, dans le respect de ses statuts et des lois applicables.",mission:"Valoriser les talents, favoriser l’initiative des jeunes et contribuer au développement socio-économique par des activités conformes à l’objet social.",about:"Constituée en 2022, CONGOLESE ORGANIZATION OF TALENTED YOUNG PEOPLE SA (B-TECH-DRC SA) est une société anonyme de droit congolais régie par les dispositions applicables en République démocratique du Congo et par le droit OHADA applicable aux sociétés commerciales.",phone:"+243 980 767 656",email:"btechorgdrctang@gmail.com",map:"https://maps.app.goo.gl/HyshvyQdwBdmf9gz9",primary:"#87ceeb",accent:"#800020",titleSize:"56px",sectionSpace:"90px"};
 const SETTINGS_PASSWORD="SHABANII";
 function getData(){try{return {...defaults,...JSON.parse(localStorage.getItem("btechSettings")||"{}")}}catch(e){return {...defaults}}}
