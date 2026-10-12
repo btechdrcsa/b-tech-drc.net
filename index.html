@@ -139,82 +139,102 @@ footer a {
 }
 <link rel="icon" type="image/png" href="./logo.png">
 <style>
-/* Espace Profil institutionnel B-TECH-DRC SA */
-
+/* ARRIÈRE-PLAN DU PROFIL INSTITUTIONNEL */
 .institutional-profile {
-  background: linear-gradient(135deg, #edf8fd, #ffffff);
+    position: relative;
+    background:
+        linear-gradient(
+            rgba(10, 35, 60, 0.58),
+            rgba(10, 35, 60, 0.68)
+        ),
+        url("https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1920&q=85")
+        center center / cover no-repeat;
+    padding: 80px 20px;
 }
 
+/* TITRES ET TEXTE */
 .institutional-profile .section-head {
-  max-width: 780px;
-  margin: 0 auto 38px;
-  text-align: center;
+    position: relative;
+    z-index: 1;
+    max-width: 780px;
+    margin: 0 auto 38px;
+    text-align: center;
 }
 
+.institutional-profile .section-head .eyebrow,
+.institutional-profile .section-head h2,
 .institutional-profile .section-head p {
-  color: #536575;
-  font-size: 17px;
+    color: #ffffff;
 }
 
+/* CARTES DES DOCUMENTS */
 .profile-download-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 24px;
-  max-width: 900px;
-  margin: 0 auto;
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+    max-width: 900px;
+    margin: 0 auto;
 }
 
 .profile-download-card {
-  padding: 32px 25px;
-  text-align: center;
-  background: #ffffff;
-  border: 1px solid #d8e7ef;
-  border-radius: 22px;
-  box-shadow: 0 12px 35px rgba(22, 58, 95, 0.09);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+    padding: 32px 25px;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.96);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    border-radius: 20px;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .profile-download-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 18px 40px rgba(22, 58, 95, 0.14);
+    transform: translateY(-5px);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
 }
 
 .profile-flag {
-  font-size: 42px;
-  margin-bottom: 12px;
+    font-size: 42px;
+    margin-bottom: 12px;
 }
 
 .profile-download-card h3 {
-  color: #163a5f;
-  margin-bottom: 12px;
+    color: #163a5f;
+    margin-bottom: 12px;
 }
 
 .profile-download-card p {
-  color: #536575;
-  margin-bottom: 24px;
+    color: #536575;
+    margin-bottom: 24px;
 }
 
 .profile-download-card .btn {
-  background: #163a5f;
-  color: #ffffff;
-  white-space: normal;
-  text-align: center;
+    background: #163a5f;
+    color: #ffffff;
+    white-space: normal;
+    text-align: center;
 }
 
 .profile-download-card .btn:hover {
-  background: #800020;
+    background: #800020;
 }
 
+/* AFFICHAGE SUR TÉLÉPHONE */
 @media (max-width: 600px) {
-  .profile-download-grid {
-    grid-template-columns: 1fr;
-  }
+    .institutional-profile {
+        padding: 55px 15px;
+    }
 
-  .profile-download-card {
-    padding: 26px 20px;
-  }
+    .profile-download-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .profile-download-card {
+        padding: 26px 20px;
+    }
 }
 </style>
+    
 </style>
 </head>
 <body>
