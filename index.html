@@ -195,6 +195,10 @@ footer a {
         <div><label for="newsletterEmail" data-i18n="Adresse e-mail">Adresse e-mail</label><input id="newsletterEmail" name="email" type="email" autocomplete="email" required data-i18n-placeholder="Email address" data-placeholder-fr="Adresse e-mail" placeholder="Adresse e-mail"/></div>
         <div><label for="newsletterPhone" data-i18n="Téléphone">Téléphone</label><input id="newsletterPhone" name="phone" type="tel" autocomplete="tel" required data-i18n-placeholder="Phone number" data-placeholder-fr="Numéro de téléphone" placeholder="Numéro de téléphone"/></div>
       </div>
+      <div style="margin-top:15px;">
+        <label for="newsletterMessage" data-i18n="Message">Message</label>
+        <textarea id="newsletterMessage" name="message" rows="5" required data-i18n-placeholder="Write your message here..." data-placeholder-fr="Écrivez votre message ici..." placeholder="Écrivez votre message ici..." style="width:100%;padding:12px;border:1px solid var(--border);border-radius:10px;font:inherit;resize:vertical;"></textarea>
+      </div>
       <div class="notice" data-i18n="Vos informations seront envoyées directement à B-TECH-DRC SA après validation.">Vos informations seront envoyées directement à B-TECH-DRC SA après validation.</div>
       <button class="btn btn-primary" id="newsletterSubmitBtn" data-i18n="Envoyer ma demande" type="submit">Envoyer ma demande</button>
       <div aria-live="polite" class="newsletter-status" id="newsletterStatus" role="status"></div>
