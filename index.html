@@ -231,55 +231,82 @@ function openNewsletter(){document.getElementById("newsletterModal").classList.a
 function closeNewsletter(){document.getElementById("newsletterModal").classList.remove("open")}
 async function submitNewsletter(event){
   event.preventDefault();
+
   const form=document.getElementById("newsletterForm");
   if(!form.reportValidity())return;
+
   const status=document.getElementById("newsletterStatus");
   const button=document.getElementById("newsletterSubmitBtn");
+
   const name=document.getElementById("newsletterName").value.trim();
   const company=document.getElementById("newsletterCompany").value.trim();
   const email=document.getElementById("newsletterEmail").value.trim();
   const phone=document.getElementById("newsletterPhone").value.trim();
+  const message=document.getElementById("newsletterMessage").value.trim();
+
   const english=currentBtechLanguage==="en";
+
   status.className="newsletter-status";
   status.textContent="";
+
   button.disabled=true;
   button.textContent=english?"Sending…":"Envoi en cours…";
+
   try{
     const response=await fetch("https://formsubmit.co/ajax/btechorgdrctang@gmail.com",{
       method:"POST",
-      headers:{"Content-Type":"application/json","Accept":"application/json"},
+      headers:{
+        "Content-Type":"application/json",
+        "Accept":"application/json"
+      },
       body:JSON.stringify({
         name:name,
         company:company,
         email:email,
         phone:phone,
+        message:message,
         _replyto:email,
-        _subject:english?"B-TECH-DRC SA newsletter subscription":"Inscription à la newsletter — B-TECH-DRC SA",
+        _subject:english
+          ?"New message from B-TECH-DRC SA website"
+          :"Nouvelle demande depuis le site web de B-TECH-DRC SA",
         _template:"table"
       })
     });
+
     const rawResponse=await response.text();
     let result;
+
     try{
       result=JSON.parse(rawResponse);
     }catch(parseError){
       console.error("Réponse FormSubmit non JSON :",response.status,rawResponse.slice(0,1000));
       throw new Error("Le service FormSubmit a renvoyé une réponse inattendue (HTTP "+response.status+"). Vérifiez l’activation du formulaire ou réessayez plus tard.");
     }
-    const confirmed=result && (result.success===true || result.success==="true");
-    if(!response.ok || !confirmed){
+
+    const confirmed=result&&(result.success===true||result.success==="true");
+
+    if(!response.ok||!confirmed){
       console.error("Échec FormSubmit :",response.status,result);
-      throw new Error((result&&result.message)||"FormSubmit n’a pas confirmé la réception de la souscription.");
+      throw new Error((result&&result.message)||"FormSubmit n’a pas confirmé la réception de la demande.");
     }
+
     form.reset();
+
     status.className="newsletter-status show success";
-    status.textContent=english?"Thank you! Your information has been sent to B-TECH-DRC SA.":"Merci ! Vos informations ont été envoyées à B-TECH-DRC SA.";
+    status.textContent=english
+      ?"Thank you! Your message has been sent to B-TECH-DRC SA."
+      :"Merci ! Votre message a été envoyé à B-TECH-DRC SA.";
+
   }catch(error){
-    console.error("Erreur d’envoi de la newsletter :",error);
+    console.error("Erreur d’envoi du formulaire :",error);
+
     status.className="newsletter-status show error";
-    status.textContent=error && error.message && error.message.startsWith("Le service FormSubmit")
-      ? error.message
-      : (english?"Sending failed. The form service did not confirm receipt. Please try again later.":"L’envoi n’a pas été confirmé par FormSubmit. Réessayez plus tard ou contactez B-TECH-DRC SA.");
+    status.textContent=error&&error.message&&error.message.startsWith("Le service FormSubmit")
+      ?error.message
+      :(english
+        ?"Sending failed. Please try again later or contact B-TECH-DRC SA."
+        :"L’envoi n’a pas été confirmé. Réessayez plus tard ou contactez B-TECH-DRC SA.");
+
   }finally{
     button.disabled=false;
     button.textContent=english?"Send my request":"Envoyer ma demande";
