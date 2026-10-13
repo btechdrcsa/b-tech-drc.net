@@ -1,1 +1,471 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Portail de dépôt des dossiers | B-TECH-DRC SA</title>
+<style>
+:root {
+  --blue: #123b70;
+  --light-blue: #1769aa;
+  --gold: #e4b44c;
+  --background: #f3f6fa;
+  --text: #243449;
+  --white: #fff;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: var(--background);
+  color: var(--text);
+  line-height: 1.6;
+}
+header {
+  background: linear-gradient(135deg, #102d50, #1769aa);
+  color: white;
+  padding: 34px 20px;
+  text-align: center;
+  border-bottom: 5px solid var(--gold);
+}
+header h1 { margin: 0 0 8px; font-size: clamp(25px, 4vw, 36px); }
+header p { margin: 0; }
+.container { max-width: 1000px; margin: 30px auto; padding: 0 16px; }
+.notice {
+  background: #fff8e5;
+  border-left: 5px solid var(--gold);
+  padding: 14px 18px;
+  border-radius: 5px;
+  margin-bottom: 22px;
+}
+.tabs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.tab {
+  border: 0;
+  border-radius: 8px;
+  padding: 15px 10px;
+  background: #dce7f2;
+  color: var(--blue);
+  font-weight: bold;
+  cursor: pointer;
+}
+.tab.active { background: var(--blue); color: white; }
+.card {
+  background: white;
+  padding: 26px;
+  border-radius: 12px;
+  box-shadow: 0 5px 22px rgba(0,0,0,.07);
+}
+.card h2 { margin-top: 0; color: var(--blue); }
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+.field { margin-bottom: 15px; }
+.field.full { grid-column: 1 / -1; }
+label { display: block; font-weight: bold; margin-bottom: 6px; }
+input, select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font: inherit;
+  background: white;
+}
+input[type="file"] { padding: 9px; }
+small { color: #5c6b7c; display: block; margin-top: 5px; }
+button.submit {
+  background: var(--blue);
+  color: white;
+  border: 0;
+  border-radius: 7px;
+  padding: 14px 22px;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+}
+button.submit:disabled { opacity: .6; cursor: wait; }
+.status { display: none; margin-top: 18px; padding: 14px; border-radius: 7px; overflow-wrap: anywhere; }
+.status.success { display: block; background: #e7f7ed; color: #176536; }
+.status.error { display: block; background: #fdeaea; color: #9b1c1c; }
+footer { text-align: center; padding: 24px 12px; color: #64748b; font-size: 14px; }
+.hidden { display: none !important; }
+@media(max-width:650px) {
+  .tabs { grid-template-columns: 1fr; }
+  .grid { grid-template-columns: 1fr; }
+  .card { padding: 18px; }
+}
+</style>
+</head>
+<body>
 
+<header>
+  <h1>B-TECH-DRC SA</h1>
+  <p>Portail officiel de dépôt des dossiers</p>
+</header>
+
+<main class="container">
+  <div class="notice">
+    <strong>Important :</strong> choisissez la catégorie correspondant à votre dossier.
+    Les champs obligatoires doivent être remplis avant l'envoi.
+    Formats acceptés : PDF, Word et images JPG/PNG. Maximum prévu : 10 Mo par fichier.
+  </div>
+
+  <div class="tabs" role="tablist" aria-label="Catégorie du dossier">
+    <button class="tab active" type="button" data-type="company_tender">Soumissionnaires</button>
+    <button class="tab" type="button" data-type="job_application">Candidats à l'emploi</button>
+    <button class="tab" type="button" data-type="supplier_registration">Fournisseurs</button>
+  </div>
+
+  <section class="card">
+    <h2 id="formTitle">Dépôt d'un dossier de soumission</h2>
+    <p id="formDescription">Transmettez les informations de votre entreprise et les pièces justificatives demandées.</p>
+
+    <form id="portalForm">
+      <input type="hidden" name="submission_type" id="submission_type" value="company_tender">
+
+      <div class="grid">
+        <div class="field" id="nameField">
+          <label for="name">Nom complet du représentant / candidat *</label>
+          <input id="name" name="name" maxlength="150" autocomplete="name">
+        </div>
+
+        <div class="field" id="companyField">
+          <label for="company_name">Dénomination légale ou commerciale *</label>
+          <input id="company_name" name="company_name" maxlength="200">
+        </div>
+
+        <div class="field">
+          <label for="email">Adresse e-mail *</label>
+          <input id="email" name="email" type="email" required maxlength="254" autocomplete="email">
+        </div>
+
+        <div class="field">
+          <label for="phone">Téléphone *</label>
+          <input id="phone" name="phone" type="tel" required maxlength="40" autocomplete="tel">
+        </div>
+      </div>
+
+      <div id="companyDetails">
+        <h3>Informations sur l'entreprise</h3>
+        <div class="grid">
+          <div class="field">
+            <label for="rccm">Numéro RCCM</label>
+            <input id="rccm" name="rccm" maxlength="100">
+          </div>
+          <div class="field">
+            <label for="nif">Numéro NIF</label>
+            <input id="nif" name="nif" maxlength="100">
+          </div>
+          <div class="field">
+            <label for="idnat">Numéro ID-NAT</label>
+            <input id="idnat" name="idnat" maxlength="100">
+          </div>
+          <div class="field">
+            <label for="cnss">Numéro CNSS</label>
+            <input id="cnss" name="cnss" maxlength="100">
+          </div>
+          <div class="field full" id="activityField">
+            <label for="activity">Domaine d'activité / produits proposés</label>
+            <input id="activity" name="activity" maxlength="500">
+          </div>
+          <div class="field full" id="workforceField">
+            <label for="workforce">Effectif du personnel</label>
+            <input id="workforce" name="workforce" maxlength="50">
+          </div>
+          <div class="field full" id="capitalField">
+            <label for="capital">Capital social déclaré</label>
+            <input id="capital" name="capital" maxlength="100">
+          </div>
+          <div class="field full" id="shareholdersField">
+            <label for="shareholders">Informations sur les associés / actionnaires</label>
+            <textarea id="shareholders" name="shareholders" rows="3" maxlength="2000"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div id="candidateDetails" class="hidden">
+        <h3>Informations du candidat</h3>
+        <div class="grid">
+          <div class="field">
+            <label for="education">Niveau d'études *</label>
+            <select id="education" name="education">
+              <option value="">Choisir</option>
+              <option>Secondaire</option>
+              <option>Diplôme d'État</option>
+              <option>Graduat / Licence</option>
+              <option>Master</option>
+              <option>Doctorat</option>
+              <option>Formation professionnelle</option>
+              <option>Autre</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="electoral_number">Numéro de carte d'électeur (facultatif)</label>
+            <input id="electoral_number" name="electoral_number" maxlength="100">
+          </div>
+          <div class="field full">
+            <label for="motivation">Lettre de motivation / message de candidature</label>
+            <textarea id="motivation" name="motivation" rows="4" maxlength="5000"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="field full">
+        <label for="other_details">Informations complémentaires</label>
+        <textarea id="other_details" name="other_details" rows="3" maxlength="3000"></textarea>
+      </div>
+
+      <h3>Documents justificatifs</h3>
+      <p>Ajoutez uniquement les pièces nécessaires à votre dossier. Évitez d'envoyer des informations personnelles non demandées.</p>
+
+      <div class="grid">
+        <div class="field" id="statutesField">
+          <label for="statutes">Statuts de l'entreprise (PDF/Word)</label>
+          <input type="file" id="statutes" name="statutes" accept=".pdf,.doc,.docx">
+        </div>
+
+        <div class="field" id="legalDocsField">
+          <label for="legal_documents">Documents administratifs (PDF/Word)</label>
+          <input type="file" id="legal_documents" name="legal_documents" accept=".pdf,.doc,.docx">
+        </div>
+
+        <div class="field" id="cvField">
+          <label for="cv">Curriculum vitae (CV)</label>
+          <input type="file" id="cv" name="cv" accept=".pdf,.doc,.docx">
+        </div>
+
+        <div class="field" id="diplomasField">
+          <label for="diplomas">Diplômes et attestations</label>
+          <input type="file" id="diplomas" name="diplomas" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png">
+        </div>
+
+        <div class="field" id="motivationFileField">
+          <label for="motivation_file">Lettre de motivation en fichier</label>
+          <input type="file" id="motivation_file" name="motivation_file" accept=".pdf,.doc,.docx">
+        </div>
+
+        <div class="field" id="electoralCardField">
+          <label for="electoral_card">Carte d'électeur (si nécessaire)</label>
+          <input type="file" id="electoral_card" name="electoral_card" accept=".pdf,.jpg,.jpeg,.png">
+        </div>
+
+        <div class="field full" id="tenderDocsField">
+          <label for="tender_documents">Dossier de soumission / pièces de l'appel d'offres</label>
+          <input type="file" id="tender_documents" name="tender_documents" multiple accept=".pdf,.doc,.docx,.jpg,.jpeg,.png">
+          <small>Vous pouvez sélectionner plusieurs fichiers dans ce champ.</small>
+        </div>
+
+        <div class="field full" id="supplierDocsField">
+          <label for="supplier_documents">Catalogue ou documents du fournisseur</label>
+          <input type="file" id="supplier_documents" name="supplier_documents" multiple accept=".pdf,.doc,.docx,.jpg,.jpeg,.png">
+        </div>
+      </div>
+
+      <div class="field">
+        <label>
+          <input type="checkbox" id="consent" required style="width:auto">
+          J'autorise B-TECH-DRC SA à utiliser les informations et documents transmis pour traiter mon dossier.
+        </label>
+      </div>
+
+      <button type="submit" class="submit" id="submitButton">Envoyer mon dossier</button>
+      <div id="status" class="status" role="status" aria-live="polite"></div>
+    </form>
+  </section>
+</main>
+
+<footer>
+  © <span id="year"></span> CONGOLESE ORGANIZATION OF TALENTED YOUNG PEOPLE SA (B-TECH-DRC SA).
+  Tous droits réservés.
+</footer>
+
+<script>
+"use strict";
+
+const ENDPOINT = "https://euwjzhchowebcpzxmobr.supabase.co/functions/v1/hyper-endpoint";
+
+const form = document.getElementById("portalForm");
+const typeInput = document.getElementById("submission_type");
+const statusBox = document.getElementById("status");
+const submitButton = document.getElementById("submitButton");
+
+const configs = {
+  company_tender: {
+    title: "Dépôt d'un dossier de soumission",
+    description: "Transmettez les informations de votre entreprise et les pièces justificatives demandées.",
+    nameRequired: false,
+    companyRequired: true,
+    company: true,
+    candidate: false,
+    fields: ["statutesField", "legalDocsField", "tenderDocsField"]
+  },
+  job_application: {
+    title: "Candidature à l'emploi",
+    description: "Fournissez vos coordonnées, votre formation et les documents utiles à votre candidature.",
+    nameRequired: true,
+    companyRequired: false,
+    company: false,
+    candidate: true,
+    fields: ["cvField", "diplomasField", "motivationFileField", "electoralCardField"]
+  },
+  supplier_registration: {
+    title: "Inscription d'un fournisseur",
+    description: "Présentez votre entreprise, vos produits et les documents administratifs disponibles.",
+    nameRequired: false,
+    companyRequired: true,
+    company: true,
+    candidate: false,
+    fields: ["statutesField", "legalDocsField", "supplierDocsField", "activityField", "workforceField", "capitalField", "shareholdersField"]
+  }
+};
+
+function setVisible(id, visible) {
+  const el = document.getElementById(id);
+  if (el) el.classList.toggle("hidden", !visible);
+}
+
+function setRequired(id, required) {
+  const el = document.getElementById(id);
+  if (el) el.required = required;
+}
+
+function selectType(type) {
+  const config = configs[type];
+  if (!config) return;
+
+  typeInput.value = type;
+  document.getElementById("formTitle").textContent = config.title;
+  document.getElementById("formDescription").textContent = config.description;
+
+  document.querySelectorAll(".tab").forEach(button => {
+    const active = button.dataset.type === type;
+    button.classList.toggle("active", active);
+    button.setAttribute("aria-selected", String(active));
+  });
+
+  setVisible("nameField", true);
+  setVisible("companyField", config.company);
+  setVisible("companyDetails", config.company);
+  setVisible("candidateDetails", config.candidate);
+
+  setRequired("name", config.nameRequired);
+  setRequired("company_name", config.companyRequired);
+  setRequired("education", config.candidate);
+
+  const companyOnlyFields = ["statutesField", "legalDocsField", "activityField", "workforceField", "capitalField", "shareholdersField"];
+  companyOnlyFields.forEach(id => setVisible(id, config.fields.includes(id)));
+
+  ["cvField", "diplomasField", "motivationFileField", "electoralCardField", "tenderDocsField", "supplierDocsField"].forEach(id => {
+    setVisible(id, config.fields.includes(id));
+  });
+
+  statusBox.className = "status";
+  statusBox.textContent = "";
+}
+
+document.querySelectorAll(".tab").forEach(button => {
+  button.addEventListener("click", () => selectType(button.dataset.type));
+});
+
+document.getElementById("year").textContent = new Date().getFullYear();
+
+form.addEventListener("submit", async event => {
+  event.preventDefault();
+
+  statusBox.className = "status";
+  statusBox.textContent = "";
+
+  if (!form.reportValidity()) return;
+
+  const formData = new FormData(form);
+  const details = {};
+
+  [
+    "rccm", "nif", "idnat", "cnss", "activity", "workforce",
+    "capital", "shareholders", "education", "electoral_number",
+    "motivation", "other_details"
+  ].forEach(key => {
+    const element = form.elements.namedItem(key);
+    if (element && element.value.trim()) details[key] = element.value.trim();
+  });
+
+  formData.set("details", JSON.stringify(details));
+
+  let count = 0;
+  let totalSize = 0;
+  const allowed = new Set([
+    "application/pdf",
+    "image/jpeg",
+    "image/png",
+    "application/msword",
+    "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+  ]);
+
+  for (const [key, value] of formData.entries()) {
+    if (!(value instanceof File) || value.size === 0) continue;
+
+    count++;
+    totalSize += value.size;
+
+    if (!allowed.has(value.type)) {
+      statusBox.className = "status error";
+      statusBox.textContent = "Format de fichier non autorisé : " + key;
+      return;
+    }
+
+    if (value.size > 10 * 1024 * 1024) {
+      statusBox.className = "status error";
+      statusBox.textContent = "Chaque fichier doit peser au maximum 10 Mo.";
+      return;
+    }
+  }
+
+  if (count > 10 || totalSize > 25 * 1024 * 1024) {
+    statusBox.className = "status error";
+    statusBox.textContent = "Limite dépassée : maximum 10 fichiers et 25 Mo au total.";
+    return;
+  }
+
+  submitButton.disabled = true;
+  submitButton.textContent = "Envoi en cours…";
+
+  try {
+    const response = await fetch(ENDPOINT, {
+      method: "POST",
+      body: formData
+    });
+
+    const result = await response.json().catch(() => ({}));
+
+    if (!response.ok || !result.success) {
+      throw new Error(result.error || "L'envoi a échoué. Veuillez réessayer.");
+    }
+
+    statusBox.className = "status success";
+    statusBox.textContent = "Dossier reçu. Votre numéro de référence est : " +
+      result.reference_number + ". Conservez ce numéro.";
+
+    form.reset();
+    selectType(typeInput.value || "company_tender");
+  } catch (error) {
+    statusBox.className = "status error";
+    statusBox.textContent = error instanceof Error
+      ? error.message
+      : "Erreur de connexion. Veuillez réessayer.";
+  } finally {
+    submitButton.disabled = false;
+    submitButton.textContent = "Envoyer mon dossier";
+  }
+});
+
+selectType("company_tender");
+</script>
+</body>
+</html>
