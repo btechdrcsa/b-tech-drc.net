@@ -1,471 +1,1831 @@
+```html
 <!DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="robots" content="noindex, nofollow">
-<title>Portail de dépôt des dossiers | B-TECH-DRC SA</title>
+
+<title>Portail officiel | B-TECH-DRC SA</title>
+
+<meta name="description"
+content="Consultez les appels d'offres et les offres d'emploi publiés par B-TECH-DRC SA.">
+
+<meta name="theme-color" content="#0b2345">
+
 <style>
 :root {
-  --blue: #123b70;
-  --light-blue: #1769aa;
-  --gold: #e4b44c;
-  --background: #f3f6fa;
-  --text: #243449;
-  --white: #fff;
+  --navy: #0b2345;
+  --blue: #1769aa;
+  --light-blue: #eaf3fb;
+  --gold: #d9a441;
+  --white: #ffffff;
+  --text: #263449;
+  --muted: #68778c;
+  --border: #dce4ee;
+  --background: #f5f8fc;
+  --success: #147d48;
+  --danger: #b42318;
+  --radius: 16px;
+  --shadow: 0 10px 30px rgba(11,35,69,.08);
 }
-* { box-sizing: border-box; }
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
-  background: var(--background);
   color: var(--text);
+  background: var(--background);
   line-height: 1.6;
 }
-header {
-  background: linear-gradient(135deg, #102d50, #1769aa);
-  color: white;
-  padding: 34px 20px;
-  text-align: center;
-  border-bottom: 5px solid var(--gold);
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
 }
-header h1 { margin: 0 0 8px; font-size: clamp(25px, 4vw, 36px); }
-header p { margin: 0; }
-.container { max-width: 1000px; margin: 30px auto; padding: 0 16px; }
-.notice {
-  background: #fff8e5;
-  border-left: 5px solid var(--gold);
-  padding: 14px 18px;
-  border-radius: 5px;
-  margin-bottom: 22px;
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
 }
-.tabs {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-  margin-bottom: 20px;
-}
-.tab {
-  border: 0;
-  border-radius: 8px;
-  padding: 15px 10px;
-  background: #dce7f2;
-  color: var(--blue);
-  font-weight: bold;
+
+button {
   cursor: pointer;
 }
-.tab.active { background: var(--blue); color: white; }
-.card {
-  background: white;
-  padding: 26px;
-  border-radius: 12px;
-  box-shadow: 0 5px 22px rgba(0,0,0,.07);
+
+a {
+  color: inherit;
 }
-.card h2 { margin-top: 0; color: var(--blue); }
-.grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+.topbar {
+  background: var(--navy);
+  color: white;
+  padding: 12px 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   gap: 16px;
+  flex-wrap: wrap;
 }
-.field { margin-bottom: 15px; }
-.field.full { grid-column: 1 / -1; }
-label { display: block; font-weight: bold; margin-bottom: 6px; }
-input, select, textarea {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #cbd5e1;
-  border-radius: 6px;
-  font: inherit;
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 800;
+  letter-spacing: .3px;
+}
+
+.brand-mark {
+  width: 44px;
+  height: 44px;
+  border: 2px solid var(--gold);
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  color: var(--gold);
+  font-size: 15px;
+  flex-shrink: 0;
+}
+
+.brand small {
+  display: block;
+  font-weight: 400;
+  color: #d6e2f1;
+  letter-spacing: 0;
+}
+
+.top-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.language-select {
+  color: white;
+  background: transparent;
+  border: 1px solid #8293aa;
+  border-radius: 8px;
+  padding: 8px;
+}
+
+.language-select option {
+  color: var(--navy);
   background: white;
 }
-input[type="file"] { padding: 9px; }
-small { color: #5c6b7c; display: block; margin-top: 5px; }
-button.submit {
+
+.back-link {
+  text-decoration: none;
+  border: 1px solid #8293aa;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 14px;
+}
+
+.hero {
+  background:
+    linear-gradient(120deg, rgba(11,35,69,.97), rgba(23,105,170,.88));
+  color: white;
+  padding: 70px 5% 62px;
+}
+
+.hero-content {
+  max-width: 1100px;
+  margin: auto;
+}
+
+.eyebrow {
+  color: #f2cc78;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.hero h1 {
+  max-width: 850px;
+  margin: 12px 0 18px;
+  font-size: clamp(30px, 5vw, 52px);
+  line-height: 1.12;
+}
+
+.hero p {
+  max-width: 760px;
+  color: #e2ebf7;
+  font-size: 17px;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 28px;
+}
+
+.btn {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  border: 0;
+  border-radius: 10px;
+  padding: 12px 18px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: .2s ease;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+.btn-gold {
+  background: var(--gold);
+  color: #17253b;
+}
+
+.btn-white {
+  background: white;
+  color: var(--navy);
+}
+
+.btn-primary {
   background: var(--blue);
   color: white;
-  border: 0;
-  border-radius: 7px;
-  padding: 14px 22px;
-  font-weight: bold;
-  font-size: 16px;
-  cursor: pointer;
 }
-button.submit:disabled { opacity: .6; cursor: wait; }
-.status { display: none; margin-top: 18px; padding: 14px; border-radius: 7px; overflow-wrap: anywhere; }
-.status.success { display: block; background: #e7f7ed; color: #176536; }
-.status.error { display: block; background: #fdeaea; color: #9b1c1c; }
-footer { text-align: center; padding: 24px 12px; color: #64748b; font-size: 14px; }
-.hidden { display: none !important; }
-@media(max-width:650px) {
-  .tabs { grid-template-columns: 1fr; }
-  .grid { grid-template-columns: 1fr; }
-  .card { padding: 18px; }
+
+.btn-outline {
+  background: white;
+  color: var(--navy);
+  border: 1px solid var(--border);
+}
+
+.btn:disabled {
+  opacity: .55;
+  cursor: not-allowed;
+  transform: none;
+}
+
+main {
+  max-width: 1180px;
+  margin: auto;
+  padding: 40px 20px 60px;
+}
+
+.section-heading {
+  margin-bottom: 22px;
+}
+
+.section-heading h2 {
+  color: var(--navy);
+  margin: 0 0 8px;
+  font-size: clamp(25px, 3vw, 34px);
+}
+
+.section-heading p {
+  color: var(--muted);
+  margin: 0;
+}
+
+.notice {
+  background: #fff8e8;
+  border: 1px solid #f0dba9;
+  border-radius: 12px;
+  padding: 15px 17px;
+  margin-bottom: 28px;
+  color: #624719;
+  font-size: 14px;
+}
+
+.notice strong {
+  display: block;
+  margin-bottom: 4px;
+}
+
+.toolbar {
+  display: grid;
+  grid-template-columns: 1fr 230px;
+  gap: 12px;
+  margin: 24px 0;
+}
+
+.field {
+  width: 100%;
+  padding: 12px 13px;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  background: white;
+  color: var(--text);
+}
+
+.field:focus {
+  outline: 2px solid rgba(23,105,170,.2);
+  border-color: var(--blue);
+}
+
+.tabs {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 22px 0;
+}
+
+.tab {
+  padding: 11px 17px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: white;
+  color: var(--navy);
+  font-weight: 700;
+}
+
+.tab.active {
+  color: white;
+  background: var(--navy);
+  border-color: var(--navy);
+}
+
+.results-info {
+  color: var(--muted);
+  margin: 12px 0 18px;
+  font-size: 14px;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 23px;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.badge {
+  display: inline-block;
+  background: var(--light-blue);
+  color: var(--blue);
+  border-radius: 6px;
+  padding: 5px 9px;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.reference {
+  font-size: 12px;
+  color: var(--muted);
+  overflow-wrap: anywhere;
+}
+
+.card h3 {
+  color: var(--navy);
+  font-size: 21px;
+  line-height: 1.35;
+  margin: 17px 0 10px;
+}
+
+.description {
+  color: #526176;
+  font-size: 14px;
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+}
+
+.meta {
+  display: grid;
+  gap: 7px;
+  margin: 16px 0 20px;
+  padding-top: 14px;
+  border-top: 1px solid #edf0f5;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.card-footer {
+  margin-top: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.empty,
+.loading,
+.error-box {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 32px 20px;
+  text-align: center;
+  grid-column: 1 / -1;
+}
+
+.empty h3,
+.loading h3 {
+  margin-top: 0;
+  color: var(--navy);
+}
+
+.error-box {
+  border-color: #f1c5c5;
+  color: var(--danger);
+}
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 45px;
+}
+
+.step {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  padding: 20px;
+}
+
+.step-number {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  background: var(--light-blue);
+  color: var(--blue);
+  border-radius: 50%;
+  font-weight: 800;
+}
+
+.step h3 {
+  color: var(--navy);
+  margin-bottom: 5px;
+}
+
+.step p {
+  font-size: 14px;
+  color: var(--muted);
+  margin-bottom: 0;
+}
+
+footer {
+  background: #071a34;
+  color: #d5dfec;
+  padding: 30px 5%;
+  font-size: 13px;
+}
+
+.footer-inner {
+  max-width: 1180px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+footer a {
+  color: white;
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(4,18,38,.72);
+  z-index: 1000;
+  padding: 18px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  overflow-y: auto;
+}
+
+.modal.open {
+  display: flex;
+}
+
+.modal-panel {
+  width: 100%;
+  max-width: 680px;
+  background: white;
+  border-radius: 18px;
+  overflow: hidden;
+  max-height: calc(100vh - 36px);
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-header {
+  padding: 20px 24px;
+  background: var(--navy);
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  align-items: flex-start;
+}
+
+.modal-header h2 {
+  margin: 0 0 5px;
+  font-size: 22px;
+}
+
+.modal-header p {
+  margin: 0;
+  color: #dce8f5;
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+
+.close-button {
+  border: 0;
+  background: transparent;
+  color: white;
+  font-size: 28px;
+  line-height: 1;
+}
+
+.modal-body {
+  padding: 22px 24px;
+  overflow-y: auto;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-group.full {
+  grid-column: 1 / -1;
+}
+
+.form-group label {
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--navy);
+}
+
+.required {
+  color: var(--danger);
+}
+
+.hint {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.checkbox-row {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  margin: 18px 0;
+  font-size: 13px;
+}
+
+.checkbox-row input {
+  margin-top: 5px;
+}
+
+.legal-note {
+  border-radius: 10px;
+  background: #f4f7fb;
+  border: 1px solid var(--border);
+  padding: 12px;
+  font-size: 12px;
+  color: #526176;
+  margin: 15px 0;
+}
+
+.form-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  padding-top: 5px;
+}
+
+.form-message {
+  display: none;
+  border-radius: 9px;
+  padding: 12px;
+  margin-bottom: 15px;
+  font-size: 14px;
+  overflow-wrap: anywhere;
+}
+
+.form-message.show {
+  display: block;
+}
+
+.form-message.error {
+  background: #fff0ef;
+  color: var(--danger);
+  border: 1px solid #f3c3c0;
+}
+
+.form-message.success {
+  background: #eaf8f0;
+  color: var(--success);
+  border: 1px solid #b8e2c8;
+}
+
+.success-panel {
+  display: none;
+  text-align: center;
+  padding: 25px 5px;
+}
+
+.success-panel.show {
+  display: block;
+}
+
+.success-icon {
+  margin: 0 auto 15px;
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: #e6f7ed;
+  color: var(--success);
+  font-size: 30px;
+}
+
+.success-panel h3 {
+  color: var(--navy);
+  font-size: 24px;
+}
+
+.reference-box {
+  background: #f4f7fb;
+  border: 1px dashed #a9b8ca;
+  border-radius: 10px;
+  padding: 13px;
+  margin: 18px 0;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 760px) {
+  .hero {
+    padding: 48px 6%;
+  }
+
+  main {
+    padding: 30px 15px 45px;
+  }
+
+  .cards,
+  .steps {
+    grid-template-columns: 1fr;
+  }
+
+  .toolbar {
+    grid-template-columns: 1fr;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .form-group.full {
+    grid-column: auto;
+  }
+
+  .modal {
+    padding: 8px;
+    align-items: flex-start;
+  }
+
+  .modal-panel {
+    max-height: calc(100vh - 16px);
+    margin: auto 0;
+  }
+
+  .modal-body {
+    padding: 18px;
+  }
+
+  .topbar {
+    padding: 12px 4%;
+  }
+
+  .back-link {
+    display: none;
+  }
 }
 </style>
 </head>
+
 <body>
 
-<header>
-  <h1>B-TECH-DRC SA</h1>
-  <p>Portail officiel de dépôt des dossiers</p>
+<header class="topbar">
+  <div class="brand">
+    <div class="brand-mark">BT</div>
+    <div>
+      B-TECH-DRC SA
+      <small data-i18n="brandSubtitle">Portail officiel des opportunités</small>
+    </div>
+  </div>
+
+  <div class="top-actions">
+    <a class="back-link"
+       href="./index.html"
+       data-i18n="backHome">Retour au site</a>
+
+    <select id="languageSelect"
+            class="language-select"
+            aria-label="Language">
+      <option value="fr">Français</option>
+      <option value="en">English</option>
+    </select>
+  </div>
 </header>
 
-<main class="container">
-  <div class="notice">
-    <strong>Important :</strong> choisissez la catégorie correspondant à votre dossier.
-    Les champs obligatoires doivent être remplis avant l'envoi.
-    Formats acceptés : PDF, Word et images JPG/PNG. Maximum prévu : 10 Mo par fichier.
+<section class="hero">
+  <div class="hero-content">
+    <div class="eyebrow" data-i18n="eyebrow">
+      Information officielle
+    </div>
+
+    <h1 data-i18n="heroTitle">
+      Appels d'offres et offres d'emploi
+    </h1>
+
+    <p data-i18n="heroText">
+      Retrouvez les annonces publiées par B-TECH-DRC SA.
+      Consultez les conditions et téléchargez les documents
+      après avoir rempli le formulaire d'inscription.
+    </p>
+
+    <div class="hero-actions">
+      <a href="#opportunities"
+         class="btn btn-gold"
+         data-i18n="browseButton">
+        Consulter les annonces
+      </a>
+
+      <a href="./index.html"
+         class="btn btn-white"
+         data-i18n="websiteButton">
+        Site institutionnel
+      </a>
+    </div>
   </div>
+</section>
 
-  <div class="tabs" role="tablist" aria-label="Catégorie du dossier">
-    <button class="tab active" type="button" data-type="company_tender">Soumissionnaires</button>
-    <button class="tab" type="button" data-type="job_application">Candidats à l'emploi</button>
-    <button class="tab" type="button" data-type="supplier_registration">Fournisseurs</button>
-  </div>
+<main>
+  <section class="notice">
+    <strong data-i18n="noticeTitle">
+      Avis important
+    </strong>
+    <span data-i18n="noticeText">
+      Le téléchargement d'un document ne garantit pas
+      l'éligibilité, l'acceptation d'une candidature,
+      l'attribution d'un marché ou un recrutement.
+      Chaque annonce reste soumise à ses conditions particulières.
+    </span>
+  </section>
 
-  <section class="card">
-    <h2 id="formTitle">Dépôt d'un dossier de soumission</h2>
-    <p id="formDescription">Transmettez les informations de votre entreprise et les pièces justificatives demandées.</p>
+  <section id="opportunities">
+    <div class="section-heading">
+      <h2 data-i18n="listTitle">Annonces disponibles</h2>
+      <p data-i18n="listText">
+        Consultez les opportunités actuellement publiées.
+      </p>
+    </div>
 
-    <form id="portalForm">
-      <input type="hidden" name="submission_type" id="submission_type" value="company_tender">
+    <div class="toolbar">
+      <input id="searchInput"
+             class="field"
+             type="search"
+             data-i18n-placeholder="searchPlaceholder"
+             placeholder="Rechercher par titre ou référence...">
 
-      <div class="grid">
-        <div class="field" id="nameField">
-          <label for="name">Nom complet du représentant / candidat *</label>
-          <input id="name" name="name" maxlength="150" autocomplete="name">
-        </div>
+      <select id="sortSelect" class="field">
+        <option value="newest" data-i18n="sortNewest">
+          Plus récentes
+        </option>
+        <option value="deadline" data-i18n="sortDeadline">
+          Date limite la plus proche
+        </option>
+      </select>
+    </div>
 
-        <div class="field" id="companyField">
-          <label for="company_name">Dénomination légale ou commerciale *</label>
-          <input id="company_name" name="company_name" maxlength="200">
-        </div>
+    <div class="tabs" role="tablist">
+      <button class="tab active"
+              data-type="all"
+              data-i18n="tabAll">
+        Toutes les annonces
+      </button>
 
-        <div class="field">
-          <label for="email">Adresse e-mail *</label>
-          <input id="email" name="email" type="email" required maxlength="254" autocomplete="email">
-        </div>
+      <button class="tab"
+              data-type="tender"
+              data-i18n="tabTenders">
+        Appels d'offres
+      </button>
 
-        <div class="field">
-          <label for="phone">Téléphone *</label>
-          <input id="phone" name="phone" type="tel" required maxlength="40" autocomplete="tel">
-        </div>
+      <button class="tab"
+              data-type="job"
+              data-i18n="tabJobs">
+        Offres d'emploi
+      </button>
+    </div>
+
+    <div id="resultsInfo"
+         class="results-info"
+         aria-live="polite"></div>
+
+    <div id="opportunityList" class="cards">
+      <div class="loading">
+        <h3 data-i18n="loadingTitle">Chargement des annonces...</h3>
+        <p data-i18n="loadingText">
+          Veuillez patienter.
+        </p>
       </div>
+    </div>
+  </section>
 
-      <div id="companyDetails">
-        <h3>Informations sur l'entreprise</h3>
-        <div class="grid">
-          <div class="field">
-            <label for="rccm">Numéro RCCM</label>
-            <input id="rccm" name="rccm" maxlength="100">
-          </div>
-          <div class="field">
-            <label for="nif">Numéro NIF</label>
-            <input id="nif" name="nif" maxlength="100">
-          </div>
-          <div class="field">
-            <label for="idnat">Numéro ID-NAT</label>
-            <input id="idnat" name="idnat" maxlength="100">
-          </div>
-          <div class="field">
-            <label for="cnss">Numéro CNSS</label>
-            <input id="cnss" name="cnss" maxlength="100">
-          </div>
-          <div class="field full" id="activityField">
-            <label for="activity">Domaine d'activité / produits proposés</label>
-            <input id="activity" name="activity" maxlength="500">
-          </div>
-          <div class="field full" id="workforceField">
-            <label for="workforce">Effectif du personnel</label>
-            <input id="workforce" name="workforce" maxlength="50">
-          </div>
-          <div class="field full" id="capitalField">
-            <label for="capital">Capital social déclaré</label>
-            <input id="capital" name="capital" maxlength="100">
-          </div>
-          <div class="field full" id="shareholdersField">
-            <label for="shareholders">Informations sur les associés / actionnaires</label>
-            <textarea id="shareholders" name="shareholders" rows="3" maxlength="2000"></textarea>
-          </div>
-        </div>
-      </div>
+  <section class="steps">
+    <div class="step">
+      <div class="step-number">1</div>
+      <h3 data-i18n="step1Title">Choisissez une annonce</h3>
+      <p data-i18n="step1Text">
+        Consultez le titre, la référence et la date limite.
+      </p>
+    </div>
 
-      <div id="candidateDetails" class="hidden">
-        <h3>Informations du candidat</h3>
-        <div class="grid">
-          <div class="field">
-            <label for="education">Niveau d'études *</label>
-            <select id="education" name="education">
-              <option value="">Choisir</option>
-              <option>Secondaire</option>
-              <option>Diplôme d'État</option>
-              <option>Graduat / Licence</option>
-              <option>Master</option>
-              <option>Doctorat</option>
-              <option>Formation professionnelle</option>
-              <option>Autre</option>
-            </select>
-          </div>
-          <div class="field">
-            <label for="electoral_number">Numéro de carte d'électeur (facultatif)</label>
-            <input id="electoral_number" name="electoral_number" maxlength="100">
-          </div>
-          <div class="field full">
-            <label for="motivation">Lettre de motivation / message de candidature</label>
-            <textarea id="motivation" name="motivation" rows="4" maxlength="5000"></textarea>
-          </div>
-        </div>
-      </div>
+    <div class="step">
+      <div class="step-number">2</div>
+      <h3 data-i18n="step2Title">Inscrivez-vous</h3>
+      <p data-i18n="step2Text">
+        Fournissez les informations demandées et acceptez
+        les conditions de confidentialité.
+      </p>
+    </div>
 
-      <div class="field full">
-        <label for="other_details">Informations complémentaires</label>
-        <textarea id="other_details" name="other_details" rows="3" maxlength="3000"></textarea>
-      </div>
-
-      <h3>Documents justificatifs</h3>
-      <p>Ajoutez uniquement les pièces nécessaires à votre dossier. Évitez d'envoyer des informations personnelles non demandées.</p>
-
-      <div class="grid">
-        <div class="field" id="statutesField">
-          <label for="statutes">Statuts de l'entreprise (PDF/Word)</label>
-          <input type="file" id="statutes" name="statutes" accept=".pdf,.doc,.docx">
-        </div>
-
-        <div class="field" id="legalDocsField">
-          <label for="legal_documents">Documents administratifs (PDF/Word)</label>
-          <input type="file" id="legal_documents" name="legal_documents" accept=".pdf,.doc,.docx">
-        </div>
-
-        <div class="field" id="cvField">
-          <label for="cv">Curriculum vitae (CV)</label>
-          <input type="file" id="cv" name="cv" accept=".pdf,.doc,.docx">
-        </div>
-
-        <div class="field" id="diplomasField">
-          <label for="diplomas">Diplômes et attestations</label>
-          <input type="file" id="diplomas" name="diplomas" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png">
-        </div>
-
-        <div class="field" id="motivationFileField">
-          <label for="motivation_file">Lettre de motivation en fichier</label>
-          <input type="file" id="motivation_file" name="motivation_file" accept=".pdf,.doc,.docx">
-        </div>
-
-        <div class="field" id="electoralCardField">
-          <label for="electoral_card">Carte d'électeur (si nécessaire)</label>
-          <input type="file" id="electoral_card" name="electoral_card" accept=".pdf,.jpg,.jpeg,.png">
-        </div>
-
-        <div class="field full" id="tenderDocsField">
-          <label for="tender_documents">Dossier de soumission / pièces de l'appel d'offres</label>
-          <input type="file" id="tender_documents" name="tender_documents" multiple accept=".pdf,.doc,.docx,.jpg,.jpeg,.png">
-          <small>Vous pouvez sélectionner plusieurs fichiers dans ce champ.</small>
-        </div>
-
-        <div class="field full" id="supplierDocsField">
-          <label for="supplier_documents">Catalogue ou documents du fournisseur</label>
-          <input type="file" id="supplier_documents" name="supplier_documents" multiple accept=".pdf,.doc,.docx,.jpg,.jpeg,.png">
-        </div>
-      </div>
-
-      <div class="field">
-        <label>
-          <input type="checkbox" id="consent" required style="width:auto">
-          J'autorise B-TECH-DRC SA à utiliser les informations et documents transmis pour traiter mon dossier.
-        </label>
-      </div>
-
-      <button type="submit" class="submit" id="submitButton">Envoyer mon dossier</button>
-      <div id="status" class="status" role="status" aria-live="polite"></div>
-    </form>
+    <div class="step">
+      <div class="step-number">3</div>
+      <h3 data-i18n="step3Title">Téléchargez le document</h3>
+      <p data-i18n="step3Text">
+        Utilisez le lien sécurisé généré après validation.
+      </p>
+    </div>
   </section>
 </main>
 
 <footer>
-  © <span id="year"></span> CONGOLESE ORGANIZATION OF TALENTED YOUNG PEOPLE SA (B-TECH-DRC SA).
-  Pour un Monde Meilleur.
+  <div class="footer-inner">
+    <div>
+      <strong>B-TECH-DRC SA</strong><br>
+      <span data-i18n="footerDescription">
+        Portail des appels d'offres et des offres d'emploi.
+      </span>
+    </div>
+
+    <div>
+      <span data-i18n="footerContact">Contact :</span>
+      <a href="mailto:btechorgdrctang@gmail.com">
+        btechorgdrctang@gmail.com
+      </a>
+    </div>
+
+    <div>
+      © <span id="currentYear"></span>
+      B-TECH-DRC SA
+    </div>
+  </div>
 </footer>
 
+<!-- FORMULAIRE DE TELECHARGEMENT -->
+
+<div id="downloadModal"
+     class="modal"
+     role="dialog"
+     aria-modal="true"
+     aria-labelledby="modalTitle">
+
+  <div class="modal-panel">
+    <div class="modal-header">
+      <div>
+        <h2 id="modalTitle" data-i18n="formTitle">
+          Inscription au téléchargement
+        </h2>
+        <p id="modalOpportunity"></p>
+      </div>
+
+      <button id="closeModal"
+              class="close-button"
+              type="button"
+              aria-label="Close">×</button>
+    </div>
+
+    <div class="modal-body">
+
+      <div id="registrationSection">
+        <div id="formMessage"
+             class="form-message"
+             aria-live="polite"></div>
+
+        <form id="downloadForm">
+          <input type="hidden"
+                 id="opportunityId"
+                 name="opportunity_id">
+
+          <div class="form-grid">
+            <div class="form-group full">
+              <label for="profileType" data-i18n="profileLabel">
+                Type de profil <span class="required">*</span>
+              </label>
+
+              <select id="profileType"
+                      class="field"
+                      required>
+                <option value="individual"
+                        data-i18n="individualOption">
+                  Personne physique
+                </option>
+                <option value="legal_entity"
+                        data-i18n="companyOption">
+                  Personne morale / Entreprise
+                </option>
+              </select>
+            </div>
+
+            <div class="form-group full"
+                 id="fullNameGroup">
+              <label for="fullName" data-i18n="fullNameLabel">
+                Nom complet <span class="required">*</span>
+              </label>
+
+              <input id="fullName"
+                     name="full_name"
+                     class="field"
+                     type="text"
+                     maxlength="180"
+                     autocomplete="name"
+                     required>
+            </div>
+
+            <div class="form-group full"
+                 id="companyGroup"
+                 hidden>
+              <label for="companyName" data-i18n="companyNameLabel">
+                Dénomination sociale <span class="required">*</span>
+              </label>
+
+              <input id="companyName"
+                     name="company_name"
+                     class="field"
+                     type="text"
+                     maxlength="200"
+                     autocomplete="organization">
+            </div>
+
+            <div class="form-group">
+              <label for="phone" data-i18n="phoneLabel">
+                Téléphone <span class="required">*</span>
+              </label>
+
+              <input id="phone"
+                     name="phone"
+                     class="field"
+                     type="tel"
+                     maxlength="40"
+                     autocomplete="tel"
+                     required>
+            </div>
+
+            <div class="form-group">
+              <label for="email" data-i18n="emailLabel">
+                Adresse e-mail <span class="required">*</span>
+              </label>
+
+              <input id="email"
+                     name="email"
+                     class="field"
+                     type="email"
+                     maxlength="254"
+                     autocomplete="email"
+                     required>
+            </div>
+
+            <div class="form-group full">
+              <label for="reason" data-i18n="reasonLabel">
+                Motif du téléchargement <span class="required">*</span>
+              </label>
+
+              <textarea id="reason"
+                        name="download_reason"
+                        class="field"
+                        rows="3"
+                        maxlength="1000"
+                        required></textarea>
+            </div>
+          </div>
+
+          <div class="legal-note" data-i18n="legalNote">
+            Les informations fournies seront utilisées pour
+            enregistrer votre demande de téléchargement et
+            assurer le suivi de cette demande. Ne soumettez
+            pas d'informations sensibles inutiles.
+          </div>
+
+          <div class="checkbox-row">
+            <input id="privacyAccepted"
+                   type="checkbox"
+                   required>
+
+            <label for="privacyAccepted"
+                   data-i18n="privacyLabel">
+              J'accepte que mes informations soient utilisées
+              pour traiter et enregistrer ma demande de
+              téléchargement. <span class="required">*</span>
+            </label>
+          </div>
+
+          <div class="form-actions">
+            <button id="cancelButton"
+                    type="button"
+                    class="btn btn-outline"
+                    data-i18n="cancelButton">
+              Annuler
+            </button>
+
+            <button id="submitButton"
+                    type="submit"
+                    class="btn btn-primary"
+                    data-i18n="submitButton">
+              Valider et télécharger
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <div id="successPanel" class="success-panel">
+        <div class="success-icon">✓</div>
+
+        <h3 data-i18n="successTitle">
+          Inscription enregistrée
+        </h3>
+
+        <p id="successDescription"
+           data-i18n="successDescription">
+          Votre demande a été enregistrée.
+        </p>
+
+        <div class="reference-box">
+          <strong data-i18n="referenceLabel">
+            Votre référence :
+          </strong>
+          <div id="referenceNumber"></div>
+        </div>
+
+        <p id="expiryMessage" data-i18n="expiryMessage">
+          Le lien de téléchargement est temporaire.
+          Téléchargez votre document sans attendre.
+        </p>
+
+        <a id="downloadLink"
+           class="btn btn-primary"
+           href="#"
+           target="_blank"
+           rel="noopener noreferrer"
+           data-i18n="downloadNow">
+          Télécharger le document
+        </a>
+
+        <p style="font-size:12px;color:#68778c;margin-top:15px"
+           data-i18n="emailReminder">
+          Consultez également votre boîte e-mail.
+        </p>
+
+        <button id="finishButton"
+                class="btn btn-outline"
+                type="button"
+                data-i18n="finishButton">
+          Fermer
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 <script>
-"use strict";
+/* =====================================================
+   CONFIGURATION SUPABASE
+   Remplacer uniquement la clé publique ci-dessous.
+   Ne jamais placer une service_role key dans ce fichier.
+===================================================== */
 
-const ENDPOINT = "https://euwjzhchowebcpzxmobr.supabase.co/functions/v1/hyper-endpoint";
+const SUPABASE_URL =
+  "https://euwjzhchowebcpzxmobr.supabase.co";
 
-const form = document.getElementById("portalForm");
-const typeInput = document.getElementById("submission_type");
-const statusBox = document.getElementById("status");
-const submitButton = document.getElementById("submitButton");
+const SUPABASE_ANON_KEY =
+  "REMPLACER_PAR_LA_CLE_PUBLIQUE_SUPABASE";
 
-const configs = {
-  company_tender: {
-    title: "Dépôt d'un dossier de soumission",
-    description: "Transmettez les informations de votre entreprise et les pièces justificatives demandées.",
-    nameRequired: false,
-    companyRequired: true,
-    company: true,
-    candidate: false,
-    fields: ["statutesField", "legalDocsField", "tenderDocsField"]
+/* Nom exact du bucket privé existant. */
+const STORAGE_BUCKET = "dossiers-confidentiels";
+
+/* Fonction Edge existante pour les téléchargements. */
+const DOWNLOAD_FUNCTION = "portal-download";
+
+/* =====================================================
+   TRADUCTIONS
+===================================================== */
+
+const translations = {
+  fr: {
+    brandSubtitle: "Portail officiel des opportunités",
+    backHome: "Retour au site",
+    eyebrow: "Information officielle",
+    heroTitle: "Appels d'offres et offres d'emploi",
+    heroText: "Retrouvez les annonces publiées par B-TECH-DRC SA. Consultez les conditions et téléchargez les documents après avoir rempli le formulaire d'inscription.",
+    browseButton: "Consulter les annonces",
+    websiteButton: "Site institutionnel",
+    noticeTitle: "Avis important",
+    noticeText: "Le téléchargement d'un document ne garantit pas l'éligibilité, l'acceptation d'une candidature, l'attribution d'un marché ou un recrutement. Chaque annonce reste soumise à ses conditions particulières.",
+    listTitle: "Annonces disponibles",
+    listText: "Consultez les opportunités actuellement publiées.",
+    searchPlaceholder: "Rechercher par titre ou référence...",
+    sortNewest: "Plus récentes",
+    sortDeadline: "Date limite la plus proche",
+    tabAll: "Toutes les annonces",
+    tabTenders: "Appels d'offres",
+    tabJobs: "Offres d'emploi",
+    loadingTitle: "Chargement des annonces...",
+    loadingText: "Veuillez patienter.",
+    noResultsTitle: "Aucune annonce disponible",
+    noResultsText: "Aucune annonce publiée ne correspond à votre recherche.",
+    resultsCount: "annonce(s) affichée(s)",
+    tender: "Appel d'offres",
+    job: "Offre d'emploi",
+    reference: "Référence",
+    published: "Publication",
+    deadline: "Date limite",
+    noDeadline: "Non précisée",
+    downloadButton: "Consulter / Télécharger",
+    expired: "Expirée",
+    step1Title: "Choisissez une annonce",
+    step1Text: "Consultez le titre, la référence et la date limite.",
+    step2Title: "Inscrivez-vous",
+    step2Text: "Fournissez les informations demandées et acceptez les conditions de confidentialité.",
+    step3Title: "Téléchargez le document",
+    step3Text: "Utilisez le lien sécurisé généré après validation.",
+    footerDescription: "Portail des appels d'offres et des offres d'emploi.",
+    footerContact: "Contact :",
+    formTitle: "Inscription au téléchargement",
+    profileLabel: "Type de profil",
+    individualOption: "Personne physique",
+    companyOption: "Personne morale / Entreprise",
+    fullNameLabel: "Nom complet",
+    companyNameLabel: "Dénomination sociale",
+    phoneLabel: "Téléphone",
+    emailLabel: "Adresse e-mail",
+    reasonLabel: "Motif du téléchargement",
+    legalNote: "Les informations fournies seront utilisées pour enregistrer votre demande de téléchargement et assurer le suivi de cette demande. Ne soumettez pas d'informations sensibles inutiles.",
+    privacyLabel: "J'accepte que mes informations soient utilisées pour traiter et enregistrer ma demande de téléchargement.",
+    cancelButton: "Annuler",
+    submitButton: "Valider et télécharger",
+    submitting: "Traitement en cours...",
+    successTitle: "Inscription enregistrée",
+    successDescription: "Votre demande a été enregistrée.",
+    referenceLabel: "Votre référence :",
+    expiryMessage: "Le lien de téléchargement est temporaire. Téléchargez votre document sans attendre.",
+    downloadNow: "Télécharger le document",
+    emailReminder: "Consultez également votre boîte e-mail.",
+    finishButton: "Fermer",
+    genericError: "Une erreur est survenue. Veuillez réessayer.",
+    configError: "La configuration Supabase du portail n'est pas terminée. Veuillez contacter l'administrateur.",
+    validationError: "Veuillez remplir tous les champs obligatoires et accepter les conditions.",
+    emailError: "Veuillez saisir une adresse e-mail valide.",
+    privacyError: "Vous devez accepter les conditions avant de continuer.",
+    profileError: "Le type de profil ne correspond pas à cette annonce.",
+    networkError: "Impossible de contacter le serveur. Vérifiez votre connexion et réessayez.",
+    requestError: "Votre demande n'a pas pu être traitée.",
+    linkError: "Le serveur n'a pas renvoyé de lien de téléchargement valide.",
+    noDocument: "Le document est temporairement indisponible. Veuillez contacter B-TECH-DRC SA.",
+    emailSent: "Un e-mail de confirmation a été envoyé.",
+    emailNotSent: "Votre demande est enregistrée, mais l'envoi de l'e-mail n'a pas pu être confirmé.",
+    privacyRequired: "Veuillez accepter les conditions de confidentialité.",
+    retryButton: "Réessayer",
+    reasonPlaceholder: "Expliquez brièvement pourquoi vous souhaitez consulter ce document..."
   },
-  job_application: {
-    title: "Candidature à l'emploi",
-    description: "Fournissez vos coordonnées, votre formation et les documents utiles à votre candidature.",
-    nameRequired: true,
-    companyRequired: false,
-    company: false,
-    candidate: true,
-    fields: ["cvField", "diplomasField", "motivationFileField", "electoralCardField"]
-  },
-  supplier_registration: {
-    title: "Inscription d'un fournisseur",
-    description: "Présentez votre entreprise, vos produits et les documents administratifs disponibles.",
-    nameRequired: false,
-    companyRequired: true,
-    company: true,
-    candidate: false,
-    fields: ["statutesField", "legalDocsField", "supplierDocsField", "activityField", "workforceField", "capitalField", "shareholdersField"]
+
+  en: {
+    brandSubtitle: "Official opportunities portal",
+    backHome: "Back to website",
+    eyebrow: "Official information",
+    heroTitle: "Tenders and job opportunities",
+    heroText: "Find opportunities published by B-TECH-DRC SA. Review the requirements and download documents after completing the registration form.",
+    browseButton: "Browse opportunities",
+    websiteButton: "Corporate website",
+    noticeTitle: "Important notice",
+    noticeText: "Downloading a document does not guarantee eligibility, acceptance of an application, contract award or recruitment. Each notice remains subject to its specific requirements.",
+    listTitle: "Available opportunities",
+    listText: "Browse currently published opportunities.",
+    searchPlaceholder: "Search by title or reference...",
+    sortNewest: "Newest first",
+    sortDeadline: "Nearest deadline",
+    tabAll: "All opportunities",
+    tabTenders: "Tenders",
+    tabJobs: "Job opportunities",
+    loadingTitle: "Loading opportunities...",
+    loadingText: "Please wait.",
+    noResultsTitle: "No opportunities available",
+    noResultsText: "No published opportunities match your search.",
+    resultsCount: "opportunity(ies) displayed",
+    tender: "Tender",
+    job: "Job opportunity",
+    reference: "Reference",
+    published: "Publication",
+    deadline: "Deadline",
+    noDeadline: "Not specified",
+    downloadButton: "View / Download",
+    expired: "Expired",
+    step1Title: "Choose an opportunity",
+    step1Text: "Review the title, reference and deadline.",
+    step2Title: "Register",
+    step2Text: "Provide the requested information and accept the privacy terms.",
+    step3Title: "Download the document",
+    step3Text: "Use the secure link generated after validation.",
+    footerDescription: "Tender and job opportunity portal.",
+    footerContact: "Contact:",
+    formTitle: "Download registration",
+    profileLabel: "Profile type",
+    individualOption: "Individual",
+    companyOption: "Legal entity / Company",
+    fullNameLabel: "Full name",
+    companyNameLabel: "Legal company name",
+    phoneLabel: "Phone",
+    emailLabel: "Email address",
+    reasonLabel: "Reason for download",
+    legalNote: "The information provided will be used to register and follow up on your download request. Do not submit unnecessary sensitive information.",
+    privacyLabel: "I agree that my information may be used to process and record my download request.",
+    cancelButton: "Cancel",
+    submitButton: "Validate and download",
+    submitting: "Processing...",
+    successTitle: "Registration completed",
+    successDescription: "Your request has been recorded.",
+    referenceLabel: "Your reference:",
+    expiryMessage: "The download link is temporary. Download your document promptly.",
+    downloadNow: "Download document",
+    emailReminder: "Please also check your email inbox.",
+    finishButton: "Close",
+    genericError: "An error occurred. Please try again.",
+    configError: "The portal's Supabase configuration is incomplete. Please contact the administrator.",
+    validationError: "Please complete all required fields and accept the terms.",
+    emailError: "Please enter a valid email address.",
+    privacyError: "You must accept the terms before continuing.",
+    profileError: "The profile type does not match this opportunity.",
+    networkError: "Unable to contact the server. Check your connection and try again.",
+    requestError: "Your request could not be processed.",
+    linkError: "The server did not return a valid download link.",
+    noDocument: "The document is temporarily unavailable. Please contact B-TECH-DRC SA.",
+    emailSent: "A confirmation email has been sent.",
+    emailNotSent: "Your request was recorded, but email delivery could not be confirmed.",
+    privacyRequired: "Please accept the privacy terms.",
+    retryButton: "Try again",
+    reasonPlaceholder: "Briefly explain why you want to access this document..."
   }
 };
 
-function setVisible(id, visible) {
-  const el = document.getElementById(id);
-  if (el) el.classList.toggle("hidden", !visible);
+/* =====================================================
+   ÉTAT DE LA PAGE
+===================================================== */
+
+let currentLanguage = "fr";
+let currentType = "all";
+let opportunities = [];
+let selectedOpportunity = null;
+
+const $ = id => document.getElementById(id);
+
+function t(key) {
+  return translations[currentLanguage][key] ||
+         translations.fr[key] ||
+         key;
 }
 
-function setRequired(id, required) {
-  const el = document.getElementById(id);
-  if (el) el.required = required;
+function escapeHTML(value) {
+  return String(value ?? "").replace(/[&<>"']/g, char => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#39;"
+  })[char]);
 }
 
-function selectType(type) {
-  const config = configs[type];
-  if (!config) return;
+function formatDate(value) {
+  if (!value) return t("noDeadline");
 
-  typeInput.value = type;
-  document.getElementById("formTitle").textContent = config.title;
-  document.getElementById("formDescription").textContent = config.description;
+  const date = new Date(value);
 
-  document.querySelectorAll(".tab").forEach(button => {
-    const active = button.dataset.type === type;
-    button.classList.toggle("active", active);
-    button.setAttribute("aria-selected", String(active));
-  });
-
-  setVisible("nameField", true);
-  setVisible("companyField", config.company);
-  setVisible("companyDetails", config.company);
-  setVisible("candidateDetails", config.candidate);
-
-  setRequired("name", config.nameRequired);
-  setRequired("company_name", config.companyRequired);
-  setRequired("education", config.candidate);
-
-  const companyOnlyFields = ["statutesField", "legalDocsField", "activityField", "workforceField", "capitalField", "shareholdersField"];
-  companyOnlyFields.forEach(id => setVisible(id, config.fields.includes(id)));
-
-  ["cvField", "diplomasField", "motivationFileField", "electoralCardField", "tenderDocsField", "supplierDocsField"].forEach(id => {
-    setVisible(id, config.fields.includes(id));
-  });
-
-  statusBox.className = "status";
-  statusBox.textContent = "";
-}
-
-document.querySelectorAll(".tab").forEach(button => {
-  button.addEventListener("click", () => selectType(button.dataset.type));
-});
-
-document.getElementById("year").textContent = new Date().getFullYear();
-
-form.addEventListener("submit", async event => {
-  event.preventDefault();
-
-  statusBox.className = "status";
-  statusBox.textContent = "";
-
-  if (!form.reportValidity()) return;
-
-  const formData = new FormData(form);
-  const details = {};
-
-  [
-    "rccm", "nif", "idnat", "cnss", "activity", "workforce",
-    "capital", "shareholders", "education", "electoral_number",
-    "motivation", "other_details"
-  ].forEach(key => {
-    const element = form.elements.namedItem(key);
-    if (element && element.value.trim()) details[key] = element.value.trim();
-  });
-
-  formData.set("details", JSON.stringify(details));
-
-  let count = 0;
-  let totalSize = 0;
-  const allowed = new Set([
-    "application/pdf",
-    "image/jpeg",
-    "image/png",
-    "application/msword",
-    "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-  ]);
-
-  for (const [key, value] of formData.entries()) {
-    if (!(value instanceof File) || value.size === 0) continue;
-
-    count++;
-    totalSize += value.size;
-
-    if (!allowed.has(value.type)) {
-      statusBox.className = "status error";
-      statusBox.textContent = "Format de fichier non autorisé : " + key;
-      return;
-    }
-
-    if (value.size > 10 * 1024 * 1024) {
-      statusBox.className = "status error";
-      statusBox.textContent = "Chaque fichier doit peser au maximum 10 Mo.";
-      return;
-    }
+  if (Number.isNaN(date.getTime())) {
+    return t("noDeadline");
   }
 
-  if (count > 10 || totalSize > 25 * 1024 * 1024) {
-    statusBox.className = "status error";
-    statusBox.textContent = "Limite dépassée : maximum 10 fichiers et 25 Mo au total.";
+  return new Intl.DateTimeFormat(
+    currentLanguage === "fr" ? "fr-FR" : "en-GB",
+    {
+      year: "numeric",
+      month: "short",
+      day: "numeric"
+    }
+  ).format(date);
+}
+
+function isSupabaseConfigured() {
+  return SUPABASE_URL.startsWith("https://") &&
+         SUPABASE_ANON_KEY !==
+           "REMPLACER_PAR_LA_CLE_PUBLIQUE_SUPABASE" &&
+         SUPABASE_ANON_KEY.trim().length > 20;
+}
+
+function setFormMessage(message, type = "error") {
+  const box = $("formMessage");
+  box.textContent = message;
+  box.className = "form-message show " + type;
+}
+
+function clearFormMessage() {
+  $("formMessage").textContent = "";
+  $("formMessage").className = "form-message";
+}
+
+/* =====================================================
+   LANGUE
+===================================================== */
+
+function applyTranslations() {
+  document.documentElement.lang = currentLanguage;
+
+  document.querySelectorAll("[data-i18n]").forEach(element => {
+    const key = element.dataset.i18n;
+    if (translations[currentLanguage][key]) {
+      element.textContent = t(key);
+    }
+  });
+
+  document.querySelectorAll("[data-i18n-placeholder]").forEach(element => {
+    element.placeholder = t(element.dataset.i18nPlaceholder);
+  });
+
+  renderOpportunities();
+}
+
+$("languageSelect").addEventListener("change", event => {
+  currentLanguage = event.target.value;
+  applyTranslations();
+});
+
+$("reason").placeholder = t("reasonPlaceholder");
+
+/* =====================================================
+   CHARGEMENT DES ANNONCES PUBLIQUES
+===================================================== */
+
+async function loadOpportunities() {
+  const list = $("opportunityList");
+
+  if (!isSupabaseConfigured()) {
+    list.innerHTML = `
+      <div class="error-box">
+        <strong>${escapeHTML(t("configError"))}</strong>
+      </div>`;
+    $("resultsInfo").textContent = "";
     return;
   }
 
-  submitButton.disabled = true;
-  submitButton.textContent = "Envoi en cours…";
+  list.innerHTML = `
+    <div class="loading">
+      <h3>${escapeHTML(t("loadingTitle"))}</h3>
+      <p>${escapeHTML(t("loadingText"))}</p>
+    </div>`;
+
+  /*
+    On ne demande que les champs nécessaires à l'affichage.
+    Les documents restent dans le bucket privé.
+    L'interface ne reçoit aucun chemin de téléchargement
+    directement utilisable par un visiteur.
+  */
+
+  const query = new URLSearchParams({
+    select: [
+      "id",
+      "opportunity_type",
+      "reference_number",
+      "title_fr",
+      "title_en",
+      "description_fr",
+      "description_en",
+      "publication_date",
+      "deadline"
+    ].join(","),
+    published: "eq.true",
+    order: "publication_date.desc"
+  });
 
   try {
-    const response = await fetch(ENDPOINT, {
-      method: "POST",
-      body: formData
-    });
+    const response = await fetch(
+      `${SUPABASE_URL}/rest/v1/portal_opportunities?${query}`,
+      {
+        method: "GET",
+        headers: {
+          "apikey": SUPABASE_ANON_KEY,
+          "Authorization": `Bearer ${SUPABASE_ANON_KEY}`,
+          "Accept": "application/json"
+        }
+      }
+    );
 
-    const result = await response.json().catch(() => ({}));
-
-    if (!response.ok || !result.success) {
-      throw new Error(result.error || "L'envoi a échoué. Veuillez réessayer.");
+    if (!response.ok) {
+      throw new Error("Unable to load public opportunities");
     }
 
-    statusBox.className = "status success";
-    statusBox.textContent = "Dossier reçu. Votre numéro de référence est : " +
-      result.reference_number + ". Conservez ce numéro.";
+    const data = await response.json();
 
-    form.reset();
-    selectType(typeInput.value || "company_tender");
+    const now = Date.now();
+
+    opportunities = (Array.isArray(data) ? data : []).filter(item => {
+      if (!item.deadline) return true;
+
+      const deadline = new Date(item.deadline).getTime();
+
+      return !Number.isNaN(deadline) && deadline >= now;
+    });
+
+    renderOpportunities();
+
   } catch (error) {
-    statusBox.className = "status error";
-    statusBox.textContent = error instanceof Error
-      ? error.message
-      : "Erreur de connexion. Veuillez réessayer.";
-  } finally {
-    submitButton.disabled = false;
-    submitButton.textContent = "Envoyer mon dossier";
+    console.error("Opportunity loading failed:", error);
+
+    list.innerHTML = `
+      <div class="error-box">
+        ${escapeHTML(t("networkError"))}
+        <br><br>
+        <button class="btn btn-outline"
+                type="button"
+                onclick="loadOpportunities()">
+          ${escapeHTML(t("retryButton"))}
+        </button>
+      </div>`;
+  }
+}
+
+/* =====================================================
+   AFFICHAGE ET RECHERCHE
+===================================================== */
+
+function renderOpportunities() {
+  const list = $("opportunityList");
+  if (!list) return;
+
+  const search = ($("searchInput")?.value || "")
+    .trim()
+    .toLocaleLowerCase(currentLanguage);
+
+  let filtered = opportunities.filter(item => {
+    const title = currentLanguage === "en"
+      ? (item.title_en || item.title_fr || "")
+      : (item.title_fr || item.title_en || "");
+
+    const description = currentLanguage === "en"
+      ? (item.description_en || item.description_fr || "")
+      : (item.description_fr || item.description_en || "");
+
+    const matchesType =
+      currentType === "all" ||
+      item.opportunity_type === currentType;
+
+    const searchable = [
+      title,
+      description,
+      item.reference_number
+    ].join(" ").toLocaleLowerCase(currentLanguage);
+
+    return matchesType && searchable.includes(search);
+  });
+
+  if ($("sortSelect").value === "deadline") {
+    filtered.sort((a, b) => {
+      if (!a.deadline) return 1;
+      if (!b.deadline) return -1;
+      return new Date(a.deadline) - new Date(b.deadline);
+    });
+  } else {
+    filtered.sort((a, b) => {
+      return new Date(b.publication_date || 0) -
+             new Date(a.publication_date || 0);
+    });
+  }
+
+  $("resultsInfo").textContent =
+    `${filtered.length} ${t("resultsCount")}`;
+
+  if (!filtered.length) {
+    list.innerHTML = `
+      <div class="empty">
+        <h3>${escapeHTML(t("noResultsTitle"))}</h3>
+        <p>${escapeHTML(t("noResultsText"))}</p>
+      </div>`;
+    return;
+  }
+
+  list.innerHTML = filtered.map(item => {
+    const title = currentLanguage === "en"
+      ? (item.title_en || item.title_fr || "")
+      : (item.title_fr || item.title_en || "");
+
+    const description = currentLanguage === "en"
+      ? (item.description_en || item.description_fr || "")
+      : (item.description_fr || item.description_en || "");
+
+    const typeLabel = item.opportunity_type === "tender"
+      ? t("tender")
+      : t("job");
+
+    return `
+      <article class="card">
+        <div class="card-top">
+          <span class="badge">${escapeHTML(typeLabel)}</span>
+          <span class="reference">
+            ${escapeHTML(t("reference"))} :
+            ${escapeHTML(item.reference_number)}
+          </span>
+        </div>
+
+        <h3>${escapeHTML(title)}</h3>
+
+        <div class="description">
+          ${escapeHTML(description || "")}
+        </div>
+
+        <div class="meta">
+          <div>
+            <strong>${escapeHTML(t("published"))} :</strong>
+            ${escapeHTML(formatDate(item.publication_date))}
+          </div>
+          <div>
+            <strong>${escapeHTML(t("deadline"))} :</strong>
+            ${escapeHTML(formatDate(item.deadline))}
+          </div>
+        </div>
+
+        <div class="card-footer">
+          <span class="reference">
+            B-TECH-DRC SA
+          </span>
+
+          <button class="btn btn-primary"
+                  type="button"
+                  data-download-id="${escapeHTML(item.id)}">
+            ${escapeHTML(t("downloadButton"))}
+          </button>
+        </div>
+      </article>`;
+  }).join("");
+
+  list.querySelectorAll("[data-download-id]").forEach(button => {
+    button.addEventListener("click", () => {
+      openDownloadForm(button.dataset.downloadId);
+    });
+  });
+}
+
+$("searchInput").addEventListener("input", renderOpportunities);
+$("sortSelect").addEventListener("change", renderOpportunities);
+
+document.querySelectorAll(".tab").forEach(button => {
+  button.addEventListener("click", () => {
+    document.querySelectorAll(".tab").forEach(tab => {
+      tab.classList.remove("active");
+    });
+
+    button.classList.add("active");
+    currentType = button.dataset.type;
+    renderOpportunities();
+  });
+});
+
+/* =====================================================
+   FORMULAIRE
+===================================================== */
+
+function openDownloadForm(opportunityId) {
+  const item = opportunities.find(entry => entry.id === opportunityId);
+
+  if (!item) {
+    alert(t("requestError"));
+    return;
+  }
+
+  selectedOpportunity = item;
+
+  const title = currentLanguage === "en"
+    ? (item.title_en || item.title_fr || "")
+    : (item.title_fr || item.title_en || "");
+
+  $("opportunityId").value = item.id;
+  $("modalOpportunity").textContent =
+    `${item.reference_number} — ${title}`;
+
+  $("downloadForm").reset();
+  $("profileType").value = "individual";
+  updateProfileFields();
+
+  $("registrationSection").style.display = "block";
+  $("successPanel").classList.remove("show");
+  clearFormMessage();
+
+  $("downloadModal").classList.add("open");
+  document.body.style.overflow = "hidden";
+  $("profileType").focus();
+}
+
+function closeDownloadForm() {
+  $("downloadModal").classList.remove("open");
+  document.body.style.overflow = "";
+  selectedOpportunity = null;
+}
+
+$("closeModal").addEventListener("click", closeDownloadForm);
+$("cancelButton").addEventListener("click", closeDownloadForm);
+$("finishButton").addEventListener("click", closeDownloadForm);
+
+$("downloadModal").addEventListener("click", event => {
+  if (event.target === $("downloadModal")) {
+    closeDownloadForm();
   }
 });
 
-selectType("company_tender");
+document.addEventListener("keydown", event => {
+  if (event.key === "Escape" &&
+      $("downloadModal").classList.contains("open")) {
+    closeDownloadForm();
+  }
+});
+
+function updateProfileFields() {
+  const profileType = $("profileType").value;
+  const isCompany = profileType === "legal_entity";
+
+  $("companyGroup").hidden = !isCompany;
+  $("companyName").required = isCompany;
+  $("companyName").disabled = !isCompany;
+
+  /*
+    Le nom complet est requis par le schéma SQL existant,
+    même pour une personne morale. On utilise donc le nom
+    du représentant ou de la personne qui remplit le formulaire.
+  */
+  $("fullName").required = true;
+}
+
+$("profileType").addEventListener("change", updateProfileFields);
+
+/* =====================================================
+   SOUMISSION ET TÉLÉCHARGEMENT
+===================================================== */
+
+$("downloadForm").addEventListener("submit", async event => {
+  event.preventDefault();
+  clearFormMessage();
+
+  if (!isSupabaseConfigured()) {
+    setFormMessage(t("configError"));
+    return;
+  }
+
+  if (!selectedOpportunity) {
+    setFormMessage(t("requestError"));
+    return;
+  }
+
+  if (!$("downloadForm").reportValidity()) {
+    setFormMessage(t("validationError"));
+    return;
+  }
+
+  if (!$("privacyAccepted").checked) {
+    setFormMessage(t("privacyError"));
+    return;
+  }
+
+  const profileType = $("profileType").value;
+
+  /*
+    Le type de profil est contrôlé dans le navigateur pour
+    améliorer l'expérience. La fonction serveur doit également
+    vérifier ce type avant d'autoriser le téléchargement.
+  */
+
+  const expectedProfile =
+    selectedOpportunity.opportunity_type === "tender"
+      ? "legal_entity"
+      : "individual";
+
+  if (profileType !== expectedProfile) {
+    setFormMessage(t("profileError"));
+    return;
+  }
+
+  const payload = {
+    opportunity_id: selectedOpportunity.id,
+    profile_type: profileType,
+    full_name: $("fullName").value.trim(),
+    company_name: profileType === "legal_entity"
+      ? $("companyName").value.trim()
+      : null,
+    phone: $("phone").value.trim(),
+    email: $("email").value.trim(),
+    download_reason: $("reason").value.trim(),
+    language: currentLanguage,
+    privacy_accepted: $("privacyAccepted").checked
+  };
+
+  if (!payload.full_name ||
+      !payload.phone ||
+      !payload.email ||
+      !payload.download_reason ||
+      (profileType === "legal_entity" && !payload.company_name)) {
+    setFormMessage(t("validationError"));
+    return;
+  }
+
+  const submitButton = $("submitButton");
+  submitButton.disabled = true;
+  submitButton.textContent = t("submitting");
+
+  try {
+    const response = await fetch(
+      `${SUPABASE_URL}/functions/v1/${DOWNLOAD_FUNCTION}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "apikey": SUPABASE_ANON_KEY,
+          "Authorization": `Bearer ${SUPABASE_ANON_KEY}`
+        },
+        body: JSON.stringify(payload)
+      }
+    );
+
+    let result;
+
+    try {
+      result = await response.json();
+    } catch {
+      throw new Error(t("requestError"));
+    }
+
+    if (!response.ok || !result.success) {
+      throw new Error(result.error || t("requestError"));
+    }
+
+    if (!result.download_url) {
+      throw new Error(t("linkError"));
+    }
+
+    /*
+      Vérification de base : le serveur doit renvoyer un lien
+      HTTPS appartenant au projet Supabase attendu.
+    */
+    const downloadURL = new URL(result.download_url);
+
+    if (
+      downloadURL.protocol !== "https:" ||
+      downloadURL.hostname !==
+        "euwjzhchowebcpzxmobr.supabase.co"
+    ) {
+      throw new Error(t("linkError"));
+    }
+
+    $("registrationSection").style.display = "none";
+    $("successPanel").classList.add("show");
+
+    $("referenceNumber").textContent =
+      result.reference_number || "—";
+
+    $("successDescription").textContent =
+      result.email_sent ? t("emailSent") : t("emailNotSent");
+
+    const link = $("downloadLink");
+    link.href = downloadURL.href;
+    link.style.display = "inline-flex";
+
+    /*
+      Le lien reste temporaire. On ne stocke pas ce lien
+      dans localStorage ni dans un cookie.
+    */
+
+  } catch (error) {
+    console.error("Download request failed:", error);
+
+    let message = error.message || t("genericError");
+
+    if (error instanceof TypeError) {
+      message = t("networkError");
+    }
+
+    setFormMessage(message, "error");
+
+  } finally {
+    submitButton.disabled = false;
+    submitButton.textContent = t("submitButton");
+  }
+});
+
+/* =====================================================
+   INITIALISATION
+===================================================== */
+
+$("currentYear").textContent = new Date().getFullYear();
+
+$("reason").placeholder = t("reasonPlaceholder");
+
+applyTranslations();
+updateProfileFields();
+loadOpportunities();
+
+/*
+  Rafraîchissement périodique de la liste publique.
+  Les visiteurs verront ainsi les annonces actualisées.
+*/
+setInterval(loadOpportunities, 120000);
 </script>
+
 </body>
 </html>
+```
