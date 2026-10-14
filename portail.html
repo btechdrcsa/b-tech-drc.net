@@ -840,6 +840,207 @@ footer a {
       </p>
     </div>
   </section>
+```html
+<!-- PORTAIL DES DEMANDES — B-TECH-DRC SA -->
+<section id="portalIntake" style="margin:42px 0;padding:24px 0;">
+  <div class="section-heading">
+    <h2>Portail des demandes</h2>
+    <p>Inscription fournisseur, soumission aux appels d'offres et candidature à un emploi.</p>
+  </div>
+
+  <div class="tabs" role="tablist" aria-label="Type de demande">
+    <button class="tab active" type="button" data-intake-tab="supplier">Fournisseur</button>
+    <button class="tab" type="button" data-intake-tab="tender_submission">Soumission à un appel d'offres</button>
+    <button class="tab" type="button" data-intake-tab="job_application">Candidature à un emploi</button>
+  </div>
+
+  <div id="intakeMessage" class="form-message" role="status" aria-live="polite"></div>
+
+  <!-- FORMULAIRE FOURNISSEUR -->
+  <form id="intakeSupplier" class="card" data-intake-form="supplier" enctype="multipart/form-data">
+    <h3>Inscription fournisseur</h3>
+
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Nom légal de l'entreprise *</label>
+        <input class="field" name="company_name" required maxlength="200">
+      </div>
+
+      <div class="form-group">
+        <label>Nom du responsable *</label>
+        <input class="field" name="contact_name" required maxlength="150">
+      </div>
+
+      <div class="form-group">
+        <label>Numéro RCCM</label>
+        <input class="field" name="registration_number" maxlength="100">
+      </div>
+
+      <div class="form-group">
+        <label>Numéro NIF</label>
+        <input class="field" name="tax_number" maxlength="100">
+      </div>
+
+      <div class="form-group">
+        <label>Adresse e-mail *</label>
+        <input class="field" name="email" type="email" required maxlength="254">
+      </div>
+
+      <div class="form-group">
+        <label>Téléphone *</label>
+        <input class="field" name="phone" type="tel" required maxlength="40">
+      </div>
+
+      <div class="form-group full">
+        <label>Adresse de l'entreprise *</label>
+        <input class="field" name="address" required maxlength="500">
+      </div>
+
+      <div class="form-group full">
+        <label>Description des activités *</label>
+        <textarea class="field" name="business_description" rows="4" required maxlength="3000"></textarea>
+      </div>
+
+      <div class="form-group full">
+        <label>Documents justificatifs (PDF, DOC, DOCX, XLS, XLSX, ODT ou ODS ; 10 Mo maximum par fichier)</label>
+        <input class="field" name="documents" type="file" multiple accept=".pdf,.doc,.docx,.xls,.xlsx,.odt,.ods">
+      </div>
+    </div>
+
+    <label class="checkbox-row">
+      <input type="checkbox" name="privacy_accepted" value="true" required>
+      <span>J'accepte le traitement de mes informations pour l'examen de mon inscription. *</span>
+    </label>
+
+    <button class="btn btn-primary" type="submit">Envoyer mon inscription</button>
+  </form>
+
+  <!-- FORMULAIRE DE SOUMISSION -->
+  <form id="intakeTender" class="card" data-intake-form="tender_submission" enctype="multipart/form-data" hidden>
+    <h3>Soumission à un appel d'offres</h3>
+
+    <div class="form-grid">
+      <div class="form-group full">
+        <label>Appel d'offres *</label>
+        <select class="field" name="opportunity_id" data-opportunity-type="tender" required>
+          <option value="">Chargement des appels d'offres...</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Nom légal de l'entreprise *</label>
+        <input class="field" name="company_name" required maxlength="200">
+      </div>
+
+      <div class="form-group">
+        <label>Nom du responsable *</label>
+        <input class="field" name="contact_name" required maxlength="150">
+      </div>
+
+      <div class="form-group">
+        <label>Numéro RCCM</label>
+        <input class="field" name="registration_number" maxlength="100">
+      </div>
+
+      <div class="form-group">
+        <label>Numéro NIF</label>
+        <input class="field" name="tax_number" maxlength="100">
+      </div>
+
+      <div class="form-group">
+        <label>Adresse e-mail *</label>
+        <input class="field" name="email" type="email" required maxlength="254">
+      </div>
+
+      <div class="form-group">
+        <label>Téléphone *</label>
+        <input class="field" name="phone" type="tel" required maxlength="40">
+      </div>
+
+      <div class="form-group full">
+        <label>Adresse de l'entreprise</label>
+        <input class="field" name="address" maxlength="500">
+      </div>
+
+      <div class="form-group full">
+        <label>Résumé de la proposition technique *</label>
+        <textarea class="field" name="proposal_summary" rows="5" required maxlength="5000"></textarea>
+      </div>
+
+      <div class="form-group full">
+        <label>Offre financière</label>
+        <textarea class="field" name="financial_offer" rows="3" maxlength="2000"></textarea>
+      </div>
+
+      <div class="form-group full">
+        <label>Documents de soumission</label>
+        <input class="field" name="documents" type="file" multiple accept=".pdf,.doc,.docx,.xls,.xlsx,.odt,.ods">
+      </div>
+    </div>
+
+    <label class="checkbox-row">
+      <input type="checkbox" name="privacy_accepted" value="true" required>
+      <span>Je confirme être autorisé à soumettre ces documents et j'accepte le traitement de ces informations. *</span>
+    </label>
+
+    <button class="btn btn-primary" type="submit">Soumettre mon dossier</button>
+  </form>
+
+  <!-- FORMULAIRE DE CANDIDATURE -->
+  <form id="intakeJob" class="card" data-intake-form="job_application" enctype="multipart/form-data" hidden>
+    <h3>Candidature à un emploi</h3>
+
+    <div class="form-grid">
+      <div class="form-group full">
+        <label>Offre d'emploi *</label>
+        <select class="field" name="opportunity_id" data-opportunity-type="job" required>
+          <option value="">Chargement des offres d'emploi...</option>
+        </select>
+      </div>
+
+      <div class="form-group full">
+        <label>Nom complet *</label>
+        <input class="field" name="full_name" required maxlength="180">
+      </div>
+
+      <div class="form-group">
+        <label>Adresse e-mail *</label>
+        <input class="field" name="email" type="email" required maxlength="254">
+      </div>
+
+      <div class="form-group">
+        <label>Téléphone *</label>
+        <input class="field" name="phone" type="tel" required maxlength="40">
+      </div>
+
+      <div class="form-group full">
+        <label>Adresse</label>
+        <input class="field" name="address" maxlength="500">
+      </div>
+
+      <div class="form-group full">
+        <label>Lettre de motivation</label>
+        <textarea class="field" name="cover_letter" rows="4" maxlength="5000"></textarea>
+      </div>
+
+      <div class="form-group full">
+        <label>CV et pièces justificatives</label>
+        <input class="field" name="documents" type="file" multiple accept=".pdf,.doc,.docx,.odt,.ods">
+      </div>
+    </div>
+
+    <label class="checkbox-row">
+      <input type="checkbox" name="privacy_accepted" value="true" required>
+      <span>J'accepte le traitement de mes informations pour examiner ma candidature. *</span>
+    </label>
+
+    <button class="btn btn-primary" type="submit">Envoyer ma candidature</button>
+  </form>
+
+  <p style="margin-top:14px">
+    Après l'envoi, conservez la référence qui vous sera communiquée.
+  </p>
+</section>
 </main>
 
 <footer>
