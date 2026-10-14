@@ -2024,7 +2024,208 @@ loadOpportunities();
 */
 setInterval(loadOpportunities, 120000);
 </script>
+<script>
+(() => {
+  const INTAKE_FUNCTION_URL =
+    `${SUPABASE_URL}/functions/v1/portal-intake`;
 
+  const messageBox = document.getElementById("intakeMessage");
+
+  const tabs = [...document.querySelectorAll("[data-intake-tab]")];
+  const forms = [...document.querySelectorAll("[data-intake-form]")];
+
+  function showMessage(message, type = "success") {
+    if (!messageBox) return;
+    messageBox.textContent = message;
+    messageBox.className = `form-message show ${type}`;
+  }
+
+  // Changer de formulaire selon l'onglet choisi
+  tabs.forEach((tab) => {
+    tab.addEventListener("click", () => {
+      tabs.forEach((item) => {
+        item.classList.toggle("active", item === tab);
+      });
+
+      forms.forEach((form) => {
+        form.hidden =
+          form.dataset.intakeForm !== tab.dataset.intakeTab;
+      });
+
+      if (messageBox) {
+        messageBox.className = "form-message";
+        messageBox.textContent = "";
+      }
+    });
+  });
+
+  // Charger les appels d'offres et les offres d'emploi publiés
+  async function loadChoices() {
+    for (const select of document.querySelectorAll(
+      "[data-opportunity-type]"
+    )) {
+      const wantedType = select.dataset.opportunityType;
+
+      try {
+        const url = new URL(
+          `${SUPABASE_URL}/rest/v1/portal_opportunities`
+        );
+
+        url.searchParams.set(
+          "select",
+          "id,reference_number,title_fr,title_en,opportunity_type,deadline,published"
+        );
+        url.searchParams.set("published", "eq.true");
+        url.searchParams.set("opportunity_type", `eq.${wantedType}`);
+        url.searchParams.set("order", "created_at.desc");
+
+        const response = await fetch(url, {
+          headers: {
+            apikey: SUPABASE_ANON_KEY,
+            Authorization: `Bearer ${SUPABASE_ANON_KEY}`
+          }
+        });
+
+        if (!response.ok) {
+          throw new Error("Impossible de charger les annonces.");
+        }
+
+        const rows = await response.json();
+
+        select.replaceChildren(
+          new Option("— Sélectionner —", "")
+        );
+
+        const now = Date.now();
+
+        rows
+          .filter(
+            (row) =>
+              !row.deadline ||
+              new Date(row.deadline).getTime() >= now
+          )
+          .forEach((row) => {
+            const isEnglish =
+              typeof currentLanguage === "string" &&
+              currentLanguage === "en";
+
+            const title = isEnglish
+              ? row.title_en || row.title_fr
+              : row.title_fr || row.title_en;
+
+            select.add(
+              new Option(
+                `${row.reference_number} — ${title}`,
+                row.id
+              )
+            );
+          });
+
+        if (select.options.length === 1) {
+          select.options[0].textContent =
+            "Aucune annonce ouverte disponible";
+        }
+      } catch (error) {
+        console.error("Chargement des annonces :", error);
+        select.replaceChildren(
+          new Option("Impossible de charger les annonces", "")
+        );
+      }
+    }
+  }
+
+  // Envoyer les formulaires à Supabase
+  forms.forEach((form) => {
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      const submitButton = form.querySelector(
+        'button[type="submit"]'
+      );
+
+      if (!submitButton) return;
+
+      const originalText = submitButton.textContent;
+
+      submitButton.disabled = true;
+      submitButton.textContent = "Envoi en cours…";
+
+      if (messageBox) {
+        messageBox.className = "form-message";
+        messageBox.textContent = "";
+      }
+
+      const formData = new FormData(form);
+
+      formData.set("action", form.dataset.intakeForm);
+
+      formData.set(
+        "language",
+        typeof currentLanguage === "string"
+          ? currentLanguage
+          : "fr"
+      );
+
+      const privacyCheckbox = form.querySelector(
+        '[name="privacy_accepted"]'
+      );
+
+      formData.set(
+        "privacy_accepted",
+        privacyCheckbox && privacyCheckbox.checked
+          ? "true"
+          : "false"
+      );
+
+      try {
+        const response = await fetch(INTAKE_FUNCTION_URL, {
+          method: "POST",
+          headers: {
+            apikey: SUPABASE_ANON_KEY,
+            Authorization: `Bearer ${SUPABASE_ANON_KEY}`
+          },
+          body: formData
+        });
+
+        const result = await response.json().catch(() => ({}));
+
+        if (!response.ok || !result.success) {
+          throw new Error(
+            result.error ||
+            "La demande n'a pas pu être enregistrée. Veuillez réessayer."
+          );
+        }
+
+        const emailNote = result.email_sent
+          ? "Un accusé de réception a été envoyé par e-mail."
+          : "La demande est enregistrée, mais l'envoi de l'e-mail n'a pas pu être confirmé.";
+
+        showMessage(
+          `Demande enregistrée avec succès. Référence : ${result.reference_number}. ${emailNote}`,
+          "success"
+        );
+
+        form.reset();
+
+        await loadChoices();
+
+      } catch (error) {
+        showMessage(
+          error instanceof Error
+            ? error.message
+            : "Une erreur est survenue. Veuillez réessayer.",
+          "error"
+        );
+      } finally {
+        submitButton.disabled = false;
+        submitButton.textContent = originalText;
+      }
+    });
+  });
+
+  loadChoices();
+})();
+</script>
 </body>
 </html>
 
