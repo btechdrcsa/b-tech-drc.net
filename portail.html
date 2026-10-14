@@ -1464,7 +1464,7 @@ const translations = {
 ===================================================== */
 
 let currentLanguage = "fr";
-let currentType = "all";
+let currentType = "";
 let opportunities = [];
 let selectedOpportunity = null;
 
@@ -1650,7 +1650,21 @@ async function loadOpportunities() {
 function renderOpportunities() {
   const list = $("opportunityList");
   if (!list) return;
+    if (!currentType) {
+    $("resultsInfo").textContent = "";
 
+    list.innerHTML = `
+      <div class="empty">
+        <h3>Choisissez une catégorie</h3>
+        <p>
+          Cliquez sur « Toutes les annonces »,
+          « Appels d'offres » ou « Offres d'emploi »
+          pour consulter les annonces correspondantes.
+        </p>
+      </div>`;
+
+    return;
+  }
   const search = ($("searchInput")?.value || "")
     .trim()
     .toLocaleLowerCase(currentLanguage);
@@ -1766,15 +1780,21 @@ function renderOpportunities() {
 $("searchInput").addEventListener("input", renderOpportunities);
 $("sortSelect").addEventListener("change", renderOpportunities);
 
-document.querySelectorAll(".tab").forEach(button => {
+document.querySelectorAll("[data-type]").forEach(button => {
   button.addEventListener("click", () => {
-    document.querySelectorAll(".tab").forEach(tab => {
+
+    document.querySelectorAll("[data-type]").forEach(tab => {
       tab.classList.remove("active");
+      tab.setAttribute("aria-selected", "false");
     });
 
     button.classList.add("active");
+    button.setAttribute("aria-selected", "true");
+
     currentType = button.dataset.type;
+
     renderOpportunities();
+
   });
 });
 
