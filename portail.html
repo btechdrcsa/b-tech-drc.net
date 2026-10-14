@@ -2197,17 +2197,21 @@ setInterval(loadOpportunities, 120000);
         }
 
         const emailNote = result.email_sent
-          ? "Un accusé de réception a été envoyé par e-mail."
-          : "La demande est enregistrée, mais l'envoi de l'e-mail n'a pas pu être confirmé.";
+  ? "L'accusé de réception au demandeur a été envoyé."
+  : "Attention : l'accusé de réception au demandeur n'a pas été envoyé.";
 
-        showMessage(
-          `Demande enregistrée avec succès. Référence : ${result.reference_number}. ${emailNote}`,
-          "success"
-        );
+const adminNote = result.admin_notification_sent
+  ? "La notification à B-TECH-DRC SA a été envoyée."
+  : "ALERTE : la notification à B-TECH-DRC SA n'a pas été envoyée. Une vérification est nécessaire.";
 
-        form.reset();
+form.reset();
 
-        await loadChoices();
+showMessage(
+  `Demande enregistrée avec succès.\nRéférence : ${result.reference_number}\n${emailNote}\n${adminNote}`,
+  result.admin_notification_sent ? "success" : "error"
+);
+
+await loadChoices();
 
       } catch (error) {
         showMessage(
