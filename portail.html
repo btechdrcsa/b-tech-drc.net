@@ -314,7 +314,10 @@ main {
   flex-direction: column;
   min-width: 0;
 }
-
+/* Masquer réellement les formulaires non sélectionnés */
+#portalIntake [data-intake-form][hidden] {
+  display: none !important;
+}
 .card-top {
   display: flex;
   justify-content: space-between;
