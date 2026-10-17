@@ -1125,29 +1125,44 @@
 
   /* DÉCONNEXION */
 
-  logoutButton.addEventListener("click", async () => {
-    logoutButton.disabled = true;
+logoutButton.addEventListener("click", async () => {
+  logoutButton.disabled = true;
 
-    try {
-      await supabaseClient.auth.signOut();
+  try {
+    const { error } = await supabaseClient.auth.signOut();
 
-      adminProfile = null;
-      activeView = null;
-      recordsByView = {};
-
-      dashboard.classList.add("hidden");
-      loginPanel.classList.remove("hidden");
-      logoutButton.classList.add("hidden");
-
-      loginForm.reset();
-
-      hideMessage(loginMessage);
-      hideMessage(dashboardMessage);
-
-    } finally {
-      logoutButton.disabled = false;
+    if (error) {
+      showMessage(
+        dashboardMessage,
+        "La déconnexion a échoué. Veuillez réessayer.",
+        "error"
+      );
+      return;
     }
-  });
+
+    adminProfile = null;
+    activeView = null;
+    recordsByView = {};
+
+    dashboard.classList.add("hidden");
+    loginPanel.classList.remove("hidden");
+    logoutButton.classList.add("hidden");
+
+    loginForm.reset();
+
+    hideMessage(loginMessage);
+    hideMessage(dashboardMessage);
+
+  } catch (error) {
+    showMessage(
+      dashboardMessage,
+      "Une erreur est survenue pendant la déconnexion.",
+      "error"
+    );
+  } finally {
+    logoutButton.disabled = false;
+  }
+});
 
   /* ACTUALISATION */
 
