@@ -21,6 +21,90 @@
     .storage-select{width:auto;min-width:auto}
     .storage-delete{background:var(--red);color:#fff;padding:7px 10px}
     footer{padding:22px 15px;background:var(--navy);color:#dce7f4;text-align:center;font-size:.84rem}footer strong{color:white}@media(max-width:760px) {.app-layout {grid-template-columns:1fr;}.sidebar{position:static;}.nav-list {grid-template-columns:repeat(2,minmax(0,1fr));}.stats {grid-template-columns:repeat(2,minmax(0,1fr));}}@media(max-width:560px){.container{padding:0 9px;margin:14px auto;}.card{padding:15px;}.form-grid{grid-template-columns:1fr;}.form-group.full{grid-column:auto;}.nav-list{grid-template-columns:1fr 1fr;}.nav-btn{font-size:12px;padding:9px;}.stats{gap:7px;}.stat{padding:11px;}.stat strong{font-size:20px;}.brand h1{font-size:14px;}}
+     /* ==================================================
+   TABLEAU DE BORD : MENU A GAUCHE ET CONTENU A DROITE
+   ================================================== */
+
+#dashboard > .panel {
+  display: grid;
+  grid-template-columns: 250px minmax(0, 1fr);
+  grid-template-areas:
+    "heading heading"
+    "message message"
+    "navigation contenu";
+  gap: 18px;
+  align-items: start;
+}
+
+#dashboard > .panel > .dashboard-heading {
+  grid-area: heading;
+}
+
+#dashboardMessage {
+  grid-area: message;
+  min-width: 0;
+}
+
+#tabs {
+  grid-area: navigation;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  gap: 8px;
+  margin: 0;
+  min-width: 0;
+}
+
+#tabs .tab {
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
+  text-align: left;
+  white-space: normal;
+  line-height: 1.4;
+  padding: 12px;
+  border: 1px solid var(--border);
+}
+
+#tabs .tab.active {
+  background: var(--navy);
+  color: #fff;
+}
+
+#recordsView,
+#opportunityManager,
+#storageManager {
+  grid-area: contenu;
+  min-width: 0;
+  width: 100%;
+  margin: 0;
+}
+
+/* AFFICHAGE SUR TELEPHONE */
+
+@media (max-width: 760px) {
+  #dashboard > .panel {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "heading"
+      "message"
+      "navigation"
+      "contenu";
+  }
+
+  #tabs {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-bottom: 8px;
+  }
+
+  #tabs .tab {
+    justify-content: center;
+    text-align: center;
+    padding: 10px 7px;
+    font-size: 0.82rem;
+  }
+} 
   </style>
 </head>
 <body>
