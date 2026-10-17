@@ -1,184 +1,1531 @@
+```html
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="robots" content="noindex, nofollow">
-  <meta name="theme-color" content="#061A33">
-  <title>Administration | B-TECH-DRC SA</title>
-  <link rel="icon" type="image/png" href="./logo.png">
-  <style>
-    :root{--navy:#061A33;--navy2:#0d2b4d;--blue:#1769aa;--white:#fff;--bg:#f3f6fa;--text:#17283d;--muted:#65758a;--border:#dbe3ed;--red:#b42318;--green:#137547;--gold:#d8a63d}
-    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,Helvetica,sans-serif;line-height:1.5}
-    header{background:var(--navy);color:white;padding:18px 5%;display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap}
-    .brand{display:flex;align-items:center;gap:14px}.brand img{width:56px;height:56px;object-fit:contain;background:white;border-radius:8px;padding:4px}.brand h1{margin:0;font-size:1.02rem;line-height:1.4}.brand p{margin:5px 0 0;font-size:.82rem;color:#dce7f4}
-    main{max-width:1300px;margin:28px auto;padding:0 18px 40px}.panel{background:white;border:1px solid var(--border);border-radius:14px;padding:22px;box-shadow:0 8px 28px #061a3312}.login-panel{max-width:470px;margin:35px auto}h2,h3{color:var(--navy)}label{display:block;margin:13px 0 6px;font-weight:700;font-size:.9rem}
-    input,select,textarea{width:100%;padding:11px 12px;border:1px solid #c9d4e1;border-radius:8px;background:white;color:var(--text);font:inherit}textarea{resize:vertical;min-height:95px}button,.button{display:inline-flex;align-items:center;justify-content:center;padding:10px 15px;border:0;border-radius:8px;background:var(--blue);color:white;font-weight:700;font-size:.9rem;text-decoration:none;cursor:pointer}button:disabled{opacity:.6;cursor:wait}.secondary{background:#e8eef5;color:var(--navy)}.danger{background:var(--red)}.success-btn{background:var(--green)}.full{width:100%;margin-top:18px}.hidden{display:none!important}.muted{color:var(--muted);font-size:.9rem}.notice{padding:12px 14px;margin:14px 0;border:1px solid #cfe0f2;border-radius:8px;background:#eef5fc;color:#183d63;overflow-wrap:anywhere}.notice.hidden{display:none}.notice.error{background:#fff0ef;border-color:#f3c3c0;color:var(--red)}.notice.success{background:#eaf8f0;border-color:#b8e2c8;color:var(--green)}
-    .dashboard-heading{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap}.role-badge{display:inline-block;margin-top:8px;padding:5px 12px;border-radius:30px;background:#e6eff9;color:#164a78;font-size:.82rem;font-weight:700}.tabs{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 18px}.tab{background:#e3eaf2;color:var(--navy)}.tab.active{background:var(--navy);color:white}.table-wrap{width:100%;overflow-x:auto;border:1px solid var(--border);border-radius:9px}table{width:100%;min-width:760px;border-collapse:collapse;background:white}th,td{padding:11px;border-bottom:1px solid var(--border);text-align:left;vertical-align:top;font-size:.86rem}th{background:#f0f4f8;color:var(--navy)}tr:last-child td{border-bottom:0}.empty{padding:25px 12px;text-align:center;color:var(--muted);border:1px dashed var(--border);border-radius:8px}.record-details{max-width:300px;white-space:pre-wrap;overflow-wrap:anywhere;font-size:.82rem}.status-field{min-width:125px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.field-full{grid-column:1/-1}.form-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:18px}.opportunity-item{border:1px solid var(--border);border-radius:10px;padding:15px;margin:12px 0;background:#fff}.opportunity-head{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}.badge{display:inline-block;border-radius:20px;padding:4px 9px;background:#e8eef5;color:var(--navy);font-size:.78rem;font-weight:700}.badge.published{background:#e5f7ec;color:var(--green)}.badge.draft{background:#fff3d7;color:#855d00}.opportunity-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}footer{padding:22px 15px;background:var(--navy);color:#dce7f4;text-align:center;font-size:.84rem}footer strong{color:white}
-    @media(max-width:650px){header{padding:16px 5%}.brand img{width:45px;height:45px}.brand h1{font-size:.85rem}.panel{padding:16px}.login-panel{margin:18px auto}.grid{grid-template-columns:1fr}.field-full{grid-column:auto}main{padding:0 12px 30px}}
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#061A33">
+<title>Administration | B-TECH-DRC SA</title>
+<link rel="icon" type="image/png" href="./logo.png">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+:root {
+  --navy:#061A33;
+  --blue:#155e9a;
+  --light:#f3f6fa;
+  --white:#ffffff;
+  --ink:#172638;
+  --muted:#65758a;
+  --border:#dbe3ec;
+  --green:#147d52;
+  --red:#b42318;
+}
+* { box-sizing:border-box; }
+body {
+  margin:0;
+  background:var(--light);
+  color:var(--ink);
+  font:15px/1.5 Arial,Helvetica,sans-serif;
+}
+button,input,select,textarea { font:inherit; }
+button { cursor:pointer; }
+[hidden] { display:none!important; }
+
+.topbar {
+  background:var(--navy);
+  color:white;
+  padding:16px 22px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+  flex-wrap:wrap;
+}
+.brand {
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.brand img {
+  width:52px;
+  height:52px;
+  object-fit:contain;
+  background:white;
+  border-radius:8px;
+  padding:4px;
+}
+.brand h1 {
+  font-size:17px;
+  line-height:1.35;
+  margin:0;
+}
+.brand p {
+  margin:4px 0 0;
+  font-size:12px;
+  color:#dce8f5;
+}
+.container {
+  max-width:1400px;
+  margin:24px auto;
+  padding:0 16px;
+}
+.card {
+  background:white;
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:20px;
+  margin-bottom:18px;
+  box-shadow:0 5px 20px rgba(6,26,51,.05);
+}
+.login-wrap {
+  max-width:460px;
+  margin:8vh auto;
+}
+h2,h3 { color:var(--navy); }
+.muted { color:var(--muted); }
+.small { font-size:12px; }
+.form-grid {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:14px;
+}
+.form-group {
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  min-width:0;
+}
+.form-group.full { grid-column:1/-1; }
+label { font-weight:bold; font-size:13px; }
+input,select,textarea {
+  width:100%;
+  padding:11px;
+  border:1px solid #cbd5e1;
+  border-radius:7px;
+  background:white;
+  color:var(--ink);
+}
+textarea { min-height:90px; resize:vertical; }
+input:focus,select:focus,textarea:focus {
+  outline:2px solid #9bc7ef;
+  border-color:var(--blue);
+}
+.btn {
+  display:inline-flex;
+  justify-content:center;
+  align-items:center;
+  gap:6px;
+  border:0;
+  border-radius:7px;
+  padding:10px 13px;
+  font-weight:bold;
+  text-decoration:none;
+}
+.btn-primary { background:var(--blue); color:white; }
+.btn-dark { background:var(--navy); color:white; }
+.btn-light { background:#e8eef5; color:var(--navy); }
+.btn-danger { background:#fde8e7; color:var(--red); }
+.btn-success { background:#ddf5e7; color:#126a42; }
+.btn:disabled { opacity:.6; cursor:not-allowed; }
+
+.alert {
+  padding:11px 13px;
+  border-radius:7px;
+  margin:12px 0;
+  white-space:pre-wrap;
+  overflow-wrap:anywhere;
+}
+.alert-error { background:#fff0ef; color:#9f1d17; }
+.alert-success { background:#e9f8ef; color:#116642; }
+.alert-info { background:#eaf3fc; color:#174b7b; }
+
+.app-layout {
+  display:grid;
+  grid-template-columns:245px minmax(0,1fr);
+  gap:18px;
+  align-items:start;
+}
+.sidebar { position:sticky; top:15px; }
+.nav-list { display:grid; gap:7px; }
+.nav-btn {
+  border:1px solid transparent;
+  background:transparent;
+  text-align:left;
+  padding:11px;
+  border-radius:7px;
+  color:#263b52;
+  font-weight:bold;
+}
+.nav-btn:hover,.nav-btn.active {
+  background:#e8f1fa;
+  border-color:#c8dced;
+  color:var(--navy);
+}
+.content { min-width:0; }
+.content-header {
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:12px;
+  flex-wrap:wrap;
+}
+.content-header h2 { margin:0; }
+.stats {
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:12px;
+  margin-bottom:18px;
+}
+.stat {
+  background:white;
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:15px;
+}
+.stat strong {
+  display:block;
+  font-size:24px;
+  color:var(--navy);
+}
+.stat span { font-size:12px; color:var(--muted); }
+
+.table-wrap {
+  overflow:auto;
+  border:1px solid var(--border);
+  border-radius:8px;
+}
+table {
+  width:100%;
+  border-collapse:collapse;
+  min-width:650px;
+  background:white;
+}
+th,td {
+  padding:10px;
+  border-bottom:1px solid #e8edf3;
+  text-align:left;
+  vertical-align:top;
+  font-size:13px;
+}
+th {
+  background:#f4f7fb;
+  font-size:12px;
+  text-transform:uppercase;
+}
+.row-actions { display:flex; gap:6px; flex-wrap:wrap; }
+.row-actions .btn { padding:7px 9px; font-size:12px; }
+.badge {
+  display:inline-block;
+  padding:4px 8px;
+  border-radius:20px;
+  background:#e9eef5;
+  font-size:11px;
+  font-weight:bold;
+}
+.badge-green { background:#ddf5e7; color:#126a42; }
+.badge-amber { background:#fff1cf; color:#805500; }
+.empty { padding:25px; text-align:center; color:var(--muted); }
+.checkbox-row { display:flex; align-items:center; gap:9px; }
+.checkbox-row input { width:auto; }
+.inline-actions { display:flex; gap:8px; flex-wrap:wrap; margin-top:16px; }
+.file-note { color:var(--muted); font-size:12px; overflow-wrap:anywhere; }
+.footer {
+  text-align:center;
+  padding:18px;
+  color:var(--muted);
+  font-size:12px;
+}
+@media(max-width:900px) {
+  .app-layout { grid-template-columns:1fr; }
+  .sidebar { position:static; }
+  .nav-list { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .stats { grid-template-columns:repeat(2,minmax(0,1fr)); }
+}
+@media(max-width:560px) {
+  .container { padding:0 9px; margin:14px auto; }
+  .card { padding:15px; }
+  .form-grid { grid-template-columns:1fr; }
+  .form-group.full { grid-column:auto; }
+  .nav-list { grid-template-columns:1fr 1fr; }
+  .nav-btn { font-size:12px; padding:9px; }
+  .stats { gap:7px; }
+  .stat { padding:11px; }
+  .stat strong { font-size:20px; }
+  .brand h1 { font-size:14px; }
+}
+</style>
 </head>
+
 <body>
-<header>
-  <div class="brand"><img src="./logo.png" alt="Logo B-TECH-DRC SA" onerror="this.style.display='none'"><div><h1>CONGOLESE ORGANIZATION OF TALENTED YOUNG PEOPLE SA<br>(B-TECH-DRC SA)</h1><p>UNE JEUNESSE SOLIDE ET INTELLIGENTE.</p></div></div>
-  <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center"><a class="button secondary" href="./portail.html">Retour au portail public</a><button id="logoutButton" class="danger hidden" type="button">Déconnexion</button></div>
+<header class="topbar">
+  <div class="brand">
+    <img src="./logo.png" alt="Logo B-TECH-DRC SA"
+         onerror="this.style.display='none'">
+    <div>
+      <h1>CONGOLESE ORGANIZATION OF TALENTED YOUNG PEOPLE SA<br>
+      (B-TECH-DRC SA)</h1>
+      <p>UNE JEUNESSE SOLIDE ET INTELLIGENTE.</p>
+    </div>
+  </div>
+  <div>
+    <span id="sessionLabel">Administration sécurisée</span>
+    <button id="logoutButton" class="btn btn-light" hidden>
+      Déconnexion
+    </button>
+  </div>
 </header>
-<main>
-  <section id="loginPanel" class="panel login-panel">
-    <h2>Connexion à l’administration</h2><p class="muted">Espace réservé aux administrateurs autorisés de B-TECH-DRC SA.</p>
-    <div id="loginMessage" class="notice hidden" role="status" aria-live="polite"></div>
-    <form id="loginForm"><label for="email">Adresse e-mail</label><input id="email" type="email" autocomplete="username" required><label for="password">Mot de passe</label><input id="password" type="password" autocomplete="current-password" required><button id="loginButton" class="full" type="submit">Se connecter</button></form>
-    <p class="muted">Seuls les comptes actifs enregistrés dans le système d’administration peuvent accéder aux dossiers.</p>
+
+<main class="container">
+
+  <section id="loginPanel" class="card login-wrap">
+    <h2>Connexion à l’administration</h2>
+    <p class="muted">
+      Réservé aux administrateurs autorisés du portail B-TECH-DRC SA.
+    </p>
+    <div id="loginMessage"></div>
+
+    <form id="loginForm">
+      <div class="form-group">
+        <label for="loginEmail">Adresse e-mail</label>
+        <input id="loginEmail" type="email"
+               autocomplete="username" required>
+      </div>
+      <div class="form-group" style="margin-top:14px">
+        <label for="loginPassword">Mot de passe</label>
+        <input id="loginPassword" type="password"
+               autocomplete="current-password" required>
+      </div>
+      <button class="btn btn-primary" type="submit"
+              style="width:100%;margin-top:18px">
+        Se connecter
+      </button>
+    </form>
   </section>
 
-  <section id="dashboard" class="hidden"><div class="panel">
-    <div class="dashboard-heading"><div><h2>Tableau de bord administratif</h2><p id="adminName" class="muted"></p><span id="adminRole" class="role-badge"></span></div><button id="refreshButton" class="secondary" type="button">Actualiser</button></div>
-    <div id="dashboardMessage" class="notice hidden" role="status" aria-live="polite"></div>
-    <nav id="tabs" class="tabs" aria-label="Catégories de dossiers"></nav>
-    <section id="recordsView"><h3 id="sectionTitle">Dossiers</h3><p id="recordCount" class="muted"></p><div id="recordsContainer"></div></section>
-    <section id="opportunityManager" class="hidden">
-      <div class="dashboard-heading"><div><h3>Gestion des annonces</h3><p class="muted">Créer et gérer les appels d’offres et les offres d’emploi affichés sur le portail public.</p></div><button id="newOpportunityButton" type="button">+ Nouvelle annonce</button></div>
-      <div class="notice">Tu peux sélectionner directement un PDF depuis ton ordinateur. Le fichier sera téléversé dans le bucket privé « dossiers-confidentiels » ; le bucket ne sera jamais rendu public. Taille maximale : 10 Mo par fichier.</div>
-      <form id="opportunityForm" class="panel hidden" style="box-shadow:none;margin:16px 0;background:#f9fbfd">
-        <h3 id="opportunityFormTitle">Nouvelle annonce</h3><input type="hidden" id="opportunityId">
-        <div class="grid">
-          <div><label for="opportunityType">Type d’annonce *</label><select id="opportunityType" required><option value="tender">Appel d’offres</option><option value="job">Offre d’emploi</option></select></div>
-          <div><label for="opportunityReference">Référence *</label><input id="opportunityReference" maxlength="120" required></div>
-          <div class="field-full"><label for="titleFr">Titre en français *</label><input id="titleFr" maxlength="250" required></div>
-          <div class="field-full"><label for="titleEn">Titre en anglais *</label><input id="titleEn" maxlength="250" required></div>
-          <div class="field-full"><label for="descriptionFr">Description en français *</label><textarea id="descriptionFr" maxlength="12000" required></textarea></div>
-          <div class="field-full"><label for="descriptionEn">Description en anglais *</label><textarea id="descriptionEn" maxlength="12000" required></textarea></div>
-          <div><label for="publicationDate">Date de publication *</label><input id="publicationDate" type="date" required></div>
-          <div><label for="deadline">Date limite (facultatif)</label><input id="deadline" type="date"></div>
-          <div class="field-full"><label for="documentFile">Document PDF de l’annonce (facultatif)</label><input id="documentFile" type="file" accept="application/pdf,.pdf"><small class="muted">Sélectionne le PDF depuis ton ordinateur. Le téléversement se fera automatiquement dans le stockage privé. Si tu modifies une annonce sans sélectionner un nouveau fichier, le document existant sera conservé.</small><p id="currentDocumentInfo" class="muted" aria-live="polite"></p><input id="documentPath" type="hidden"></div>
-          <div class="field-full"><label style="display:flex;align-items:center;gap:9px;font-weight:700"><input id="publishNow" type="checkbox" style="width:auto"> Publier immédiatement (sinon enregistrer comme brouillon)</label></div>
-        </div>
-        <div class="form-actions"><button id="saveOpportunityButton" type="submit">Enregistrer l’annonce</button><button id="cancelOpportunityButton" class="secondary" type="button">Annuler</button></div>
-      </form>
-      <div id="opportunityListAdmin"></div>
-    </section>
-  </div></section>
+  <section id="appPanel" hidden>
+    <div class="stats">
+      <div class="stat">
+        <strong id="statSuppliers">—</strong>
+        <span>Inscriptions fournisseurs</span>
+      </div>
+      <div class="stat">
+        <strong id="statTenders">—</strong>
+        <span>Soumissions aux appels d’offres</span>
+      </div>
+      <div class="stat">
+        <strong id="statJobs">—</strong>
+        <span>Candidatures à l’emploi</span>
+      </div>
+      <div class="stat">
+        <strong id="statOpportunities">—</strong>
+        <span>Opportunités publiées</span>
+      </div>
+    </div>
+
+    <div class="app-layout">
+      <aside class="sidebar card">
+        <h3>Espace d’administration</h3>
+        <div id="adminInfo" class="small muted"></div>
+        <nav class="nav-list" aria-label="Navigation administration">
+          <button class="nav-btn active" data-view="dashboard">
+            Vue d’ensemble
+          </button>
+          <button class="nav-btn" data-view="suppliers"
+                  data-role="pca,suppliers">
+            Fournisseurs
+          </button>
+          <button class="nav-btn" data-view="tenderSubmissions"
+                  data-role="pca,tenders">
+            Soumissions aux appels d’offres
+          </button>
+          <button class="nav-btn" data-view="jobApplications"
+                  data-role="pca,recruitment">
+            Candidatures à l’emploi
+          </button>
+          <button class="nav-btn" data-view="opportunities"
+                  data-role="pca,tenders,recruitment">
+            Appels d’offres et emplois
+          </button>
+        </nav>
+      </aside>
+
+      <div class="content">
+
+        <section id="view-dashboard" class="view card">
+          <div class="content-header">
+            <div>
+              <h2>Vue d’ensemble</h2>
+              <p class="muted">
+                Suivi des dossiers reçus et des annonces publiées.
+              </p>
+            </div>
+            <button id="refreshButton" class="btn btn-light">
+              Actualiser
+            </button>
+          </div>
+          <div id="dashboardMessage"></div>
+          <ul class="muted">
+            <li>Les documents confidentiels restent dans le stockage privé.</li>
+            <li>Le rôle Appels d’offres gère uniquement les annonces d’appels d’offres.</li>
+            <li>Le rôle Recrutement gère uniquement les annonces d’emploi.</li>
+            <li>Seul le PCA peut supprimer une annonce.</li>
+          </ul>
+        </section>
+
+        <section id="view-suppliers" class="view card" hidden>
+          <div class="content-header">
+            <h2>Inscriptions fournisseurs</h2>
+            <button class="btn btn-light" data-refresh="suppliers">
+              Actualiser
+            </button>
+          </div>
+          <div id="suppliersMessage"></div>
+          <div id="suppliersTable"></div>
+        </section>
+
+        <section id="view-tenderSubmissions" class="view card" hidden>
+          <div class="content-header">
+            <h2>Soumissions aux appels d’offres</h2>
+            <button class="btn btn-light" data-refresh="tenderSubmissions">
+              Actualiser
+            </button>
+          </div>
+          <div id="tenderSubmissionsMessage"></div>
+          <div id="tenderSubmissionsTable"></div>
+        </section>
+
+        <section id="view-jobApplications" class="view card" hidden>
+          <div class="content-header">
+            <h2>Candidatures à l’emploi</h2>
+            <button class="btn btn-light" data-refresh="jobApplications">
+              Actualiser
+            </button>
+          </div>
+          <div id="jobApplicationsMessage"></div>
+          <div id="jobApplicationsTable"></div>
+        </section>
+
+        <section id="view-opportunities" class="view" hidden>
+          <div class="card">
+            <div class="content-header">
+              <div>
+                <h2>Gestion des appels d’offres et emplois</h2>
+                <p class="muted">
+                  Publiez les annonces et téléversez les documents PDF.
+                </p>
+              </div>
+              <button id="newOpportunityButton" class="btn btn-primary">
+                + Nouvelle annonce
+              </button>
+            </div>
+            <div id="opportunityMessage"></div>
+            <div id="opportunitiesTable"></div>
+          </div>
+
+          <div id="opportunityFormCard" class="card" hidden>
+            <h3 id="opportunityFormTitle">Nouvelle annonce</h3>
+            <p class="muted small">
+              Les PDF sont téléversés dans le bucket privé
+              « dossiers-confidentiels ». Ne rendez pas ce bucket public.
+            </p>
+
+            <form id="opportunityForm">
+              <input id="opportunityId" type="hidden">
+
+              <div class="form-grid">
+                <div class="form-group">
+                  <label for="opportunityType">Type d’annonce *</label>
+                  <select id="opportunityType" required>
+                    <option value="tender">Appel d’offres</option>
+                    <option value="job">Emploi</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="opportunityReference">Référence *</label>
+                  <input id="opportunityReference" maxlength="120"
+                         required placeholder="Ex. BTECH-ITT-001">
+                </div>
+
+                <div class="form-group">
+                  <label for="titleFr">Titre en français *</label>
+                  <input id="titleFr" maxlength="250" required>
+                </div>
+
+                <div class="form-group">
+                  <label for="titleEn">Title in English *</label>
+                  <input id="titleEn" maxlength="250" required>
+                </div>
+
+                <div class="form-group full">
+                  <label for="descriptionFr">Description en français</label>
+                  <textarea id="descriptionFr" maxlength="8000"></textarea>
+                </div>
+
+                <div class="form-group full">
+                  <label for="descriptionEn">Description in English</label>
+                  <textarea id="descriptionEn" maxlength="8000"></textarea>
+                </div>
+
+                <div class="form-group">
+                  <label for="publicationDate">Date de publication *</label>
+                  <input id="publicationDate" type="date" required>
+                </div>
+
+                <div class="form-group">
+                  <label for="deadline">Date limite</label>
+                  <input id="deadline" type="date">
+                </div>
+
+                <div class="form-group full">
+                  <label for="documentFile">Document PDF *</label>
+                  <input id="documentFile" type="file"
+                         accept=".pdf,application/pdf">
+                  <span id="currentDocument" class="file-note">
+                    Sélectionnez le PDF de l’annonce. Taille maximale : 10 Mo.
+                  </span>
+                  <span class="file-note">
+                    En modification, laissez le fichier vide pour conserver
+                    le PDF actuel.
+                  </span>
+                </div>
+
+                <div class="form-group full">
+                  <label class="checkbox-row">
+                    <input id="publishNow" type="checkbox">
+                    Publier immédiatement sur le portail public
+                  </label>
+                </div>
+              </div>
+
+              <div id="opportunityFormMessage"></div>
+
+              <div class="inline-actions">
+                <button id="saveOpportunityButton"
+                        class="btn btn-primary" type="submit">
+                  Enregistrer l’annonce
+                </button>
+                <button id="cancelOpportunityButton"
+                        class="btn btn-light" type="button">
+                  Annuler
+                </button>
+              </div>
+            </form>
+          </div>
+        </section>
+
+      </div>
+    </div>
+  </section>
 </main>
-<footer><strong>CONGOLESE ORGANIZATION OF TALENTED YOUNG PEOPLE SA (B-TECH-DRC SA)</strong><br>UNE JEUNESSE SOLIDE ET INTELLIGENTE.<br>Administration réservée aux utilisateurs autorisés.</footer>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<footer class="footer">
+  © <span id="year"></span> B-TECH-DRC SA — Administration sécurisée.
+</footer>
+
 <script>
 (() => {
   "use strict";
-  const SUPABASE_URL = "https://euwjzhchowebcpzxmobr.supabase.co";
-  const SUPABASE_ANON_KEY = "sb_publishable_bk9VTq-PrFRWZaeQNQ2HIw_GxYg3zOW";
-  const STORAGE_BUCKET = "dossiers-confidentiels";
-  const MAX_PDF_SIZE = 10 * 1024 * 1024;
-  const { createClient } = window.supabase;
-  const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-  const $ = id => document.getElementById(id);
-  const loginPanel=$("loginPanel"), dashboard=$("dashboard"), loginForm=$("loginForm"), loginButton=$("loginButton"), loginMessage=$("loginMessage"), dashboardMessage=$("dashboardMessage"), logoutButton=$("logoutButton"), refreshButton=$("refreshButton"), tabs=$("tabs"), recordsContainer=$("recordsContainer"), sectionTitle=$("sectionTitle"), recordCount=$("recordCount"), recordsView=$("recordsView"), opportunityManager=$("opportunityManager"), opportunityForm=$("opportunityForm"), opportunityListAdmin=$("opportunityListAdmin");
-  let adminProfile=null, activeView=null, recordsByView={}, loginInProgress=false, opportunities=[];
-  const roleNames={pca:"PCA — Administration générale",tenders:"Responsable des appels d’offres",recruitment:"Responsable du recrutement",suppliers:"Responsable des fournisseurs"};
-  const views={
-    submissions:{label:"Dossiers généraux",table:"portal_submissions",roles:["pca","tenders","recruitment","suppliers"],orderColumn:"created_at",columns:[["reference_number","Référence"],["submission_type","Type"],["applicant_name","Demandeur"],["company_name","Société"],["email","E-mail"],["phone","Téléphone"],["status","Statut"],["assigned_role","Service"],["created_at","Date"]]},
-    tenders:{label:"Soumissions aux appels d’offres",table:"portal_tender_submissions",roles:["pca","tenders"],orderColumn:"created_at",editableStatus:true,columns:[["reference_number","Référence dossier"],["opportunity_reference","Appel d’offres"],["company_name","Société"],["registration_number","N° enregistrement"],["contact_name","Contact"],["email","E-mail"],["phone","Téléphone"],["status","Statut"],["submitted_at","Date de soumission"]],details:[["address","Adresse"],["proposal_summary","Résumé de la proposition"],["financial_offer","Offre financière"],["documents","Références des documents"],["privacy_accepted","Confidentialité acceptée"]]},
-    suppliers:{label:"Inscriptions des fournisseurs",table:"portal_supplier_registrations",roles:["pca","suppliers"],orderColumn:"created_at",columns:[["reference_number","Référence"],["company_name","Société"],["registration_number","N° enregistrement"],["tax_number","N° fiscal"],["contact_name","Contact"],["email","E-mail"],["phone","Téléphone"],["status","Statut"],["registered_at","Date d’inscription"]],details:[["address","Adresse"],["business_description","Description des activités"],["documents","Références des documents"]]},
-    jobs:{label:"Candidatures à l’emploi",table:"portal_job_applications",roles:["pca","recruitment"],orderColumn:"created_at",columns:[["reference_number","Référence"],["full_name","Candidat"],["email","E-mail"],["phone","Téléphone"],["position_applied","Poste demandé"],["status","Statut"],["applied_at","Date de candidature"]],details:[["cover_letter","Lettre de motivation"],["documents","Références des documents"]]}
-  };
-  function showMessage(el,msg,type=""){el.textContent=msg;el.className="notice"+(type?" "+type:"");}
-  function hideMessage(el){el.textContent="";el.className="notice hidden";}
-  function formatValue(v){if(v===null||v===undefined||v==="")return "—";return typeof v==="object"?JSON.stringify(v,null,2):String(v);}
-  function formatDate(v){if(!v)return "—";const d=new Date(v);return Number.isNaN(d.getTime())?formatValue(v):d.toLocaleString("fr-FR");}
-  function dateOnly(v){if(!v)return "";return String(v).slice(0,10);}
-  function permittedViews(){if(!adminProfile)return [];return Object.entries(views).filter(([,v])=>v.roles.includes(adminProfile.role));}
-  function canManageOpportunities(){return !!adminProfile && ["pca","tenders","recruitment"].includes(adminProfile.role);}
-  function renderTabs(){tabs.replaceChildren();permittedViews().forEach(([key,view])=>{const b=document.createElement("button");b.type="button";b.className="tab"+(!opportunityManager.classList.contains("hidden")?"":key===activeView?" active":"");b.textContent=view.label;b.addEventListener("click",()=>{activeView=key;recordsView.classList.remove("hidden");opportunityManager.classList.add("hidden");renderTabs();renderRecords();});tabs.appendChild(b);});if(canManageOpportunities()){const b=document.createElement("button");b.type="button";b.className="tab"+(!opportunityManager.classList.contains("hidden")?" active":"");b.textContent="Gestion des annonces";b.addEventListener("click",async()=>{recordsView.classList.add("hidden");opportunityManager.classList.remove("hidden");renderTabs();await loadOpportunities();});tabs.appendChild(b);}}
-  function renderRecords(){recordsContainer.replaceChildren();const view=views[activeView];if(!view||!adminProfile||!view.roles.includes(adminProfile.role)){sectionTitle.textContent="Dossiers";recordCount.textContent="";return;}sectionTitle.textContent=view.label;const rows=recordsByView[activeView]||[];recordCount.textContent=rows.length+" dossier(s) accessible(s)";if(!rows.length){const e=document.createElement("div");e.className="empty";e.textContent="Aucun dossier accessible dans cette catégorie pour le moment.";recordsContainer.appendChild(e);return;}const wrap=document.createElement("div");wrap.className="table-wrap";const table=document.createElement("table"),thead=document.createElement("thead"),hr=document.createElement("tr");view.columns.forEach(([,label])=>{const th=document.createElement("th");th.textContent=label;hr.appendChild(th);});if(view.editableStatus){const th=document.createElement("th");th.textContent="Action";hr.appendChild(th);}thead.appendChild(hr);table.appendChild(thead);const tbody=document.createElement("tbody");rows.forEach(row=>{const tr=document.createElement("tr");let statusInput=null;view.columns.forEach(([key])=>{const td=document.createElement("td");if(view.editableStatus&&key==="status"){statusInput=document.createElement("input");statusInput.className="status-field";statusInput.value=row.status??"";statusInput.setAttribute("aria-label","Statut du dossier "+formatValue(row.reference_number));td.appendChild(statusInput);}else if(row[key]!==null&&typeof row[key]==="object"){const details=document.createElement("details"),summary=document.createElement("summary"),pre=document.createElement("pre");summary.textContent="Afficher les détails";pre.className="record-details";pre.textContent=formatValue(row[key]);details.append(summary,pre);td.appendChild(details);}else td.textContent=key.endsWith("_at")?formatDate(row[key]):formatValue(row[key]);tr.appendChild(td);});if(view.editableStatus){const td=document.createElement("td"),b=document.createElement("button");b.textContent="Enregistrer le statut";b.addEventListener("click",async()=>{b.disabled=true;try{const {error}=await supabaseClient.from(view.table).update({status:statusInput.value.trim()}).eq("id",row.id);if(error)throw error;row.status=statusInput.value.trim();showMessage(dashboardMessage,"Le statut a été mis à jour.","success");}catch(e){showMessage(dashboardMessage,"Impossible de modifier le statut : "+(e.message||"erreur inconnue"),"error");}finally{b.disabled=false;}});td.appendChild(b);tr.appendChild(td);}tbody.appendChild(tr);if(view.details&&view.details.length){const dr=document.createElement("tr"),dc=document.createElement("td"),details=document.createElement("details"),sum=document.createElement("summary"),dl=document.createElement("dl");dc.colSpan=view.columns.length+(view.editableStatus?1:0);sum.textContent="Informations complémentaires";view.details.forEach(([key,label])=>{const dt=document.createElement("dt"),dd=document.createElement("dd");dt.textContent=label;dd.textContent=formatValue(row[key]);dl.append(dt,dd);});details.append(sum,dl);dc.appendChild(details);dr.appendChild(dc);tbody.appendChild(dr);}});table.appendChild(tbody);wrap.appendChild(table);recordsContainer.appendChild(wrap);}
-  async function loadView(key){const view=views[key];if(!view||!adminProfile||!view.roles.includes(adminProfile.role))return;const columns=[...new Set(view.columns.map(([k])=>k).concat(["id"],(view.details||[]).map(([k])=>k)))];let q=supabaseClient.from(view.table).select(columns.join(",")).order(view.orderColumn,{ascending:false,nullsFirst:false}).limit(200);if(key==="submissions"&&adminProfile.role!=="pca")q=q.eq("assigned_role",adminProfile.role);const {data,error}=await q;if(error){recordsByView[key]=[];if(activeView===key)showMessage(dashboardMessage,"Impossible de charger « "+view.label+" » : "+error.message,"error");return;}recordsByView[key]=data||[];if(activeView===key)renderRecords();}
-  async function loadAllViews(){hideMessage(dashboardMessage);recordsByView={};const allowed=permittedViews();await Promise.all(allowed.map(([key])=>loadView(key)));renderTabs();renderRecords();}
-  function applyOpportunityRoleRules(){
-    const typeSelect=$("opportunityType");
-    const tenderOption=typeSelect.querySelector('option[value="tender"]');
-    const jobOption=typeSelect.querySelector('option[value="job"]');
-    if(!adminProfile)return;
-    tenderOption.disabled=adminProfile.role==="recruitment";
-    jobOption.disabled=adminProfile.role==="tenders";
-    if(adminProfile.role==="tenders")typeSelect.value="tender";
-    else if(adminProfile.role==="recruitment")typeSelect.value="job";
-  }
-  function resetOpportunityForm(){opportunityForm.reset();$("opportunityId").value="";$("opportunityFormTitle").textContent="Nouvelle annonce";$("publishNow").checked=false;$("documentPath").value="";$("currentDocumentInfo").textContent="Aucun document associé pour le moment.";applyOpportunityRoleRules();}
-  function openNewOpportunity(){resetOpportunityForm();opportunityForm.classList.remove("hidden");opportunityForm.scrollIntoView({behavior:"smooth",block:"start"});}
-  function fillOpportunityForm(o){resetOpportunityForm();$("opportunityId").value=o.id;$("opportunityType").value=o.opportunity_type;applyOpportunityRoleRules();$("opportunityReference").value=o.reference_number||"";$("titleFr").value=o.title_fr||"";$("titleEn").value=o.title_en||"";$("descriptionFr").value=o.description_fr||"";$("descriptionEn").value=o.description_en||"";$("publicationDate").value=dateOnly(o.publication_date);$("deadline").value=dateOnly(o.deadline);$("documentPath").value=o.document_path||"";$("currentDocumentInfo").textContent=o.document_path?"Document actuel enregistré : "+o.document_path:"Aucun document associé. Tu peux sélectionner un PDF ci-dessus.";$("publishNow").checked=!!o.published;$("opportunityFormTitle").textContent="Modifier l’annonce "+(o.reference_number||"");opportunityForm.classList.remove("hidden");opportunityForm.scrollIntoView({behavior:"smooth",block:"start"});}
-  async function loadOpportunities(){if(!canManageOpportunities())return;opportunityListAdmin.innerHTML="<p class='muted'>Chargement des annonces…</p>";let query=supabaseClient.from("portal_opportunities").select("id,opportunity_type,reference_number,title_fr,title_en,description_fr,description_en,publication_date,deadline,document_path,published,created_at");if(adminProfile.role==="tenders")query=query.eq("opportunity_type","tender");if(adminProfile.role==="recruitment")query=query.eq("opportunity_type","job");const {data,error}=await query.order("publication_date",{ascending:false,nullsFirst:false}).limit(300);if(error){opportunityListAdmin.textContent="Impossible de charger les annonces : "+error.message;showMessage(dashboardMessage,"Vérifie les autorisations de lecture de portal_opportunities.","error");return;}opportunities=data||[];renderOpportunities();}
-  function renderOpportunities(){opportunityListAdmin.replaceChildren();if(!opportunities.length){const e=document.createElement("div");e.className="empty";e.textContent="Aucune annonce enregistrée pour le moment.";opportunityListAdmin.appendChild(e);return;}opportunities.forEach(o=>{const item=document.createElement("article");item.className="opportunity-item";const head=document.createElement("div");head.className="opportunity-head";const title=document.createElement("div"),h=document.createElement("h3"),ref=document.createElement("p"),badge=document.createElement("span");h.textContent=o.title_fr||o.title_en||"Annonce sans titre";ref.className="muted";ref.textContent=(o.opportunity_type==="tender"?"Appel d’offres":"Offre d’emploi")+" · "+(o.reference_number||"Sans référence");badge.className="badge "+(o.published?"published":"draft");badge.textContent=o.published?"Publiée":"Brouillon / dépubliée";title.append(h,ref);head.append(title,badge);const desc=document.createElement("p");desc.textContent=(o.description_fr||"").slice(0,300)+(o.description_fr&&o.description_fr.length>300?"…":"");const meta=document.createElement("p");meta.className="muted";meta.textContent="Publication : "+dateOnly(o.publication_date)+" · Date limite : "+(dateOnly(o.deadline)||"non précisée")+(o.document_path?" · Document associé : oui":" · Aucun document associé");const actions=document.createElement("div");actions.className="opportunity-actions";const edit=document.createElement("button");edit.type="button";edit.className="secondary";edit.textContent="Modifier";edit.addEventListener("click",()=>fillOpportunityForm(o));const toggle=document.createElement("button");toggle.type="button";toggle.className=o.published?"secondary":"success-btn";toggle.textContent=o.published?"Dépublier":"Publier";toggle.addEventListener("click",()=>toggleOpportunity(o));const del=document.createElement("button");del.type="button";del.className="danger";del.textContent="Supprimer";del.addEventListener("click",()=>deleteOpportunity(o));actions.append(edit,toggle,del);item.append(head,desc,meta,actions);opportunityListAdmin.appendChild(item);});}
-  async function toggleOpportunity(o){const next=!o.published;if(!confirm((next?"Publier":"Dépublier")+" l’annonce « "+(o.reference_number||o.title_fr)+" » ?"))return;try{const {error}=await supabaseClient.from("portal_opportunities").update({published:next}).eq("id",o.id);if(error)throw error;showMessage(dashboardMessage,next?"Annonce publiée.":"Annonce dépubliée.","success");await loadOpportunities();}catch(e){showMessage(dashboardMessage,"Impossible de modifier la publication : "+(e.message||"erreur inconnue"),"error");}}
-  async function deleteOpportunity(o){if(!confirm("Supprimer définitivement l’annonce « "+(o.reference_number||o.title_fr)+" » ? Cette action peut être bloquée si des dossiers y sont liés."))return;try{const {error}=await supabaseClient.from("portal_opportunities").delete().eq("id",o.id);if(error)throw error;showMessage(dashboardMessage,"Annonce supprimée.","success");await loadOpportunities();}catch(e){showMessage(dashboardMessage,"Impossible de supprimer cette annonce. Des dossiers peuvent y être liés. Détail : "+(e.message||"erreur inconnue"),"error");}}
-  function safePdfName(filename){
-    const base=String(filename||"document.pdf").split(/[\\/]/).pop();
-    const safe=base.normalize("NFKD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-zA-Z0-9._-]+/g,"_").replace(/^\.+/,"");
-    return (safe||"document.pdf").slice(-150);
-  }
-  async function uploadOpportunityPdf(file, opportunityType){
-    const folder=opportunityType==="tender"?"tenders":"jobs";
-    const objectPath=`opportunities/${folder}/${crypto.randomUUID()}-${safePdfName(file.name)}`;
-    const {error}=await supabaseClient.storage.from(STORAGE_BUCKET).upload(objectPath,file,{
-      cacheControl:"3600",upsert:false,contentType:"application/pdf"
-    });
-    if(error)throw new Error("Le PDF n’a pas pu être téléversé dans le stockage privé : "+error.message);
-    return objectPath;
-  }
-  opportunityForm.addEventListener("submit",async event=>{
-    event.preventDefault();
-    if(!canManageOpportunities()){showMessage(dashboardMessage,"Ton rôle ne permet pas de gérer les annonces.","error");return;}
-    const id=$("opportunityId").value;
-    const reference=$("opportunityReference").value.trim();
-    const pubDate=$("publicationDate").value;
-    const deadline=$("deadline").value;
-    const file=$("documentFile").files&&$("documentFile").files[0];
-    const type=$("opportunityType").value;
-    if((adminProfile.role==="tenders"&&type!=="tender")||(adminProfile.role==="recruitment"&&type!=="job")){
-      showMessage(dashboardMessage,"Ton rôle ne permet pas de publier ce type d’annonce.","error");return;
+
+  const SUPABASE_URL =
+    "https://euwjzhchowebcpzxmobr.supabase.co";
+
+  const SUPABASE_ANON_KEY =
+    "sb_publishable_bk9VTq-PrFRWZaeQNQ2HIw_GxYg3zOW";
+
+  const BUCKET = "dossiers-confidentiels";
+  const MAX_PDF_BYTES = 10 * 1024 * 1024;
+
+  const db = supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY,
+    {
+      auth: {
+        persistSession: true,
+        autoRefreshToken: true,
+        detectSessionInUrl: true
+      }
     }
-    if(deadline&&pubDate&&deadline<pubDate){showMessage(dashboardMessage,"La date limite ne peut pas précéder la date de publication.","error");return;}
-    if(file&&(!file.name.toLowerCase().endsWith(".pdf")||(file.type&&file.type!=="application/pdf"))){showMessage(dashboardMessage,"Le document doit être un fichier PDF.","error");return;}
-    if(file&&file.size>MAX_PDF_SIZE){showMessage(dashboardMessage,"Le PDF dépasse la taille maximale de 10 Mo.","error");return;}
-    const wantPublished=$("publishNow").checked;
-    const payload={opportunity_type:type,reference_number:reference,title_fr:$("titleFr").value.trim(),title_en:$("titleEn").value.trim(),description_fr:$("descriptionFr").value.trim(),description_en:$("descriptionEn").value.trim(),publication_date:pubDate,deadline:deadline?(deadline+"T23:59:59"):null,document_path:$("documentPath").value.trim()||null,published:file?false:wantPublished};
-    const save=$("saveOpportunityButton");save.disabled=true;save.textContent=file?"Enregistrement et téléversement…":"Enregistrement…";
-    let opportunityId=id||null;
-    try{
-      if(!opportunityId){
-        const {data:userData,error:userError}=await supabaseClient.auth.getUser();
-        if(userError)throw userError;
-        payload.created_by=userData.user?.id;
-      }
-      if(opportunityId){
-        const {error}=await supabaseClient.from("portal_opportunities").update(payload).eq("id",opportunityId);
-        if(error)throw error;
-      }else if(file){
-        const {data,error}=await supabaseClient.from("portal_opportunities").insert(payload).select("id").single();
-        if(error)throw error;
-        opportunityId=data.id;
-        $("opportunityId").value=opportunityId;
-      }else{
-        const {error}=await supabaseClient.from("portal_opportunities").insert(payload);
-        if(error)throw error;
-      }
-      if(file){
-        const path=await uploadOpportunityPdf(file,type);
-        const {error}=await supabaseClient.from("portal_opportunities").update({document_path:path,published:wantPublished}).eq("id",opportunityId);
-        if(error)throw new Error("Le PDF a été téléversé, mais le chemin n’a pas pu être enregistré dans l’annonce. Détail : "+error.message);
-        $("documentPath").value=path;
-      }
-      showMessage(dashboardMessage,file?(wantPublished?"Annonce publiée et PDF téléversé dans le stockage privé.":"Brouillon enregistré et PDF téléversé dans le stockage privé."):(wantPublished?"Annonce enregistrée et publiée.":"Annonce enregistrée comme brouillon."),"success");
-      opportunityForm.classList.add("hidden");resetOpportunityForm();await loadOpportunities();
-    }catch(e){
-      showMessage(dashboardMessage,"Enregistrement incomplet : "+(e.message||"erreur inconnue")+". Si un nouveau document a été téléversé mais n’a pas été associé, il restera privé dans le stockage.","error");
-    }finally{save.disabled=false;save.textContent="Enregistrer l’annonce";}
+  );
+
+  const $ = id => document.getElementById(id);
+
+  const state = {
+    user: null,
+    admin: null,
+    role: "",
+    opportunities: [],
+    editing: null
+  };
+
+  const TABLES = {
+    suppliers: {
+      table: "portal_supplier_registrations",
+      host: "suppliersTable",
+      message: "suppliersMessage",
+      title: "Fournisseurs"
+    },
+    tenderSubmissions: {
+      table: "portal_tender_submissions",
+      host: "tenderSubmissionsTable",
+      message: "tenderSubmissionsMessage",
+      title: "Soumissions aux appels d’offres"
+    },
+    jobApplications: {
+      table: "portal_job_applications",
+      host: "jobApplicationsTable",
+      message: "jobApplicationsMessage",
+      title: "Candidatures à l’emploi"
+    }
+  };
+
+  function esc(value) {
+    return String(value ?? "").replace(/[&<>"']/g, ch => ({
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#39;"
+    }[ch]));
+  }
+
+  function showMessage(target, message, type = "info") {
+    const el = typeof target === "string" ? $(target) : target;
+    if (!el) return;
+
+    if (!message) {
+      el.innerHTML = "";
+      return;
+    }
+
+    const css = type === "error"
+      ? "error"
+      : type === "success"
+        ? "success"
+        : "info";
+
+    el.innerHTML =
+      `<div class="alert alert-${css}">${esc(message)}</div>`;
+  }
+
+  function formatDate(value) {
+    if (!value) return "—";
+
+    const date = new Date(value);
+
+    if (Number.isNaN(date.getTime())) {
+      return String(value);
+    }
+
+    return date.toLocaleDateString("fr-FR", {
+      year: "numeric",
+      month: "short",
+      day: "2-digit"
+    });
+  }
+
+  function roleLabel(role) {
+    return {
+      pca: "PCA / accès complet",
+      tenders: "Gestion des appels d’offres",
+      recruitment: "Gestion du recrutement",
+      suppliers: "Gestion des fournisseurs"
+    }[role] || role || "Rôle non défini";
+  }
+
+  function canManageType(type) {
+    return state.role === "pca" ||
+      (state.role === "tenders" && type === "tender") ||
+      (state.role === "recruitment" && type === "job");
+  }
+
+  function canManage(row) {
+    return canManageType(row.opportunity_type);
+  }
+
+  function todayLocal() {
+    const d = new Date();
+
+    return `${d.getFullYear()}-${
+      String(d.getMonth() + 1).padStart(2, "0")
+    }-${String(d.getDate()).padStart(2, "0")}`;
+  }
+
+  function switchView(name) {
+    document.querySelectorAll(".view").forEach(el => {
+      el.hidden = el.id !== `view-${name}`;
+    });
+
+    document.querySelectorAll(".nav-btn").forEach(el => {
+      el.classList.toggle("active", el.dataset.view === name);
+    });
+
+    if (name === "suppliers") loadRecords("suppliers");
+    if (name === "tenderSubmissions") loadRecords("tenderSubmissions");
+    if (name === "jobApplications") loadRecords("jobApplications");
+    if (name === "opportunities") loadOpportunities();
+  }
+
+  document.querySelectorAll(".nav-btn").forEach(btn => {
+    btn.addEventListener("click", () => switchView(btn.dataset.view));
   });
-  $("newOpportunityButton").addEventListener("click",openNewOpportunity);$("cancelOpportunityButton").addEventListener("click",()=>{opportunityForm.classList.add("hidden");resetOpportunityForm();});
-  async function showDashboard(user){if(!user)return;hideMessage(loginMessage);const {data,error}=await supabaseClient.from("portal_admins").select("user_id,full_name,role,active").eq("user_id",user.id).eq("active",true).maybeSingle();if(error||!data||!roleNames[data.role]){await supabaseClient.auth.signOut();adminProfile=null;dashboard.classList.add("hidden");loginPanel.classList.remove("hidden");logoutButton.classList.add("hidden");loginForm.reset();showMessage(loginMessage,"Ce compte n’est pas autorisé à accéder à l’administration, ou son profil est inactif.","error");return;}adminProfile=data;applyOpportunityRoleRules();$("adminName").textContent=data.full_name||user.email||"Administrateur";$("adminRole").textContent=roleNames[data.role];loginPanel.classList.add("hidden");dashboard.classList.remove("hidden");logoutButton.classList.remove("hidden");recordsView.classList.remove("hidden");opportunityManager.classList.add("hidden");const allowed=permittedViews();activeView=allowed.length?allowed[0][0]:null;await loadAllViews();}
-  loginForm.addEventListener("submit",async event=>{event.preventDefault();if(loginInProgress)return;loginInProgress=true;hideMessage(loginMessage);loginButton.disabled=true;loginButton.textContent="Connexion…";const email=$("email").value.trim(),password=$("password").value;try{const {data,error}=await supabaseClient.auth.signInWithPassword({email,password});if(error)throw error;await showDashboard(data.user);}catch(e){showMessage(loginMessage,"Connexion impossible. Vérifie ton adresse e-mail et ton mot de passe. "+(e.message||""),"error");}finally{loginInProgress=false;loginButton.disabled=false;loginButton.textContent="Se connecter";}});
-  logoutButton.addEventListener("click",async()=>{logoutButton.disabled=true;try{const {error}=await supabaseClient.auth.signOut();if(error){showMessage(dashboardMessage,"La déconnexion a échoué. Veuillez réessayer.","error");return;}adminProfile=null;activeView=null;recordsByView={};opportunities=[];dashboard.classList.add("hidden");loginPanel.classList.remove("hidden");logoutButton.classList.add("hidden");loginForm.reset();opportunityForm.reset();opportunityForm.classList.add("hidden");recordsView.classList.remove("hidden");opportunityManager.classList.add("hidden");hideMessage(loginMessage);hideMessage(dashboardMessage);tabs.replaceChildren();recordsContainer.replaceChildren();opportunityListAdmin.replaceChildren();}catch(e){showMessage(dashboardMessage,"Une erreur est survenue pendant la déconnexion.","error");}finally{logoutButton.disabled=false;}});
-  refreshButton.addEventListener("click",async()=>{refreshButton.disabled=true;refreshButton.textContent="Actualisation…";try{await loadAllViews();if(!opportunityManager.classList.contains("hidden"))await loadOpportunities();}finally{refreshButton.disabled=false;refreshButton.textContent="Actualiser";}});
-  supabaseClient.auth.getSession().then(({data,error})=>{if(error){showMessage(loginMessage,"Impossible de vérifier la session. Connecte-toi à nouveau.","error");return;}if(data.session)showDashboard(data.session.user);});
-  window.addEventListener("pageshow",event=>{if(event.persisted){supabaseClient.auth.getSession().then(({data})=>{if(!data.session){dashboard.classList.add("hidden");loginPanel.classList.remove("hidden");logoutButton.classList.add("hidden");loginForm.reset();}});}});
+
+  async function checkAdmin(user) {
+    const { data, error } = await db
+      .from("portal_admins")
+      .select("*")
+      .eq("user_id", user.id)
+      .maybeSingle();
+
+    if (error) {
+      throw new Error(
+        "Impossible de vérifier les autorisations : " + error.message
+      );
+    }
+
+    if (!data || data.active !== true) {
+      throw new Error(
+        "Ce compte n’est pas activé comme administrateur du portail."
+      );
+    }
+
+    const role = String(data.role || "").toLowerCase().trim();
+
+    if (!["pca", "tenders", "recruitment", "suppliers"].includes(role)) {
+      throw new Error("Le rôle de ce compte n’est pas reconnu.");
+    }
+
+    return { data, role };
+  }
+
+  function configureNavigation() {
+    document.querySelectorAll(".nav-btn[data-role]").forEach(btn => {
+      const roles = btn.dataset.role.split(",");
+      btn.hidden = !roles.includes(state.role);
+    });
+
+    $("adminInfo").textContent =
+      `${state.user.email || ""} · ${roleLabel(state.role)}`;
+
+    $("sessionLabel").textContent = roleLabel(state.role);
+    $("logoutButton").hidden = false;
+
+    $("newOpportunityButton").hidden =
+      !["pca", "tenders", "recruitment"].includes(state.role);
+  }
+
+  async function startSession(user) {
+    try {
+      const result = await checkAdmin(user);
+
+      state.user = user;
+      state.admin = result.data;
+      state.role = result.role;
+
+      $("loginPanel").hidden = true;
+      $("appPanel").hidden = false;
+
+      configureNavigation();
+
+      await refreshStats();
+      switchView("dashboard");
+    } catch (err) {
+      await db.auth.signOut();
+
+      $("appPanel").hidden = true;
+      $("loginPanel").hidden = false;
+
+      showMessage(
+        "loginMessage",
+        err.message || "Accès refusé.",
+        "error"
+      );
+    }
+  }
+
+  $("loginForm").addEventListener("submit", async event => {
+    event.preventDefault();
+
+    showMessage("loginMessage", "Connexion en cours…");
+
+    const { data, error } = await db.auth.signInWithPassword({
+      email: $("loginEmail").value.trim(),
+      password: $("loginPassword").value
+    });
+
+    if (error) {
+      showMessage("loginMessage", error.message, "error");
+      return;
+    }
+
+    if (data.user) await startSession(data.user);
+  });
+
+  $("logoutButton").addEventListener("click", async () => {
+    await db.auth.signOut();
+
+    state.user = null;
+    state.admin = null;
+    state.role = "";
+
+    $("appPanel").hidden = true;
+    $("loginPanel").hidden = false;
+    $("logoutButton").hidden = true;
+    $("sessionLabel").textContent = "Administration sécurisée";
+    $("loginPassword").value = "";
+
+    showMessage("loginMessage", "Vous êtes déconnecté.", "success");
+  });
+
+  db.auth.onAuthStateChange((event, session) => {
+    if (session?.user && $("appPanel").hidden) {
+      setTimeout(() => startSession(session.user), 0);
+    }
+
+    if (!session && !$("appPanel").hidden) {
+      $("appPanel").hidden = true;
+      $("loginPanel").hidden = false;
+      $("logoutButton").hidden = true;
+    }
+  });
+
+  async function countTable(table) {
+    const { count, error } = await db
+      .from(table)
+      .select("*", { count: "exact", head: true });
+
+    if (error) return "—";
+
+    return count ?? 0;
+  }
+
+  async function refreshStats() {
+    const jobs = [];
+
+    if (["pca", "suppliers"].includes(state.role)) {
+      jobs.push(
+        countTable("portal_supplier_registrations").then(value => {
+          $("statSuppliers").textContent = value;
+        })
+      );
+    } else {
+      $("statSuppliers").textContent = "—";
+    }
+
+    if (["pca", "tenders"].includes(state.role)) {
+      jobs.push(
+        countTable("portal_tender_submissions").then(value => {
+          $("statTenders").textContent = value;
+        })
+      );
+    } else {
+      $("statTenders").textContent = "—";
+    }
+
+    if (["pca", "recruitment"].includes(state.role)) {
+      jobs.push(
+        countTable("portal_job_applications").then(value => {
+          $("statJobs").textContent = value;
+        })
+      );
+    } else {
+      $("statJobs").textContent = "—";
+    }
+
+    jobs.push((async () => {
+      const { count, error } = await db
+        .from("portal_opportunities")
+        .select("*", { count: "exact", head: true })
+        .eq("published", true);
+
+      $("statOpportunities").textContent =
+        error ? "—" : (count ?? 0);
+    })());
+
+    await Promise.all(jobs);
+  }
+
+  $("refreshButton").addEventListener("click", async () => {
+    showMessage("dashboardMessage", "Actualisation en cours…");
+
+    await refreshStats();
+
+    showMessage(
+      "dashboardMessage",
+      "Les compteurs ont été actualisés.",
+      "success"
+    );
+  });
+
+  function preferredColumns(rows) {
+    const preferred = [
+      "id", "reference_number", "company_name", "supplier_name",
+      "full_name", "name", "email", "phone", "telephone",
+      "opportunity_reference", "subject", "status",
+      "created_at", "submitted_at", "updated_at"
+    ];
+
+    const keys = [
+      ...new Set(rows.flatMap(row => Object.keys(row)))
+    ];
+
+    const ordered = preferred.filter(key => keys.includes(key));
+
+    return [
+      ...ordered,
+      ...keys.filter(key =>
+        !ordered.includes(key) &&
+        !/password|token|secret|storage_path|document_path/i.test(key)
+      )
+    ].slice(0, 9);
+  }
+
+  function displayValue(key, value) {
+    if (value === null || value === undefined || value === "") {
+      return "—";
+    }
+
+    if (/(created_at|updated_at|submitted_at|date|deadline)/i.test(key)) {
+      return formatDate(value);
+    }
+
+    if (typeof value === "boolean") return value ? "Oui" : "Non";
+
+    if (typeof value === "object") return JSON.stringify(value);
+
+    return String(value);
+  }
+
+  function renderRecordTable(hostId, rows, config) {
+    const host = $(hostId);
+
+    if (!rows.length) {
+      host.innerHTML =
+        '<div class="empty">Aucun dossier à afficher pour le moment.</div>';
+      return;
+    }
+
+    const cols = preferredColumns(rows);
+
+    host.innerHTML = `
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              ${cols.map(key =>
+                `<th>${esc(key.replaceAll("_", " "))}</th>`
+              ).join("")}
+              <th>Détails</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${rows.map((row, index) => `
+              <tr>
+                ${cols.map(key =>
+                  `<td>${esc(displayValue(key, row[key]))}</td>`
+                ).join("")}
+                <td>
+                  <button class="btn btn-light"
+                          data-record-details="${index}">
+                    Consulter
+                  </button>
+                </td>
+              </tr>
+            `).join("")}
+          </tbody>
+        </table>
+      </div>
+      <p class="small muted">
+        ${rows.length} dossier(s) affiché(s).
+      </p>
+    `;
+
+    host.querySelectorAll("[data-record-details]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const row = rows[Number(btn.dataset.recordDetails)];
+
+        const details = Object.entries(row)
+          .filter(([key]) => !/(password|token|secret)/i.test(key))
+          .map(([key, value]) => {
+            const shown = value && typeof value === "object"
+              ? JSON.stringify(value, null, 2)
+              : displayValue(key, value);
+
+            return `${key.replaceAll("_", " ")} : ${shown}`;
+          })
+          .join("\n");
+
+        alert(`${config.title}\n\n${details}`);
+      });
+    });
+  }
+
+  async function loadRecords(key) {
+    const config = TABLES[key];
+
+    if (!config) return;
+
+    showMessage(config.message, "Chargement des dossiers…");
+    $(config.host).innerHTML = "";
+
+    const { data, error } = await db
+      .from(config.table)
+      .select("*")
+      .order("created_at", { ascending: false })
+      .limit(250);
+
+    if (error) {
+      showMessage(
+        config.message,
+        "Impossible de charger les dossiers : " + error.message,
+        "error"
+      );
+
+      $(config.host).innerHTML =
+        '<div class="empty">Vérifiez les autorisations et le nom de la table.</div>';
+
+      return;
+    }
+
+    showMessage(config.message, "");
+    renderRecordTable(config.host, data || [], config);
+  }
+
+  document.querySelectorAll("[data-refresh]").forEach(btn => {
+    btn.addEventListener("click", () => loadRecords(btn.dataset.refresh));
+  });
+
+  async function loadOpportunities() {
+    $("opportunitiesTable").innerHTML =
+      '<div class="empty">Chargement des annonces…</div>';
+
+    const { data, error } = await db
+      .from("portal_opportunities")
+      .select(`
+        id,opportunity_type,reference_number,title_fr,title_en,
+        description_fr,description_en,publication_date,deadline,
+        document_path,published,created_by,created_at,updated_at
+      `)
+      .order("created_at", { ascending: false })
+      .limit(500);
+
+    if (error) {
+      showMessage(
+        "opportunityMessage",
+        "Impossible de charger les annonces : " + error.message,
+        "error"
+      );
+
+      $("opportunitiesTable").innerHTML = "";
+      return;
+    }
+
+    state.opportunities = data || [];
+
+    showMessage("opportunityMessage", "");
+    renderOpportunities();
+  }
+
+  function renderOpportunities() {
+    const host = $("opportunitiesTable");
+    const rows = state.opportunities;
+
+    if (!rows.length) {
+      host.innerHTML =
+        '<div class="empty">Aucune annonce enregistrée.</div>';
+      return;
+    }
+
+    host.innerHTML = `
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Type</th>
+              <th>Référence / titre</th>
+              <th>Publication</th>
+              <th>Date limite</th>
+              <th>État</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${rows.map(row => {
+              const type = row.opportunity_type === "tender"
+                ? "Appel d’offres"
+                : "Emploi";
+
+              const manager = canManage(row);
+              let actions = "";
+
+              if (manager) {
+                actions += `
+                  <button class="btn btn-light"
+                          data-edit="${esc(row.id)}">
+                    Modifier
+                  </button>
+                  <button class="btn ${row.published
+                    ? "btn-light" : "btn-success"}"
+                          data-toggle="${esc(row.id)}"
+                          data-published="${row.published}">
+                    ${row.published ? "Dépublier" : "Publier"}
+                  </button>
+                `;
+              }
+
+              if (state.role === "pca") {
+                actions += `
+                  <button class="btn btn-danger"
+                          data-delete="${esc(row.id)}">
+                    Supprimer
+                  </button>
+                `;
+              }
+
+              return `
+                <tr>
+                  <td>${esc(type)}</td>
+                  <td>
+                    <strong>${esc(row.reference_number)}</strong><br>
+                    ${esc(row.title_fr)}<br>
+                    <span class="muted">${esc(row.title_en)}</span>
+                  </td>
+                  <td>${esc(formatDate(row.publication_date))}</td>
+                  <td>${esc(formatDate(row.deadline))}</td>
+                  <td>
+                    <span class="badge ${
+                      row.published ? "badge-green" : "badge-amber"
+                    }">
+                      ${row.published ? "Publiée" : "Non publiée"}
+                    </span>
+                  </td>
+                  <td><div class="row-actions">${actions || "—"}</div></td>
+                </tr>
+              `;
+            }).join("")}
+          </tbody>
+        </table>
+      </div>
+    `;
+
+    host.querySelectorAll("[data-edit]").forEach(btn => {
+      btn.addEventListener("click", () => editOpportunity(btn.dataset.edit));
+    });
+
+    host.querySelectorAll("[data-toggle]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        toggleOpportunity(
+          btn.dataset.toggle,
+          btn.dataset.published !== "true"
+        );
+      });
+    });
+
+    host.querySelectorAll("[data-delete]").forEach(btn => {
+      btn.addEventListener("click", () => deleteOpportunity(btn.dataset.delete));
+    });
+  }
+
+  async function toggleOpportunity(id, published) {
+    const row = state.opportunities.find(item => item.id === id);
+
+    if (!row || !canManage(row)) {
+      showMessage(
+        "opportunityMessage",
+        "Votre rôle ne permet pas de modifier cette annonce.",
+        "error"
+      );
+      return;
+    }
+
+    const { error } = await db
+      .from("portal_opportunities")
+      .update({
+        published,
+        updated_at: new Date().toISOString()
+      })
+      .eq("id", id);
+
+    if (error) {
+      showMessage(
+        "opportunityMessage",
+        "Modification impossible : " + error.message,
+        "error"
+      );
+      return;
+    }
+
+    showMessage(
+      "opportunityMessage",
+      published ? "Annonce publiée." : "Annonce dépubliée.",
+      "success"
+    );
+
+    await loadOpportunities();
+    await refreshStats();
+  }
+
+  async function deleteOpportunity(id) {
+    if (state.role !== "pca") {
+      showMessage(
+        "opportunityMessage",
+        "Seul le PCA peut supprimer une annonce.",
+        "error"
+      );
+      return;
+    }
+
+    const row = state.opportunities.find(item => item.id === id);
+
+    if (!row) return;
+
+    const confirmed = confirm(
+      `Confirmer la suppression de l’annonce « ${
+        row.reference_number
+      } — ${row.title_fr} » ?\n\n` +
+      "Le PDF stocké ne sera pas automatiquement supprimé."
+    );
+
+    if (!confirmed) return;
+
+    const { error } = await db
+      .from("portal_opportunities")
+      .delete()
+      .eq("id", id);
+
+    if (error) {
+      showMessage(
+        "opportunityMessage",
+        "Suppression impossible : " + error.message,
+        "error"
+      );
+      return;
+    }
+
+    showMessage(
+      "opportunityMessage",
+      "Annonce supprimée. Le PDF stocké peut nécessiter un nettoyage séparé.",
+      "success"
+    );
+
+    await loadOpportunities();
+    await refreshStats();
+  }
+
+  function resetOpportunityForm() {
+    $("opportunityForm").reset();
+    $("opportunityId").value = "";
+    $("publicationDate").value = todayLocal();
+
+    $("currentDocument").textContent =
+      "Sélectionnez le PDF de l’annonce. Taille maximale : 10 Mo.";
+
+    $("opportunityFormTitle").textContent = "Nouvelle annonce";
+    $("saveOpportunityButton").textContent = "Enregistrer l’annonce";
+
+    $("opportunityType").disabled = false;
+    state.editing = null;
+
+    showMessage("opportunityFormMessage", "");
+  }
+
+  $("newOpportunityButton").addEventListener("click", () => {
+    resetOpportunityForm();
+
+    if (state.role === "tenders") {
+      $("opportunityType").value = "tender";
+      $("opportunityType").disabled = true;
+    } else if (state.role === "recruitment") {
+      $("opportunityType").value = "job";
+      $("opportunityType").disabled = true;
+    }
+
+    $("opportunityFormCard").hidden = false;
+
+    $("opportunityFormCard").scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  });
+
+  $("cancelOpportunityButton").addEventListener("click", () => {
+    $("opportunityFormCard").hidden = true;
+    resetOpportunityForm();
+  });
+
+  async function editOpportunity(id) {
+    const row = state.opportunities.find(item => item.id === id);
+
+    if (!row || !canManage(row)) {
+      showMessage(
+        "opportunityMessage",
+        "Votre rôle ne permet pas de modifier cette annonce.",
+        "error"
+      );
+      return;
+    }
+
+    resetOpportunityForm();
+
+    state.editing = row;
+
+    $("opportunityId").value = row.id;
+    $("opportunityType").value = row.opportunity_type;
+    $("opportunityType").disabled = state.role !== "pca";
+
+    $("opportunityReference").value = row.reference_number || "";
+    $("titleFr").value = row.title_fr || "";
+    $("titleEn").value = row.title_en || "";
+    $("descriptionFr").value = row.description_fr || "";
+    $("descriptionEn").value = row.description_en || "";
+
+    $("publicationDate").value = row.publication_date
+      ? new Date(row.publication_date).toISOString().slice(0, 10)
+      : todayLocal();
+
+    $("deadline").value = row.deadline
+      ? new Date(row.deadline).toISOString().slice(0, 10)
+      : "";
+
+    $("publishNow").checked = !!row.published;
+
+    $("currentDocument").textContent = row.document_path
+      ? "Le PDF existant sera conservé si aucun nouveau fichier n’est sélectionné. Chemin : " + row.document_path
+      : "Aucun PDF existant. Sélectionnez un PDF.";
+
+    $("opportunityFormTitle").textContent = "Modifier l’annonce";
+    $("saveOpportunityButton").textContent = "Enregistrer les modifications";
+    $("opportunityFormCard").hidden = false;
+
+    $("opportunityFormCard").scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  }
+
+  function safeFilename(name) {
+    const cleaned = String(name || "document.pdf")
+      .normalize("NFKD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/[^a-zA-Z0-9._-]+/g, "_")
+      .replace(/^\.+/, "")
+      .slice(-120);
+
+    return cleaned || "document.pdf";
+  }
+
+  async function uploadOpportunityPdf(file, type) {
+    if (!file) return null;
+
+    if (
+      file.type !== "application/pdf" &&
+      !file.name.toLowerCase().endsWith(".pdf")
+    ) {
+      throw new Error("Le document doit être au format PDF.");
+    }
+
+    if (file.size > MAX_PDF_BYTES) {
+      throw new Error("Le PDF dépasse la limite de 10 Mo.");
+    }
+
+    if (file.size === 0) {
+      throw new Error("Le fichier PDF est vide.");
+    }
+
+    const folder = type === "tender" ? "tenders" : "jobs";
+
+    const path =
+      `opportunities/${folder}/${crypto.randomUUID()}-${safeFilename(file.name)}`;
+
+    const { error } = await db.storage
+      .from(BUCKET)
+      .upload(path, file, {
+        contentType: "application/pdf",
+        upsert: false
+      });
+
+    if (error) {
+      throw new Error(
+        "Téléversement du PDF impossible : " + error.message
+      );
+    }
+
+    return path;
+  }
+
+  $("opportunityForm").addEventListener("submit", async event => {
+    event.preventDefault();
+
+    const id = $("opportunityId").value.trim();
+
+    const existing = id
+      ? state.opportunities.find(item => item.id === id)
+      : null;
+
+    const type = $("opportunityType").value;
+    const file = $("documentFile").files[0];
+
+    if (!canManageType(type)) {
+      showMessage(
+        "opportunityFormMessage",
+        "Votre rôle ne permet pas de gérer ce type d’annonce.",
+        "error"
+      );
+      return;
+    }
+
+    if (!existing && !file) {
+      showMessage(
+        "opportunityFormMessage",
+        "Veuillez sélectionner le document PDF de cette annonce.",
+        "error"
+      );
+      return;
+    }
+
+    if (existing && !canManage(existing)) {
+      showMessage(
+        "opportunityFormMessage",
+        "Votre rôle ne permet pas de modifier cette annonce.",
+        "error"
+      );
+      return;
+    }
+
+    const reference = $("opportunityReference").value.trim();
+    const titleFr = $("titleFr").value.trim();
+    const titleEn = $("titleEn").value.trim();
+    const pubDate = $("publicationDate").value;
+
+    if (!reference || !titleFr || !titleEn || !pubDate) {
+      showMessage(
+        "opportunityFormMessage",
+        "Veuillez remplir tous les champs obligatoires.",
+        "error"
+      );
+      return;
+    }
+
+    const saveButton = $("saveOpportunityButton");
+
+    saveButton.disabled = true;
+    saveButton.textContent = "Enregistrement en cours…";
+
+    try {
+      let documentPath = existing?.document_path || "";
+
+      if (file) {
+        showMessage(
+          "opportunityFormMessage",
+          "Téléversement du PDF dans le stockage privé…"
+        );
+
+        documentPath = await uploadOpportunityPdf(file, type);
+      }
+
+      if (!documentPath) {
+        throw new Error(
+          "Un document PDF est obligatoire : aucun document existant n’est disponible."
+        );
+      }
+
+      const publicationDate =
+        new Date(`${pubDate}T12:00:00`).toISOString();
+
+      const deadlineValue = $("deadline").value;
+
+      const deadline = deadlineValue
+        ? new Date(`${deadlineValue}T23:59:59`).toISOString()
+        : null;
+
+      const payload = {
+        opportunity_type: type,
+        reference_number: reference,
+        title_fr: titleFr,
+        title_en: titleEn,
+        description_fr: $("descriptionFr").value.trim() || null,
+        description_en: $("descriptionEn").value.trim() || null,
+        publication_date: publicationDate,
+        deadline,
+        document_path: documentPath,
+        published: $("publishNow").checked,
+        updated_at: new Date().toISOString()
+      };
+
+      if (!existing) {
+        payload.created_by = state.user.id;
+        payload.created_at = new Date().toISOString();
+
+        const { error } = await db
+          .from("portal_opportunities")
+          .insert(payload);
+
+        if (error) {
+          throw new Error(
+            "Le PDF a été téléversé, mais l’annonce n’a pas été enregistrée : " +
+            error.message +
+            ". Le fichier peut rester sans annonce associée."
+          );
+        }
+      } else {
+        const { error } = await db
+          .from("portal_opportunities")
+          .update(payload)
+          .eq("id", existing.id);
+
+        if (error) {
+          throw new Error(
+            "La mise à jour de l’annonce a échoué : " +
+            error.message +
+            ". Si un nouveau PDF a été téléversé, il peut rester sans annonce associée."
+          );
+        }
+      }
+
+      showMessage(
+        "opportunityMessage",
+        "Annonce enregistrée avec succès.",
+        "success"
+      );
+
+      $("opportunityFormCard").hidden = true;
+      resetOpportunityForm();
+
+      await loadOpportunities();
+      await refreshStats();
+
+    } catch (err) {
+      showMessage(
+        "opportunityFormMessage",
+        err.message || "Une erreur est survenue.",
+        "error"
+      );
+    } finally {
+      saveButton.disabled = false;
+
+      saveButton.textContent = $("opportunityId").value
+        ? "Enregistrer les modifications"
+        : "Enregistrer l’annonce";
+    }
+  });
+
+  $("year").textContent = new Date().getFullYear();
+
+  (async () => {
+    const { data, error } = await db.auth.getSession();
+
+    if (error) {
+      showMessage("loginMessage", error.message, "error");
+    }
+
+    if (data?.session?.user) {
+      await startSession(data.session.user);
+    }
+  })();
+
 })();
 </script>
 </body>
 </html>
+```
