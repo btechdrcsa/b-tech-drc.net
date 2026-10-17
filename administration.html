@@ -22,6 +22,74 @@
     .storage-delete{background:var(--red);color:#fff;padding:7px 10px}
     footer{padding:22px 15px;background:var(--navy);color:#dce7f4;text-align:center;font-size:.84rem}footer strong{color:white}
     @media(max-width:650px){header{padding:16px 5%}.brand img{width:45px;height:45px}.brand h1{font-size:.85rem}.panel{padding:16px}.login-panel{margin:18px auto}.grid{grid-template-columns:1fr}.field-full{grid-column:auto}main{padding:0 12px 30px}}
+     /* CORRECTION DE L'AFFICHAGE DU TABLEAU DE BORD */
+
+#dashboard > .panel {
+  display: grid !important;
+  grid-template-columns: 245px minmax(0, 1fr) !important;
+  grid-template-areas:
+    "heading heading"
+    "message message"
+    "navigation contenu" !important;
+  gap: 18px;
+  align-items: start;
+}
+
+#dashboard > .panel > .dashboard-heading {
+  grid-area: heading;
+}
+
+#dashboardMessage {
+  grid-area: message;
+}
+
+#tabs {
+  grid-area: navigation;
+  display: flex !important;
+  flex-direction: column !important;
+  flex-wrap: nowrap !important;
+  align-items: stretch;
+  gap: 8px;
+  margin: 0;
+  min-width: 0;
+}
+
+#tabs .tab {
+  width: 100%;
+  justify-content: flex-start;
+  text-align: left;
+  white-space: normal;
+}
+
+#recordsView,
+#opportunityManager,
+#storageManager {
+  grid-area: contenu;
+  min-width: 0;
+  width: 100%;
+  margin: 0;
+}
+
+@media (max-width: 760px) {
+  #dashboard > .panel {
+    grid-template-columns: minmax(0, 1fr) !important;
+    grid-template-areas:
+      "heading"
+      "message"
+      "navigation"
+      "contenu" !important;
+  }
+
+  #tabs {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  #tabs .tab {
+    justify-content: center;
+    text-align: center;
+  }
+}
   </style>
 </head>
 <body>
