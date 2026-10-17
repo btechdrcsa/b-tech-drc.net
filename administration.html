@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#061A33">
+  <title>Administration | B-TECH-DRC SA</title>
+  <link rel="icon" type="image/png" href="./logo.png">
+  <style>
+    :root{--navy:#061A33;--navy2:#0d2b4d;--blue:#1769aa;--white:#fff;--bg:#f3f6fa;--text:#17283d;--muted:#65758a;--border:#dbe3ed;--red:#b42318;--green:#137547;--gold:#d8a63d}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,Helvetica,sans-serif;line-height:1.5}
+    header{background:var(--navy);color:white;padding:18px 5%;display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap}
+    .brand{display:flex;align-items:center;gap:14px}.brand img{width:56px;height:56px;object-fit:contain;background:white;border-radius:8px;padding:4px}.brand h1{margin:0;font-size:1.02rem;line-height:1.4}.brand p{margin:5px 0 0;font-size:.82rem;color:#dce7f4}
+    main{max-width:1300px;margin:28px auto;padding:0 18px 40px}.panel{background:white;border:1px solid var(--border);border-radius:14px;padding:22px;box-shadow:0 8px 28px #061a3312}.login-panel{max-width:470px;margin:35px auto}h2,h3{color:var(--navy)}label{display:block;margin:13px 0 6px;font-weight:700;font-size:.9rem}
+    input,select,textarea{width:100%;padding:11px 12px;border:1px solid #c9d4e1;border-radius:8px;background:white;color:var(--text);font:inherit}textarea{resize:vertical;min-height:95px}button,.button{display:inline-flex;align-items:center;justify-content:center;padding:10px 15px;border:0;border-radius:8px;background:var(--blue);color:white;font-weight:700;font-size:.9rem;text-decoration:none;cursor:pointer}button:disabled{opacity:.6;cursor:wait}.secondary{background:#e8eef5;color:var(--navy)}.danger{background:var(--red)}.success-btn{background:var(--green)}.full{width:100%;margin-top:18px}.hidden{display:none!important}.muted{color:var(--muted);font-size:.9rem}.notice{padding:12px 14px;margin:14px 0;border:1px solid #cfe0f2;border-radius:8px;background:#eef5fc;color:#183d63;overflow-wrap:anywhere}.notice.hidden{display:none}.notice.error{background:#fff0ef;border-color:#f3c3c0;color:var(--red)}.notice.success{background:#eaf8f0;border-color:#b8e2c8;color:var(--green)}
+    .dashboard-heading{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap}.role-badge{display:inline-block;margin-top:8px;padding:5px 12px;border-radius:30px;background:#e6eff9;color:#164a78;font-size:.82rem;font-weight:700}.tabs{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 18px}.tab{background:#e3eaf2;color:var(--navy)}.tab.active{background:var(--navy);color:white}.table-wrap{width:100%;overflow-x:auto;border:1px solid var(--border);border-radius:9px}table{width:100%;min-width:760px;border-collapse:collapse;background:white}th,td{padding:11px;border-bottom:1px solid var(--border);text-align:left;vertical-align:top;font-size:.86rem}th{background:#f0f4f8;color:var(--navy)}tr:last-child td{border-bottom:0}.empty{padding:25px 12px;text-align:center;color:var(--muted);border:1px dashed var(--border);border-radius:8px}.record-details{max-width:300px;white-space:pre-wrap;overflow-wrap:anywhere;font-size:.82rem}.status-field{min-width:125px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.field-full{grid-column:1/-1}.form-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:18px}.opportunity-item{border:1px solid var(--border);border-radius:10px;padding:15px;margin:12px 0;background:#fff}.opportunity-head{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}.badge{display:inline-block;border-radius:20px;padding:4px 9px;background:#e8eef5;color:var(--navy);font-size:.78rem;font-weight:700}.badge.published{background:#e5f7ec;color:var(--green)}.badge.draft{background:#fff3d7;color:#855d00}    .opportunity-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+    .storage-toolbar{display:flex;gap:9px;align-items:center;flex-wrap:wrap;margin:14px 0}
+    .storage-summary{background:#f0f5fa;border:1px solid var(--border);padding:12px 14px;border-radius:9px;margin:12px 0;font-weight:700}
+    .storage-path{max-width:520px;white-space:normal;overflow-wrap:anywhere;font-family:Consolas,monospace;font-size:.82rem}
+    .storage-select{width:auto;min-width:auto}
+    .storage-delete{background:var(--red);color:#fff;padding:7px 10px}
+    footer{padding:22px 15px;background:var(--navy);color:#dce7f4;text-align:center;font-size:.84rem}footer strong{color:white}
+    @media(max-width:650px){header{padding:16px 5%}.brand img{width:45px;height:45px}.brand h1{font-size:.85rem}.panel{padding:16px}.login-panel{margin:18px auto}.grid{grid-template-columns:1fr}.field-full{grid-column:auto}main{padding:0 12px 30px}}
+  </style>
+</head>
+<body>
+<header>
+  <div class="brand"><img src="./logo.png" alt="Logo B-TECH-DRC SA" onerror="this.style.display='none'"><div><h1>CONGOLESE ORGANIZATION OF TALENTED YOUNG PEOPLE SA<br>(B-TECH-DRC SA)</h1><p>UNE JEUNESSE SOLIDE ET INTELLIGENTE.</p></div></div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center"><a class="button secondary" href="./portail.html">Retour au portail public</a><button id="logoutButton" class="danger hidden" type="button">Déconnexion</button></div>
+</header>
+<main>
+  <section id="loginPanel" class="panel login-panel">
+    <h2>Connexion à l’administration</h2><p class="muted">Espace réservé aux administrateurs autorisés de B-TECH-DRC SA.</p>
+    <div id="loginMessage" class="notice hidden" role="status" aria-live="polite"></div>
+    <form id="loginForm"><label for="email">Adresse e-mail</label><input id="email" type="email" autocomplete="username" required><label for="password">Mot de passe</label><input id="password" type="password" autocomplete="current-password" required><button id="loginButton" class="full" type="submit">Se connecter</button></form>
+    <p class="muted">Seuls les comptes actifs enregistrés dans le système d’administration peuvent accéder aux dossiers.</p>
+  </section>
+
+  <section id="dashboard" class="hidden"><div class="panel">
+    <div class="dashboard-heading"><div><h2>Tableau de bord administratif</h2><p id="adminName" class="muted"></p><span id="adminRole" class="role-badge"></span></div><button id="refreshButton" class="secondary" type="button">Actualiser</button></div>
+    <div id="dashboardMessage" class="notice hidden" role="status" aria-live="polite"></div>
+    <nav id="tabs" class="tabs" aria-label="Catégories de dossiers"></nav>
+    <section id="recordsView"><h3 id="sectionTitle">Dossiers</h3><p id="recordCount" class="muted"></p><div id="recordsContainer"></div></section>
+    <section id="opportunityManager" class="hidden">
+      <div class="dashboard-heading"><div><h3>Gestion des annonces</h3><p class="muted">Créer et gérer les appels d’offres et les offres d’emploi affichés sur le portail public.</p></div><button id="newOpportunityButton" type="button">+ Nouvelle annonce</button></div>
+      <div class="notice">Tu peux sélectionner directement un PDF depuis ton ordinateur. Le fichier sera téléversé dans le bucket privé « dossiers-confidentiels » ; le bucket ne sera jamais rendu public. Taille maximale : 10 Mo par fichier.</div>
+      <form id="opportunityForm" class="panel hidden" style="box-shadow:none;margin:16px 0;background:#f9fbfd">
+        <h3 id="opportunityFormTitle">Nouvelle annonce</h3><input type="hidden" id="opportunityId">
+        <div class="grid">
+          <div><label for="opportunityType">Type d’annonce *</label><select id="opportunityType" required><option value="tender">Appel d’offres</option><option value="job">Offre d’emploi</option></select></div>
+          <div><label for="opportunityReference">Référence *</label><input id="opportunityReference" maxlength="120" required></div>
+          <div class="field-full"><label for="titleFr">Titre en français *</label><input id="titleFr" maxlength="250" required></div>
+          <div class="field-full"><label for="titleEn">Titre en anglais *</label><input id="titleEn" maxlength="250" required></div>
+          <div class="field-full"><label for="descriptionFr">Description en français *</label><textarea id="descriptionFr" maxlength="12000" required></textarea></div>
+          <div class="field-full"><label for="descriptionEn">Description en anglais *</label><textarea id="descriptionEn" maxlength="12000" required></textarea></div>
+          <div><label for="publicationDate">Date de publication *</label><input id="publicationDate" type="date" required></div>
+          <div><label for="deadline">Date limite (facultatif)</label><input id="deadline" type="date"></div>
+          <div class="field-full"><label for="documentFile">Document PDF de l’annonce *</label><input id="documentFile" type="file" accept="application/pdf,.pdf"><small class="muted">Sélectionne le PDF depuis ton ordinateur. Le téléversement se fera automatiquement dans le stockage privé. Pour une nouvelle annonce, le PDF est obligatoire. En modification, sans nouveau fichier, le document existant sera conservé.</small><p id="currentDocumentInfo" class="muted" aria-live="polite"></p><input id="documentPath" type="hidden"></div>
+          <div class="field-full"><label style="display:flex;align-items:center;gap:9px;font-weight:700"><input id="publishNow" type="checkbox" style="width:auto"> Publier immédiatement (sinon enregistrer comme brouillon)</label></div>
+        </div>
+        <div class="form-actions"><button id="saveOpportunityButton" type="submit">Enregistrer l’annonce</button><button id="cancelOpportunityButton" class="secondary" type="button">Annuler</button></div>
+      </form>
+      <div id="opportunityListAdmin"></div>
+    </section>
+    <section id="storageManager" class="hidden">
+      <div class="dashboard-heading"><div><h3>Nettoyage et stockage</h3><p class="muted">Gérer les fichiers enregistrés dans le stockage privé sans ouvrir le SQL Editor.</p></div><button id="refreshStorageButton" class="secondary" type="button">Actualiser les fichiers</button></div>
+      <div class="notice">Cette section est réservée au PCA. Elle permet de supprimer un fichier isolé ou plusieurs fichiers sélectionnés du bucket privé « dossiers-confidentiels ». Supprimer un document encore lié à une annonce publiée peut empêcher son téléchargement public. Les suppressions sont définitives.</div>
+      <div id="storageSummary" class="storage-summary">Chargement des informations de stockage…</div>
+      <div class="storage-toolbar"><button id="selectAllStorageButton" class="secondary" type="button">Tout sélectionner</button><button id="clearStorageSelectionButton" class="secondary" type="button">Tout désélectionner</button><button id="deleteSelectedFilesButton" class="danger" type="button" disabled>Supprimer la sélection</button></div>
+      <div id="storageMessage" class="notice hidden" role="status" aria-live="polite"></div>
+      <div id="storageFilesList"></div>
+    </section>
+  </div></section>
+</main>
+<footer><strong>CONGOLESE ORGANIZATION OF TALENTED YOUNG PEOPLE SA (B-TECH-DRC SA)</strong><br>UNE JEUNESSE SOLIDE ET INTELLIGENTE.<br>Administration réservée aux utilisateurs autorisés.</footer>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+(() => {
+  "use strict";
+  const SUPABASE_URL = "https://euwjzhchowebcpzxmobr.supabase.co";
+  const SUPABASE_ANON_KEY = "sb_publishable_bk9VTq-PrFRWZaeQNQ2HIw_GxYg3zOW";
+  const STORAGE_BUCKET = "dossiers-confidentiels";
+  const MAX_PDF_SIZE = 10 * 1024 * 1024;
+  const { createClient } = window.supabase;
+  const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  const $ = id => document.getElementById(id);
+  const loginPanel=$("loginPanel"), dashboard=$("dashboard"), loginForm=$("loginForm"), loginButton=$("loginButton"), loginMessage=$("loginMessage"), dashboardMessage=$("dashboardMessage"), logoutButton=$("logoutButton"), refreshButton=$("refreshButton"), tabs=$("tabs"), recordsContainer=$("recordsContainer"), sectionTitle=$("sectionTitle"), recordCount=$("recordCount"), recordsView=$("recordsView"), opportunityManager=$("opportunityManager"), opportunityForm=$("opportunityForm"), opportunityListAdmin=$("opportunityListAdmin"), storageManager=$("storageManager");
+  let adminProfile=null, activeView=null, recordsByView={}, loginInProgress=false, opportunities=[], storageFiles=[], storageLoaded=false, storageLoading=false;
+  const roleNames={pca:"PCA — Administration générale",tenders:"Responsable des appels d’offres",recruitment:"Responsable du recrutement",suppliers:"Responsable des fournisseurs"};
+  const views={
+    submissions:{label:"Dossiers généraux",table:"portal_submissions",roles:["pca","tenders","recruitment","suppliers"],orderColumn:"created_at",columns:[["reference_number","Référence"],["submission_type","Type"],["applicant_name","Demandeur"],["company_name","Société"],["email","E-mail"],["phone","Téléphone"],["status","Statut"],["assigned_role","Service"],["created_at","Date"]]},
+    tenders:{label:"Soumissions aux appels d’offres",table:"portal_tender_submissions",roles:["pca","tenders"],orderColumn:"created_at",editableStatus:true,columns:[["reference_number","Référence dossier"],["opportunity_reference","Appel d’offres"],["company_name","Société"],["registration_number","N° enregistrement"],["contact_name","Contact"],["email","E-mail"],["phone","Téléphone"],["status","Statut"],["submitted_at","Date de soumission"]],details:[["address","Adresse"],["proposal_summary","Résumé de la proposition"],["financial_offer","Offre financière"],["documents","Références des documents"],["privacy_accepted","Confidentialité acceptée"]]},
+    suppliers:{label:"Inscriptions des fournisseurs",table:"portal_supplier_registrations",roles:["pca","suppliers"],orderColumn:"created_at",columns:[["reference_number","Référence"],["company_name","Société"],["registration_number","N° enregistrement"],["tax_number","N° fiscal"],["contact_name","Contact"],["email","E-mail"],["phone","Téléphone"],["status","Statut"],["registered_at","Date d’inscription"]],details:[["address","Adresse"],["business_description","Description des activités"],["documents","Références des documents"]]},
+    jobs:{label:"Candidatures à l’emploi",table:"portal_job_applications",roles:["pca","recruitment"],orderColumn:"created_at",columns:[["reference_number","Référence"],["full_name","Candidat"],["email","E-mail"],["phone","Téléphone"],["position_applied","Poste demandé"],["status","Statut"],["applied_at","Date de candidature"]],details:[["cover_letter","Lettre de motivation"],["documents","Références des documents"]]}
+  };
+  function showMessage(el,msg,type=""){el.textContent=msg;el.className="notice"+(type?" "+type:"");}
+  function hideMessage(el){el.textContent="";el.className="notice hidden";}
+  function formatValue(v){if(v===null||v===undefined||v==="")return "—";return typeof v==="object"?JSON.stringify(v,null,2):String(v);}
+  function formatDate(v){if(!v)return "—";const d=new Date(v);return Number.isNaN(d.getTime())?formatValue(v):d.toLocaleString("fr-FR");}
+  function dateOnly(v){if(!v)return "";return String(v).slice(0,10);}
+  function permittedViews(){if(!adminProfile)return [];return Object.entries(views).filter(([,v])=>v.roles.includes(adminProfile.role));}
+  function canManageOpportunities(){return !!adminProfile && ["pca","tenders","recruitment"].includes(adminProfile.role);}
+  function renderTabs(){
+    tabs.replaceChildren();
+    permittedViews().forEach(([key,view])=>{
+      const b=document.createElement("button");
+      b.type="button";
+      b.className="tab"+(key===activeView&&!recordsView.classList.contains("hidden")?" active":"");
+      b.textContent=view.label;
+      b.addEventListener("click",()=>{
+        activeView=key;
+        recordsView.classList.remove("hidden");
+        opportunityManager.classList.add("hidden");
+        storageManager.classList.add("hidden");
+        renderTabs();renderRecords();
+      });
+      tabs.appendChild(b);
+    });
+    if(canManageOpportunities()){
+      const b=document.createElement("button");b.type="button";
+      b.className="tab"+(!opportunityManager.classList.contains("hidden")?" active":"");
+      b.textContent="Gestion des annonces";
+      b.addEventListener("click",async()=>{
+        recordsView.classList.add("hidden");storageManager.classList.add("hidden");opportunityManager.classList.remove("hidden");
+        renderTabs();await loadOpportunities();
+      });
+      tabs.appendChild(b);
+    }
+    if(adminProfile&&adminProfile.role==="pca"){
+      const b=document.createElement("button");b.type="button";
+      b.className="tab"+(!storageManager.classList.contains("hidden")?" active":"");
+      b.textContent="Nettoyage & stockage";
+      b.addEventListener("click",async()=>{
+        recordsView.classList.add("hidden");opportunityManager.classList.add("hidden");storageManager.classList.remove("hidden");
+        renderTabs();await loadStorageFiles();
+      });
+      tabs.appendChild(b);
+    }
+  }
+  function renderRecords(){
+    recordsContainer.replaceChildren();
+    const view=views[activeView];
+    if(!view||!adminProfile||!view.roles.includes(adminProfile.role)){sectionTitle.textContent="Dossiers";recordCount.textContent="";return;}
+    sectionTitle.textContent=view.label;
+    const rows=recordsByView[activeView]||[];
+    recordCount.textContent=rows.length+" dossier(s) accessible(s)";
+    if(!rows.length){const e=document.createElement("div");e.className="empty";e.textContent="Aucun dossier accessible dans cette catégorie pour le moment.";recordsContainer.appendChild(e);return;}
+    const canDeleteRecords=adminProfile.role==="pca";
+    const wrap=document.createElement("div"),table=document.createElement("table"),thead=document.createElement("thead"),hr=document.createElement("tr");
+    wrap.className="table-wrap";
+    view.columns.forEach(([,label])=>{const th=document.createElement("th");th.textContent=label;hr.appendChild(th);});
+    if(view.editableStatus){const th=document.createElement("th");th.textContent="Action";hr.appendChild(th);}
+    if(canDeleteRecords){const th=document.createElement("th");th.textContent="Suppression";hr.appendChild(th);}
+    thead.appendChild(hr);table.appendChild(thead);
+    const tbody=document.createElement("tbody");
+    rows.forEach(row=>{
+      const tr=document.createElement("tr");let statusInput=null;
+      view.columns.forEach(([key])=>{
+        const td=document.createElement("td");
+        if(view.editableStatus&&key==="status"){
+          statusInput=document.createElement("input");statusInput.className="status-field";statusInput.value=row.status??"";statusInput.setAttribute("aria-label","Statut du dossier "+formatValue(row.reference_number));td.appendChild(statusInput);
+        }else if(row[key]!==null&&typeof row[key]==="object"){
+          const details=document.createElement("details"),summary=document.createElement("summary"),pre=document.createElement("pre");summary.textContent="Afficher les détails";pre.className="record-details";pre.textContent=formatValue(row[key]);details.append(summary,pre);td.appendChild(details);
+        }else td.textContent=key.endsWith("_at")?formatDate(row[key]):formatValue(row[key]);
+        tr.appendChild(td);
+      });
+      if(view.editableStatus){
+        const td=document.createElement("td"),b=document.createElement("button");b.textContent="Enregistrer le statut";
+        b.addEventListener("click",async()=>{b.disabled=true;try{const {error}=await supabaseClient.from(view.table).update({status:statusInput.value.trim()}).eq("id",row.id);if(error)throw error;row.status=statusInput.value.trim();showMessage(dashboardMessage,"Le statut a été mis à jour.","success");}catch(e){showMessage(dashboardMessage,"Impossible de modifier le statut : "+(e.message||"erreur inconnue"),"error");}finally{b.disabled=false;}});
+        td.appendChild(b);tr.appendChild(td);
+      }
+      if(canDeleteRecords){
+        const td=document.createElement("td"),b=document.createElement("button");b.type="button";b.className="danger";b.textContent="Supprimer";
+        b.addEventListener("click",()=>deleteRecord(activeView,row));td.appendChild(b);tr.appendChild(td);
+      }
+      tbody.appendChild(tr);
+      if(view.details&&view.details.length){
+        const dr=document.createElement("tr"),dc=document.createElement("td"),details=document.createElement("details"),sum=document.createElement("summary"),dl=document.createElement("dl");
+        dc.colSpan=view.columns.length+(view.editableStatus?1:0)+(canDeleteRecords?1:0);sum.textContent="Informations complémentaires";
+        view.details.forEach(([key,label])=>{const dt=document.createElement("dt"),dd=document.createElement("dd");dt.textContent=label;dd.textContent=formatValue(row[key]);dl.append(dt,dd);});
+        details.append(sum,dl);dc.appendChild(details);dr.appendChild(dc);tbody.appendChild(dr);
+      }
+    });
+    table.appendChild(tbody);wrap.appendChild(table);recordsContainer.appendChild(wrap);
+  }
+  function collectStrings(value,out=[]){
+    if(value===null||value===undefined)return out;
+    if(typeof value==="string"){
+      const trimmed=value.trim();
+      if((trimmed.startsWith("[")||trimmed.startsWith("{"))){try{collectStrings(JSON.parse(trimmed),out);}catch(_){out.push(value);}}
+      else out.push(value);
+    }else if(Array.isArray(value)){value.forEach(v=>collectStrings(v,out));}
+    else if(typeof value==="object"){Object.values(value).forEach(v=>collectStrings(v,out));}
+    return out;
+  }
+  function findLinkedStoragePaths(row){
+    const values=[];
+    for(const [key,value] of Object.entries(row||{}))if(/documents|attachments|document_path|file_path|storage_path/i.test(key))collectStrings(value,values);
+    const result=new Set();
+    for(const value of values){
+      for(const file of storageFiles){if(value===file.path||value.includes(file.path))result.add(file.path);}
+    }
+    return [...result];
+  }
+  async function deleteRecord(viewKey,row){
+    if(!adminProfile||adminProfile.role!=="pca"){showMessage(dashboardMessage,"Seul le PCA peut supprimer un dossier.","error");return;}
+    const view=views[viewKey];if(!view||!row?.id)return;
+    const label=row.reference_number||row.company_name||row.full_name||row.applicant_name||row.email||row.id;
+    if(!confirm("Supprimer définitivement le dossier « "+label+" » ? Les fichiers joints identifiables seront également supprimés du stockage privé. Cette action est irréversible."))return;
+    try{
+      const mayHaveFiles=Object.keys(row).some(k=>/documents|attachments|document_path|file_path|storage_path/i.test(k));
+      if(mayHaveFiles&&!storageLoaded)await loadStorageFiles(true);
+      const storageIndexAvailable=storageLoaded;
+      const linkedPaths=storageIndexAvailable?findLinkedStoragePaths(row):[];
+      const {error}=await supabaseClient.from(view.table).delete().eq("id",row.id);
+      if(error)throw error;
+      let fileWarning="";
+      if(mayHaveFiles&&!storageIndexAvailable)fileWarning=" Les pièces jointes n’ont pas pu être vérifiées automatiquement. Ouvre « Nettoyage & stockage » pour contrôler les fichiers restants.";
+      if(linkedPaths.length){
+        const {error:fileError}=await supabaseClient.storage.from(STORAGE_BUCKET).remove(linkedPaths);
+        if(fileError)fileWarning=" Le dossier est supprimé, mais certains fichiers restent dans le stockage : ouvre « Nettoyage & stockage » pour les supprimer. Détail : "+fileError.message;
+        else {storageFiles=storageFiles.filter(f=>!linkedPaths.includes(f.path));storageLoaded=true;}
+      }
+      recordsByView[viewKey]=(recordsByView[viewKey]||[]).filter(r=>r.id!==row.id);renderRecords();
+      showMessage(dashboardMessage,"Dossier supprimé."+fileWarning,fileWarning?"error":"success");
+    }catch(e){showMessage(dashboardMessage,"Suppression impossible : "+(e.message||"erreur inconnue"),"error");}
+  }
+  async function loadView(key){const view=views[key];if(!view||!adminProfile||!view.roles.includes(adminProfile.role))return;const columns=[...new Set(view.columns.map(([k])=>k).concat(["id"],(view.details||[]).map(([k])=>k)))];let q=supabaseClient.from(view.table).select(columns.join(",")).order(view.orderColumn,{ascending:false,nullsFirst:false}).limit(200);if(key==="submissions"&&adminProfile.role!=="pca")q=q.eq("assigned_role",adminProfile.role);const {data,error}=await q;if(error){recordsByView[key]=[];if(activeView===key)showMessage(dashboardMessage,"Impossible de charger « "+view.label+" » : "+error.message,"error");return;}recordsByView[key]=data||[];if(activeView===key)renderRecords();}
+  async function loadAllViews(){hideMessage(dashboardMessage);recordsByView={};const allowed=permittedViews();await Promise.all(allowed.map(([key])=>loadView(key)));renderTabs();renderRecords();}
+  function applyOpportunityRoleRules(){
+    const typeSelect=$("opportunityType");
+    const tenderOption=typeSelect.querySelector('option[value="tender"]');
+    const jobOption=typeSelect.querySelector('option[value="job"]');
+    if(!adminProfile)return;
+    tenderOption.disabled=adminProfile.role==="recruitment";
+    jobOption.disabled=adminProfile.role==="tenders";
+    if(adminProfile.role==="tenders")typeSelect.value="tender";
+    else if(adminProfile.role==="recruitment")typeSelect.value="job";
+  }
+  function resetOpportunityForm(){opportunityForm.reset();$("opportunityId").value="";$("opportunityFormTitle").textContent="Nouvelle annonce";$("publishNow").checked=false;$("documentPath").value="";$("currentDocumentInfo").textContent="Aucun document associé pour le moment.";applyOpportunityRoleRules();}
+  function openNewOpportunity(){resetOpportunityForm();opportunityForm.classList.remove("hidden");opportunityForm.scrollIntoView({behavior:"smooth",block:"start"});}
+  function fillOpportunityForm(o){resetOpportunityForm();$("opportunityId").value=o.id;$("opportunityType").value=o.opportunity_type;applyOpportunityRoleRules();$("opportunityReference").value=o.reference_number||"";$("titleFr").value=o.title_fr||"";$("titleEn").value=o.title_en||"";$("descriptionFr").value=o.description_fr||"";$("descriptionEn").value=o.description_en||"";$("publicationDate").value=dateOnly(o.publication_date);$("deadline").value=dateOnly(o.deadline);$("documentPath").value=o.document_path||"";$("currentDocumentInfo").textContent=o.document_path?"Document actuel enregistré : "+o.document_path:"Aucun document associé. Tu peux sélectionner un PDF ci-dessus.";$("publishNow").checked=!!o.published;$("opportunityFormTitle").textContent="Modifier l’annonce "+(o.reference_number||"");opportunityForm.classList.remove("hidden");opportunityForm.scrollIntoView({behavior:"smooth",block:"start"});}
+  async function loadOpportunities(){if(!canManageOpportunities())return;opportunityListAdmin.innerHTML="<p class='muted'>Chargement des annonces…</p>";let query=supabaseClient.from("portal_opportunities").select("id,opportunity_type,reference_number,title_fr,title_en,description_fr,description_en,publication_date,deadline,document_path,published,created_at");if(adminProfile.role==="tenders")query=query.eq("opportunity_type","tender");if(adminProfile.role==="recruitment")query=query.eq("opportunity_type","job");const {data,error}=await query.order("publication_date",{ascending:false,nullsFirst:false}).limit(300);if(error){opportunityListAdmin.textContent="Impossible de charger les annonces : "+error.message;showMessage(dashboardMessage,"Vérifie les autorisations de lecture de portal_opportunities.","error");return;}opportunities=data||[];renderOpportunities();}
+  function renderOpportunities(){opportunityListAdmin.replaceChildren();if(!opportunities.length){const e=document.createElement("div");e.className="empty";e.textContent="Aucune annonce enregistrée pour le moment.";opportunityListAdmin.appendChild(e);return;}opportunities.forEach(o=>{const item=document.createElement("article");item.className="opportunity-item";const head=document.createElement("div");head.className="opportunity-head";const title=document.createElement("div"),h=document.createElement("h3"),ref=document.createElement("p"),badge=document.createElement("span");h.textContent=o.title_fr||o.title_en||"Annonce sans titre";ref.className="muted";ref.textContent=(o.opportunity_type==="tender"?"Appel d’offres":"Offre d’emploi")+" · "+(o.reference_number||"Sans référence");badge.className="badge "+(o.published?"published":"draft");badge.textContent=o.published?"Publiée":"Brouillon / dépubliée";title.append(h,ref);head.append(title,badge);const desc=document.createElement("p");desc.textContent=(o.description_fr||"").slice(0,300)+(o.description_fr&&o.description_fr.length>300?"…":"");const meta=document.createElement("p");meta.className="muted";meta.textContent="Publication : "+dateOnly(o.publication_date)+" · Date limite : "+(dateOnly(o.deadline)||"non précisée")+(o.document_path?" · Document associé : oui":" · Aucun document associé");const actions=document.createElement("div");actions.className="opportunity-actions";const edit=document.createElement("button");edit.type="button";edit.className="secondary";edit.textContent="Modifier";edit.addEventListener("click",()=>fillOpportunityForm(o));const toggle=document.createElement("button");toggle.type="button";toggle.className=o.published?"secondary":"success-btn";toggle.textContent=o.published?"Dépublier":"Publier";toggle.addEventListener("click",()=>toggleOpportunity(o));actions.append(edit,toggle);if(adminProfile&&adminProfile.role==="pca"){const del=document.createElement("button");del.type="button";del.className="danger";del.textContent="Supprimer";del.addEventListener("click",()=>deleteOpportunity(o));actions.appendChild(del);}item.append(head,desc,meta,actions);opportunityListAdmin.appendChild(item);});}
+  async function toggleOpportunity(o){const next=!o.published;if(!confirm((next?"Publier":"Dépublier")+" l’annonce « "+(o.reference_number||o.title_fr)+" » ?"))return;try{const {error}=await supabaseClient.from("portal_opportunities").update({published:next}).eq("id",o.id);if(error)throw error;showMessage(dashboardMessage,next?"Annonce publiée.":"Annonce dépubliée.","success");await loadOpportunities();}catch(e){showMessage(dashboardMessage,"Impossible de modifier la publication : "+(e.message||"erreur inconnue"),"error");}}
+  async function deleteOpportunity(o){
+    if(!adminProfile||adminProfile.role!=="pca"){showMessage(dashboardMessage,"Seul le PCA peut supprimer une annonce.","error");return;}
+    if(!confirm("Supprimer définitivement l’annonce « "+(o.reference_number||o.title_fr)+" » ainsi que les inscriptions de téléchargement associées ? Le PDF associé sera aussi supprimé du stockage s’il n’est utilisé par aucune autre annonce. Cette action est irréversible."))return;
+    try{
+      const {error:registrationsError}=await supabaseClient.from("portal_download_registrations").delete().eq("opportunity_id",o.id);
+      if(registrationsError)throw new Error("Impossible de supprimer les inscriptions de téléchargement liées : "+registrationsError.message);
+      const {error}=await supabaseClient.from("portal_opportunities").delete().eq("id",o.id);
+      if(error)throw error;
+      let fileWarning="";
+      if(o.document_path){
+        const {data:otherRows,error:lookupError}=await supabaseClient.from("portal_opportunities").select("id").eq("document_path",o.document_path).limit(1);
+        if(lookupError){fileWarning=" L’annonce est supprimée, mais le PDF n’a pas été supprimé automatiquement car son utilisation par d’autres annonces n’a pas pu être vérifiée. Ouvre « Nettoyage & stockage » pour le contrôler.";}
+        else if(!otherRows||otherRows.length===0){
+          const {error:fileError}=await supabaseClient.storage.from(STORAGE_BUCKET).remove([o.document_path]);
+          if(fileError)fileWarning=" L’annonce est supprimée, mais le PDF reste dans le stockage. Ouvre « Nettoyage & stockage » pour le supprimer. Détail : "+fileError.message;
+          else {storageFiles=storageFiles.filter(f=>f.path!==o.document_path);storageLoaded=true;}
+        }
+      }
+      showMessage(dashboardMessage,"Annonce et inscriptions de téléchargement supprimées."+fileWarning,fileWarning?"error":"success");
+      await loadOpportunities();
+    }catch(e){showMessage(dashboardMessage,"Suppression impossible : "+(e.message||"erreur inconnue"),"error");}
+  }
+  function safePdfName(filename){
+    const base=String(filename||"document.pdf").split(/[\\/]/).pop();
+    const safe=base.normalize("NFKD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-zA-Z0-9._-]+/g,"_").replace(/^\.+/,"");
+    return (safe||"document.pdf").slice(-150);
+  }
+  async function uploadOpportunityPdf(file, opportunityType){
+    const folder=opportunityType==="tender"?"tenders":"jobs";
+    const objectPath=`opportunities/${folder}/${crypto.randomUUID()}-${safePdfName(file.name)}`;
+    const {error}=await supabaseClient.storage.from(STORAGE_BUCKET).upload(objectPath,file,{
+      cacheControl:"3600",upsert:false,contentType:"application/pdf"
+    });
+    if(error)throw new Error("Le PDF n’a pas pu être téléversé dans le stockage privé : "+error.message);
+    return objectPath;
+  }
+  function formatBytes(bytes){
+    const value=Number(bytes)||0;if(value<1024)return value+" o";if(value<1024*1024)return (value/1024).toFixed(1)+" Ko";if(value<1024*1024*1024)return (value/(1024*1024)).toFixed(2)+" Mo";return (value/(1024*1024*1024)).toFixed(2)+" Go";
+  }
+  async function listStorageFolder(folder="",depth=0){
+    if(depth>12)throw new Error("L’arborescence de stockage est trop profonde pour être parcourue automatiquement.");
+    const found=[];let offset=0;const pageSize=1000;
+    while(true){
+      const {data,error}=await supabaseClient.storage.from(STORAGE_BUCKET).list(folder,{limit:pageSize,offset,sortBy:{column:"name",order:"asc"}});
+      if(error)throw new Error("Lecture du stockage impossible : "+error.message);
+      const items=data||[];
+      for(const item of items){
+        const path=folder?folder+"/"+item.name:item.name;
+        if(item.id===null&&item.metadata===null){found.push(...await listStorageFolder(path,depth+1));}
+        else found.push({path,name:item.name,size:Number(item.metadata?.size)||0,updated:item.updated_at||item.created_at||item.metadata?.lastModified||null});
+      }
+      if(items.length<pageSize)break;
+      offset+=pageSize;
+    }
+    return found;
+  }
+  async function loadStorageFiles(silent=false){
+    if(!adminProfile||adminProfile.role!=="pca"){if(!silent)showMessage("storageMessage","Seul le PCA peut gérer le stockage.","error");return;}
+    if(storageLoading)return;
+    storageLoading=true;
+    const host=$("storageFilesList"),summary=$("storageSummary"),refresh=$("refreshStorageButton");
+    if(refresh)refresh.disabled=true;
+    if(host)host.innerHTML='<div class="empty">Inventaire du stockage en cours…</div>';
+    try{
+      storageFiles=await listStorageFolder("");storageLoaded=true;
+      const total=storageFiles.reduce((sum,file)=>sum+file.size,0);
+      summary.textContent=storageFiles.length+" fichier(s) dans le bucket privé · Taille totale des fichiers listés : "+formatBytes(total);
+      renderStorageFiles();
+      if(!silent)showMessage("storageMessage",storageFiles.length?"Inventaire actualisé. Sélectionne un ou plusieurs fichiers à supprimer.":"Aucun fichier trouvé dans ce bucket.","success");
+    }catch(e){
+      storageLoaded=false;storageFiles=[];if(host){host.replaceChildren();const errorBox=document.createElement("div");errorBox.className="empty";errorBox.textContent="Impossible de lire le stockage. Vérifie les politiques SELECT du bucket. "+String(e.message||"");host.appendChild(errorBox);}
+      summary.textContent="Inventaire du stockage indisponible.";if(!silent)showMessage("storageMessage",e.message||"Lecture du stockage impossible.","error");
+    }finally{storageLoading=false;if(refresh)refresh.disabled=false;}
+  }
+  function renderStorageFiles(){
+    const host=$("storageFilesList");if(!host)return;host.replaceChildren();
+    $("deleteSelectedFilesButton").disabled=true;
+    if(!storageFiles.length){host.innerHTML='<div class="empty">Aucun fichier présent dans le bucket « dossiers-confidentiels ».</div>';return;}
+    const wrap=document.createElement("div"),table=document.createElement("table"),thead=document.createElement("thead"),head=document.createElement("tr");
+    wrap.className="table-wrap";
+    [["Choisir","select"],["Fichier","path"],["Taille","size"],["Dernière modification","updated"],["Action","action"]].forEach(([label])=>{const th=document.createElement("th");th.textContent=label;head.appendChild(th);});
+    thead.appendChild(head);table.appendChild(thead);const tbody=document.createElement("tbody");
+    storageFiles.forEach((file,index)=>{
+      const tr=document.createElement("tr"),selectTd=document.createElement("td"),checkbox=document.createElement("input");checkbox.type="checkbox";checkbox.className="storage-select";checkbox.dataset.storageIndex=String(index);checkbox.setAttribute("aria-label","Sélectionner "+file.path);checkbox.addEventListener("change",updateSelectedFilesButton);selectTd.appendChild(checkbox);tr.appendChild(selectTd);
+      const pathTd=document.createElement("td"),path=document.createElement("div");path.className="storage-path";path.textContent=file.path;pathTd.appendChild(path);tr.appendChild(pathTd);
+      const sizeTd=document.createElement("td");sizeTd.textContent=formatBytes(file.size);tr.appendChild(sizeTd);
+      const dateTd=document.createElement("td");dateTd.textContent=file.updated?formatDate(file.updated):"—";tr.appendChild(dateTd);
+      const actionTd=document.createElement("td"),button=document.createElement("button");button.type="button";button.className="storage-delete";button.textContent="Supprimer";button.addEventListener("click",()=>deleteStoredFiles([file.path]));actionTd.appendChild(button);tr.appendChild(actionTd);tbody.appendChild(tr);
+    });
+    table.appendChild(tbody);wrap.appendChild(table);host.appendChild(wrap);
+  }
+  function updateSelectedFilesButton(){const count=document.querySelectorAll("#storageFilesList input.storage-select:checked").length;$("deleteSelectedFilesButton").disabled=count===0;$("deleteSelectedFilesButton").textContent=count?"Supprimer la sélection ("+count+")":"Supprimer la sélection";}
+  function selectedStoragePaths(){return [...document.querySelectorAll("#storageFilesList input.storage-select:checked")].map(input=>storageFiles[Number(input.dataset.storageIndex)]?.path).filter(Boolean);}
+  async function deleteStoredFiles(paths){
+    if(!adminProfile||adminProfile.role!=="pca"){showMessage("storageMessage","Seul le PCA peut supprimer des fichiers.","error");return;}
+    const unique=[...new Set(paths)].filter(path=>storageFiles.some(file=>file.path===path));if(!unique.length)return;
+    const linkedRows=[];
+    for(let i=0;i<unique.length;i+=100){
+      const {data,error}=await supabaseClient.from("portal_opportunities").select("reference_number,title_fr,document_path,published").in("document_path",unique.slice(i,i+100));
+      if(error){showMessage("storageMessage","Suppression annulée : impossible de vérifier si les fichiers sont associés à une annonce. Détail : "+error.message,"error");return;}
+      linkedRows.push(...(data||[]));
+    }
+    const linkedWarning=linkedRows.length?"\n\nAttention : "+linkedRows.length+" fichier(s) sont encore associés à une annonce; leur téléchargement peut cesser de fonctionner.":"";
+    if(!confirm("Supprimer définitivement "+unique.length+" fichier(s) du stockage privé ?\n\nCette action libérera l’espace occupé mais ne peut pas être annulée."+linkedWarning))return;
+    const button=$("deleteSelectedFilesButton");if(button)button.disabled=true;
+    const removed=[];
+    try{
+      for(let i=0;i<unique.length;i+=100){
+        const batch=unique.slice(i,i+100);const {error}=await supabaseClient.storage.from(STORAGE_BUCKET).remove(batch);
+        if(error)throw new Error(error.message+". "+removed.length+" fichier(s) ont déjà été supprimés.");
+        removed.push(...batch);
+      }
+      showMessage("storageMessage",removed.length+" fichier(s) supprimé(s) du stockage privé.","success");
+    }catch(e){showMessage("storageMessage","Suppression partielle ou impossible : "+(e.message||"erreur inconnue")+". Vérifie que la politique DELETE pour le PCA a été installée dans Supabase.","error");}
+    finally{
+      storageFiles=storageFiles.filter(file=>!removed.includes(file.path));storageLoaded=true;renderStorageFiles();
+      const total=storageFiles.reduce((sum,file)=>sum+file.size,0);$("storageSummary").textContent=storageFiles.length+" fichier(s) restant(s) dans le bucket privé · Taille totale des fichiers listés : "+formatBytes(total);
+      updateSelectedFilesButton();
+    }
+  }
+  $("refreshStorageButton").addEventListener("click",()=>loadStorageFiles());
+  $("selectAllStorageButton").addEventListener("click",()=>{document.querySelectorAll("#storageFilesList input.storage-select").forEach(input=>input.checked=true);updateSelectedFilesButton();});
+  $("clearStorageSelectionButton").addEventListener("click",()=>{document.querySelectorAll("#storageFilesList input.storage-select").forEach(input=>input.checked=false);updateSelectedFilesButton();});
+  $("deleteSelectedFilesButton").addEventListener("click",()=>deleteStoredFiles(selectedStoragePaths()));
+  opportunityForm.addEventListener("submit",async event=>{
+    event.preventDefault();
+    if(!canManageOpportunities()){showMessage(dashboardMessage,"Ton rôle ne permet pas de gérer les annonces.","error");return;}
+    const id=$("opportunityId").value;
+    const existing=id?opportunities.find(item=>item.id===id):null;
+    const reference=$("opportunityReference").value.trim();
+    const pubDate=$("publicationDate").value;
+    const deadline=$("deadline").value;
+    const file=$("documentFile").files&&$("documentFile").files[0];
+    const type=$("opportunityType").value;
+    if((adminProfile.role==="tenders"&&type!=="tender")||(adminProfile.role==="recruitment"&&type!=="job")){
+      showMessage(dashboardMessage,"Ton rôle ne permet pas de publier ce type d’annonce.","error");return;
+    }
+    if(deadline&&pubDate&&deadline<pubDate){showMessage(dashboardMessage,"La date limite ne peut pas précéder la date de publication.","error");return;}
+    if(!id&&!file){showMessage(dashboardMessage,"Sélectionne le PDF obligatoire pour cette nouvelle annonce.","error");return;}
+    if(file&&(!file.name.toLowerCase().endsWith(".pdf")||(file.type&&file.type!=="application/pdf"))){showMessage(dashboardMessage,"Le document doit être un fichier PDF.","error");return;}
+    if(file&&file.size>MAX_PDF_SIZE){showMessage(dashboardMessage,"Le PDF dépasse la taille maximale de 10 Mo.","error");return;}
+    if(file&&file.size===0){showMessage(dashboardMessage,"Le PDF sélectionné est vide.","error");return;}
+    if(id&&!existing){showMessage(dashboardMessage,"Annonce introuvable. Actualise la liste puis réessaie.","error");return;}
+    const wantPublished=$("publishNow").checked;
+    const oldPath=existing?.document_path||$("documentPath").value.trim()||null;
+    const save=$("saveOpportunityButton");save.disabled=true;save.textContent=file?"Téléversement et enregistrement…":"Enregistrement…";
+    let newPath=null, databaseSaved=false;
+    try{
+      if(file){newPath=await uploadOpportunityPdf(file,type);}
+      const documentPath=newPath||oldPath;
+      if(!documentPath)throw new Error("Le document PDF est obligatoire pour chaque annonce.");
+      const payload={opportunity_type:type,reference_number:reference,title_fr:$("titleFr").value.trim(),title_en:$("titleEn").value.trim(),description_fr:$("descriptionFr").value.trim(),description_en:$("descriptionEn").value.trim(),publication_date:pubDate,deadline:deadline?(deadline+"T23:59:59"):null,document_path:documentPath,published:wantPublished,updated_at:new Date().toISOString()};
+      if(!id){
+        const {data:userData,error:userError}=await supabaseClient.auth.getUser();if(userError)throw userError;payload.created_by=userData.user?.id;payload.created_at=new Date().toISOString();
+        const {error}=await supabaseClient.from("portal_opportunities").insert(payload);if(error)throw error;
+      }else{
+        const {error}=await supabaseClient.from("portal_opportunities").update(payload).eq("id",id);if(error)throw error;
+      }
+      databaseSaved=true;
+      let oldFileWarning="";
+      if(newPath&&oldPath&&newPath!==oldPath){
+        if(adminProfile.role==="pca"){
+          const {data:others,error:lookupError}=await supabaseClient.from("portal_opportunities").select("id").eq("document_path",oldPath).limit(1);
+          if(!lookupError&&(!others||others.length===0)){
+            const {error:removeError}=await supabaseClient.storage.from(STORAGE_BUCKET).remove([oldPath]);
+            if(removeError)oldFileWarning=" L’ancien PDF n’a pas pu être supprimé; tu pourras l’effacer dans « Nettoyage & stockage ».";
+            else {storageFiles=storageFiles.filter(f=>f.path!==oldPath);storageLoaded=storageLoaded;}
+          }else if(lookupError)oldFileWarning=" L’ancien PDF est conservé, car son utilisation n’a pas pu être vérifiée. Tu pourras le contrôler dans « Nettoyage & stockage ».";
+        }else oldFileWarning=" L’ancien PDF reste dans le stockage; le PCA pourra le supprimer dans « Nettoyage & stockage » si nécessaire.";
+      }
+      $("documentPath").value=documentPath;
+      showMessage(dashboardMessage,(wantPublished?"Annonce enregistrée et publiée.":"Annonce enregistrée comme brouillon.")+(file?" Le nouveau PDF a été téléversé dans le stockage privé.":"")+oldFileWarning,oldFileWarning?"error":"success");
+      opportunityForm.classList.add("hidden");resetOpportunityForm();await loadOpportunities();
+      if(!storageManager.classList.contains("hidden"))await loadStorageFiles();
+    }catch(e){
+      if(newPath&&!databaseSaved){
+        const {error:cleanupError}=await supabaseClient.storage.from(STORAGE_BUCKET).remove([newPath]);
+        if(cleanupError)showMessage(dashboardMessage,"Échec de l’enregistrement : "+(e.message||"erreur inconnue")+". Le PDF téléversé n’a pas pu être nettoyé automatiquement; vérifie « Nettoyage & stockage ».","error");
+        else showMessage(dashboardMessage,"Enregistrement impossible : "+(e.message||"erreur inconnue")+". Le PDF non associé a été retiré du stockage.","error");
+      }else if(databaseSaved){
+        showMessage(dashboardMessage,"L’annonce a été enregistrée dans la base, mais une mise à jour de l’interface a échoué : "+(e.message||"erreur inconnue")+". Le PDF est conservé dans le stockage.","error");
+      }else{
+        showMessage(dashboardMessage,"Enregistrement impossible : "+(e.message||"erreur inconnue"),"error");
+      }
+    }finally{save.disabled=false;save.textContent=$("opportunityId").value?"Enregistrer les modifications":"Enregistrer l’annonce";}
+  });
+  $("newOpportunityButton").addEventListener("click",openNewOpportunity);$("cancelOpportunityButton").addEventListener("click",()=>{opportunityForm.classList.add("hidden");resetOpportunityForm();});
+  async function showDashboard(user){if(!user)return;hideMessage(loginMessage);const {data,error}=await supabaseClient.from("portal_admins").select("user_id,full_name,role,active").eq("user_id",user.id).eq("active",true).maybeSingle();if(error||!data||!roleNames[data.role]){await supabaseClient.auth.signOut();adminProfile=null;dashboard.classList.add("hidden");loginPanel.classList.remove("hidden");logoutButton.classList.add("hidden");loginForm.reset();showMessage(loginMessage,"Ce compte n’est pas autorisé à accéder à l’administration, ou son profil est inactif.","error");return;}adminProfile=data;applyOpportunityRoleRules();$("adminName").textContent=data.full_name||user.email||"Administrateur";$("adminRole").textContent=roleNames[data.role];loginPanel.classList.add("hidden");dashboard.classList.remove("hidden");logoutButton.classList.remove("hidden");recordsView.classList.remove("hidden");opportunityManager.classList.add("hidden");storageManager.classList.add("hidden");const allowed=permittedViews();activeView=allowed.length?allowed[0][0]:null;await loadAllViews();}
+  loginForm.addEventListener("submit",async event=>{event.preventDefault();if(loginInProgress)return;loginInProgress=true;hideMessage(loginMessage);loginButton.disabled=true;loginButton.textContent="Connexion…";const email=$("email").value.trim(),password=$("password").value;try{const {data,error}=await supabaseClient.auth.signInWithPassword({email,password});if(error)throw error;await showDashboard(data.user);}catch(e){showMessage(loginMessage,"Connexion impossible. Vérifie ton adresse e-mail et ton mot de passe. "+(e.message||""),"error");}finally{loginInProgress=false;loginButton.disabled=false;loginButton.textContent="Se connecter";}});
+  logoutButton.addEventListener("click",async()=>{logoutButton.disabled=true;try{const {error}=await supabaseClient.auth.signOut();if(error){showMessage(dashboardMessage,"La déconnexion a échoué. Veuillez réessayer.","error");return;}adminProfile=null;activeView=null;recordsByView={};opportunities=[];dashboard.classList.add("hidden");loginPanel.classList.remove("hidden");logoutButton.classList.add("hidden");loginForm.reset();opportunityForm.reset();opportunityForm.classList.add("hidden");recordsView.classList.remove("hidden");opportunityManager.classList.add("hidden");storageManager.classList.add("hidden");storageFiles=[];storageLoaded=false;hideMessage(loginMessage);hideMessage(dashboardMessage);tabs.replaceChildren();recordsContainer.replaceChildren();opportunityListAdmin.replaceChildren();}catch(e){showMessage(dashboardMessage,"Une erreur est survenue pendant la déconnexion.","error");}finally{logoutButton.disabled=false;}});
+  refreshButton.addEventListener("click",async()=>{refreshButton.disabled=true;refreshButton.textContent="Actualisation…";try{await loadAllViews();if(!opportunityManager.classList.contains("hidden"))await loadOpportunities();if(!storageManager.classList.contains("hidden"))await loadStorageFiles();}finally{refreshButton.disabled=false;refreshButton.textContent="Actualiser";}});
+  supabaseClient.auth.getSession().then(({data,error})=>{if(error){showMessage(loginMessage,"Impossible de vérifier la session. Connecte-toi à nouveau.","error");return;}if(data.session)showDashboard(data.session.user);});
+  window.addEventListener("pageshow",event=>{if(event.persisted){supabaseClient.auth.getSession().then(({data})=>{if(!data.session){dashboard.classList.add("hidden");loginPanel.classList.remove("hidden");logoutButton.classList.add("hidden");loginForm.reset();}});}});
+})();
+</script>
+</body>
+</html>
