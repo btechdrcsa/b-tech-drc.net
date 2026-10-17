@@ -21,7 +21,67 @@
     .storage-select{width:auto;min-width:auto}
     .storage-delete{background:var(--red);color:#fff;padding:7px 10px}
     footer{padding:22px 15px;background:var(--navy);color:#dce7f4;text-align:center;font-size:.84rem}footer strong{color:white}
-    @media(max-width:650px){header{padding:16px 5%}.brand img{width:45px;height:45px}.brand h1{font-size:.85rem}.panel{padding:16px}.login-panel{margin:18px auto}.grid{grid-template-columns:1fr}.field-full{grid-column:auto}main{padding:0 12px 30px}}
+    @media(max-width:760px) {
+  .app-layout {
+    grid-template-columns:1fr;
+  }
+
+  .sidebar {
+    position:static;
+  }
+
+  .nav-list {
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+
+  .stats {
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+}
+
+@media(max-width:560px) {
+  .container {
+    padding:0 9px;
+    margin:14px auto;
+  }
+
+  .card {
+    padding:15px;
+  }
+
+  .form-grid {
+    grid-template-columns:1fr;
+  }
+
+  .form-group.full {
+    grid-column:auto;
+  }
+
+  .nav-list {
+    grid-template-columns:1fr 1fr;
+  }
+
+  .nav-btn {
+    font-size:12px;
+    padding:9px;
+  }
+
+  .stats {
+    gap:7px;
+  }
+
+  .stat {
+    padding:11px;
+  }
+
+  .stat strong {
+    font-size:20px;
+  }
+
+  .brand h1 {
+    font-size:14px;
+  }
+}
   </style>
 </head>
 <body>
